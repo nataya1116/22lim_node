@@ -3644,6 +3644,23 @@ html {
         opacity: 0;
     }
   }
+
+  @media screen and (min-width: 991px) {
+    .click-to-top:nth-child(2) {
+      top: 100px;
+      right: 0px;
+    }
+    .click-to-top:nth-child(3) {
+      left: 50px;
+      top: 250px;
+      right: 0px;
+    }
+    .click-to-top:nth-child(4) {
+      left: auto;
+      top: 350px;
+      right: 70px;
+    }
+  }
   
 /* 스크립트로 나와 있던 부분 END*/
 
