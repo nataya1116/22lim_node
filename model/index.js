@@ -1,4 +1,4 @@
-const { Sequelize } = require("../modules/db");
+const Sequelize = require("sequelize");
 
 const config = require("../config/config");
  

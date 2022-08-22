@@ -102,14 +102,14 @@
                             <h1>Paranoid</h1>
 
                             <div class="w-form">
-                                <form id="login-form" name="login-form" class="grid-form">
+                                <form id="login-form" name="login-form" class="grid-form" method="post" action="/login">
 
-                                    <div class="form-group"><label for="name">ID</label><input type="text"
-                                            class="input w-input" maxlength="256" name="name" data-name="Name"
+                                    <div class="form-group"><label for="user_id">ID</label><input type="text"
+                                            class="input w-input" maxlength="256" name="user_id"
                                             placeholder="ID" id="user_id" /></div>
-                                    <div class="form-group"><label for="Email-address">PW</label><input
-                                            type="email" class="input w-input" maxlength="256" name="Email-address"
-                                            data-name="Email address" placeholder="PW" id="user_pw" /></div>
+                                    <div class="form-group"><label for="user_pw">PW</label><input
+                                            type="password" class="input w-input" maxlength="256" name="user_pw"
+                                            placeholder="PW" id="user_pw" /></div>
 
                                     <input type="submit" value="Continue" id="w-node-4f8831270a96-cf33d77b"
                                         class="button w-button button-login" />

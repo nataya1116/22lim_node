@@ -1,9 +1,11 @@
-const { express, ejs, path } = require("./modules/common");
+const { express, ejs, path, dot, session } = require("./modules/common");
+
+dot.config();
 
 const { sequelize } = require("./model");
 
 const userRouter = require("./routers/user_router");
-const indexRouter = require("./routers/index");
+const indexRouter = require("./routers/index_router");
 
 const app = express();
 
@@ -22,6 +24,16 @@ app.use(express.urlencoded({ extended : false }));
 
 // public 폴더 내의 폴더 및 파일들의 경로를 절대경로로 호출할 수 있게 처리
 app.use(express.static('public'));
+
+app.use(
+    session({
+        secret : process.env.SESSION_KEY,
+        // 저장된 세션을 불러올 때 재 저장 여부
+        resave : false,
+        // 세션에 저장할 때 초기화 여부
+        saveUninitialized : true
+    })
+)
 
 
 // 라우터 사용 설정

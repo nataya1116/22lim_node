@@ -12,6 +12,14 @@ const ejs = require("ejs");
 
 const path = require("path");
 
+const bcrypt = require("bcrypt");
+
+
+function header() {
+    return fs.readFileSync()
+}
+
+
 module.exports = { 
             express, 
             session, 
@@ -19,5 +27,6 @@ module.exports = {
             fs, 
             jwt,
             ejs,
-            path
+            path,
+            bcrypt
         };

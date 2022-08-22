@@ -1,4 +1,4 @@
-const { Sequelize } = require("../modules/db");
+const Sequelize = require("sequelize");
 
 class User extends Sequelize.Model {
     static init(sequelize) {
@@ -13,7 +13,7 @@ class User extends Sequelize.Model {
                     unique : true
                 },
                 userPw : {
-                    type : Sequelize.STRING(30),
+                    type : Sequelize.STRING(100),
                     allowNull : false,
                 },
                 ninName : {
@@ -32,7 +32,7 @@ class User extends Sequelize.Model {
                     unique : true
                 },
                 socketId : {
-                    type : Sequelize.STRING(100),
+                    type : Sequelize.STRING,
                     allowNull : false
                 },
                 authorityId  : {
@@ -40,7 +40,7 @@ class User extends Sequelize.Model {
                     allowNull : false
                 },
                 refreshToken : {
-                    type : Sequelize.STRING(100),
+                    type : Sequelize.STRING,
                     allowNull : true
                 }
             },
