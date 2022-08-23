@@ -13,11 +13,11 @@
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta content="Webflow" name="generator" />
     <link
-      href="/css/common.css"
+      href="/public/css/common.css"
       rel="stylesheet"
       type="text/css"
     />
-    <link rel="stylesheet" href="/css/mypage.css" />
+    <link rel="stylesheet" href="/public/css/mypage.css" />
 
     <script
       src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"
@@ -151,20 +151,23 @@
                 <div class="rich-text-block w-richtext">
                   <div class="mypage-box-top">
                     <div class="character-box">
-                      <label for="">character</label>
-                      <div class="character">
-                        <img src="/img/HC_Service_Dogs.png" alt="">
+                      <span>character</span>
+                      <div class="character-skin">
+                        <div class="character">
+                          <img src="/public/img/HC_Service_Dogs.png" alt="">
+                        </div>
+                        <!-- 나중에 이부분 ejs 형식으로 바꿔줘야함 -->
+                        <button class="edit-skin-btn">스킨 변경</button>
                       </div>
-                      <!-- 나중에 이부분 ejs 형식으로 바꿔줘야함 -->
                       <div><%= data.user_id %></div>
                     </div>
                     <div class="info-box">
                       <label for="">pw</label>
-                      <input type="text" class="text-box" />
+                      <button class="change-pw-btn">비밀번호 변경하기</button>
                       <label for="">email</label>
-                      <input type="text" class="text-box" value="<%= data.email %>"/>
-                      <label for="">phone-number</label>
-                      <input type="text" class="text-box" />
+                      <input type="text" class="text-box" value="<%= data.email %>" />
+                      <label for="">phone</label>
+                      <input type="text" class="text-box" value="<%= data.phone %>" />
                     </div>
                 </div>
                 <div class="writing">
