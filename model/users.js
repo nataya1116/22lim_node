@@ -16,7 +16,12 @@ class User extends Sequelize.Model {
                     type : Sequelize.STRING(100),
                     allowNull : false,
                 },
-                ninName : {
+                phone : {
+                    type : Sequelize.STRING(11),
+                    allowNull : false,
+                    unique : true
+                },
+                nickName : {
                     type : Sequelize.STRING(20),
                     allowNull : false,
                     unique : true
@@ -33,15 +38,15 @@ class User extends Sequelize.Model {
                 },
                 socketId : {
                     type : Sequelize.STRING,
-                    allowNull : false
-                },
-                authorityId  : {
-                    type : Sequelize.INTEGER,
-                    allowNull : false
+                    allowNull : true
                 },
                 refreshToken : {
                     type : Sequelize.STRING,
                     allowNull : true
+                },
+                authorityId : {
+                    type : Sequelize.INTEGER,
+                    allowNull : false
                 }
             },
             {
@@ -61,6 +66,15 @@ class User extends Sequelize.Model {
             }
         )
     }
+
+    static associate(db) {
+        // 1 : N
+        db.User.hasMany(db.TipBoard, { foreignKey: "userId", sourceKey: "id" });
+
+        // N : 1
+        db.User.belongsTo(db.Authority, { foreignKey: "authorityId", sourceKey: "id" });
+      }
+
 }
 
 module.exports = User;

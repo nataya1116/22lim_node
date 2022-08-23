@@ -1,5 +1,5 @@
 
-const { jwt , dot } = require("./common");
+const { jwt , dot } = require("../modules/common");
 
 dot.config();
 
@@ -29,12 +29,12 @@ module.exports.CreateRefreshToken = (userId) => {
                 );
 }
 
-module.exports.SetSessionAccessToken = (req, accessToken) => {
-    req.session.access_token = accessToken;
+module.exports.SetSessionAccessToken = (session, accessToken) => {
+    session.access_token = accessToken;
 }
 
-module.exports.SetSessionRefreshToken = (req,  refreshToken) => {
-    req.session.refresh_token = refreshToken;
+module.exports.SetSessionRefreshToken = (session,  refreshToken) => {
+    session.refresh_token = refreshToken;
 }
 
 // module.exports.CheckToken = 

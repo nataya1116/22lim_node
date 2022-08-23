@@ -3,6 +3,9 @@ const Sequelize = require("sequelize");
 const config = require("../config/config");
  
 const User = require("./users");
+const Authority = require("./authority");
+const TipBoard = require("./tip_board");
+const TipReply = require("./tip_reply");
 
 const sequelize = new Sequelize(
     config.dev.database,
@@ -13,11 +16,22 @@ const sequelize = new Sequelize(
 
 const db = {};
 db.sequelize = sequelize;
-db.User = User;
 
+db.User = User;
+db.Authority = Authority;
+db.TipBoard = TipBoard;
+db.TipReply = TipReply;
+
+// 테이블 생성
+Authority.init(sequelize);
 User.init(sequelize);
+TipBoard.init(sequelize);
+TipReply.init(sequelize);
 
 // 테이블간의 관계 설정
-
+Authority.associate(db)
+User.associate(db);
+TipBoard.associate(db);
+TipReply.associate(db);
 
 module.exports = db;

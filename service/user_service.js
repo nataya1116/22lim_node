@@ -1,45 +1,49 @@
 const { User } = require("../model/index")
 // const { CreateToken, SetSessionToken } = require("../modules/Token");
-const Token = require("../modules/token");
+const Token = require("../service/token_service");
 
-const Encryption = require("../modules/encryption");
+const Encryption = require("../service/encryption_service");
 
-module.exports.Login = (req) => {
-    const id = req.body.user_id;
-    const pw = req.body.user_pw;
+// 서비스 단에는 req, res을 직접적으로 처리하지 않는다.
+// module.exports.Login = async (id, pw, session) => {
 
-    const result = this.findPw(id);
+//     const result = await this.findPw(id);
 
+//     if(!result?.dataValues.userPw) return;
+
+//     const isLogin = Encryption.IsPwCheck(pw, result.userPw);
+
+//     // 로그인 실패 문구나 코드가 필요 일단 빈 값 리턴
+//     if(!isLogin) return; 
     
-    // if(!!result?.userPw) return;
+//     // 토큰 생성
+//     const accessToken = Token.CreateAccessToken(id);
+//     const refreshToken = Token.CreateRefreshToken(id);
 
-    // console.log(Encryption.PwEncryption(pw));
-    console.log("............");
-    console.log(result);
-    console.log(result.userId);
+//     // 세션에 토큰 저장
+//     Token.SetSessionAccessToken(session, accessToken);
+//     Token.SetSessionRefreshToken(session, refreshToken);
 
-    // const isLogin = Encryption.IsPwCheck(pw, result.userPw);
+//     // User 테이블에 리프레쉬 토큰 저장
+//     this.UpdateRefreshToken(id, refreshToken);
 
-    // 로그인 실패 문구나 코드가 필요 일단 빈 값 리턴
-    // if(!isLogin) return; 
+//     return id;
+// }
+
+module.exports.LoginTmp = async (id, pw) => {
     
-    // 토큰 생성
-    const accessToken = Token.CreateAccessToken(id);
-    const refreshToken = Token.CreateRefreshToken(id);
+    const result = await this.findPw(id);
 
-    // 세션에 토큰 저장
-    Token.SetSessionAccessToken(req, accessToken);
-    Token.SetSessionRefreshToken(req, refreshToken);
+    if(!result) return;
 
-    // User 테이블에 리프레쉬 토큰 저장
-    this.UpdateRefreshToken(id, refreshToken);
+    if(result?.dataValues.userPw != pw) return;
 
     return id;
 }
 
-module.exports.UpdateRefreshToken = (userId, refreshToken) => {
+module.exports.UpdateRefreshToken = async (userId, refreshToken) => {
     try {
-        User.update(
+        await User.update(
             {
                 refreshToken
             },
@@ -53,15 +57,15 @@ module.exports.UpdateRefreshToken = (userId, refreshToken) => {
     }
 }
 
-module.exports.findPw = (userId) => {
+module.exports.findPw = async (userId) => {
     try {
-        return User.findOne(
-            {
-                // attributes: ["userPw"],
-                where : { 
-                            userId
-                        }
-            });
+        return await User.findOne({
+                                // attributes: ["userPw"],
+                                where : { 
+                                            userId
+                                        },
+                                // raw: true
+                            });
     } catch (err) {
         console.error(err);
         return null;
