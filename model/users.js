@@ -65,11 +65,20 @@ class User extends Sequelize.Model {
     static associate(db) {
         // 1 : N
         db.User.hasMany(db.TipBoard, { foreignKey: "userId", sourceKey: "id" });
+        db.User.hasMany(db.TipReply, { foreignKey: "userId", sourceKey: "id" });
+
+        db.User.hasMany(db.GameSkinUser, { foreignKey: "userId", sourceKey: "id" });
+        db.User.hasMany(db.GameSkinWish, { foreignKey: "userId", sourceKey: "id" });
+
         db.User.hasMany(db.Chatting, { foreignKey: "userId1", sourceKey: "id" });
         db.User.hasMany(db.Chatting, { foreignKey: "userId2", sourceKey: "id" });
 
+        // 1 : 1
+        db.User.hasOne(db.PointTotal, { foreignKey: "userId", sourceKey: "id" });
+
         // N : 1
-        db.User.belongsTo(db.Authority, { foreignKey: "authorityId", sourceKey: "id" });
+        db.User.belongsTo(db.Authority, { foreignKey: "authorityId", targetKey: "id" });
+        
 
       }
 

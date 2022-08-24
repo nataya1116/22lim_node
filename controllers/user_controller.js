@@ -1,4 +1,3 @@
-const { User } = require("../model");
 const UserService = require("../service/user_service");
 const Token = require("../service/token_service");
 const Encryption = require("../service/encryption_service");
@@ -24,7 +23,7 @@ module.exports.login = async (req, res) => {
     const id = req.body.user_id;
     const pw = req.body.user_pw;
 
-    const resultPw = await UserService.login(id, pw);
+    const resultPw = await UserService.login(id);
 
     const isLogin = Encryption.isPwCheck(pw, resultPw);
     

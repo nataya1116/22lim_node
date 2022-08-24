@@ -33,8 +33,8 @@ class Chatting extends Sequelize.Model {
 
     static associate(db) {
         // N : 1
-        db.Chatting.belongsTo(db.User, { foreignKey: "userId1", sourceKey: "id" });
-        db.Chatting.belongsTo(db.User, { foreignKey: "userId2", sourceKey: "id" });
+        db.Chatting.belongsTo(db.User, { foreignKey: "userId1", targetKey: "id" });
+        db.Chatting.belongsTo(db.User, { foreignKey: "userId2", targetKey: "id" });
     }
 }
 

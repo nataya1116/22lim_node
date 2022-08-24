@@ -28,8 +28,8 @@ class GameSkinWish extends Sequelize.Model {
 
     static associate(db) {
         // N : 1
-        db.GameSkinWish.belongsTo(db.User, { foreignKey: "userId", sourceKey: "id" });
-        db.GameSkinWish.belongsTo(db.GameSkinProducts, { foreignKey: "productId", sourceKey: "id" });
+        db.GameSkinWish.belongsTo(db.User, { foreignKey: "userId", targetKey: "id" });
+        db.GameSkinWish.belongsTo(db.GameSkinProducts, { foreignKey: "productId", targetKey: "id" });
     }
 }
 

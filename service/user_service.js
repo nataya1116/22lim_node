@@ -1,9 +1,7 @@
-const { User } = require("../model/index")
-
-const Token = require("../service/token_service");
+const { User } = require("../model/index");
 
 // 서비스 단에는 req, res을 직접적으로 처리하지 않는다.
-module.exports.login = async (id, pw, session) => {
+module.exports.login = async (id) => {
 
     const result = await this.findPw(id);
 

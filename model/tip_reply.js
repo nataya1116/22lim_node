@@ -41,9 +41,9 @@ class TipReply extends Sequelize.Model {
 
     static associate(db) {
         // N : 1
-        db.TipReply.belongsTo(db.User, { foreignKey: "userId", sourceKey: "id" });
-        db.TipReply.belongsTo(db.TipBoard, { foreignKey: "boardId", sourceKey: "id" });
-        db.TipReply.belongsTo(db.TipReply, { foreignKey: "replyId", sourceKey: "id"});
+        db.TipReply.belongsTo(db.User, { foreignKey: "userId", targetKey: "id" });
+        db.TipReply.belongsTo(db.TipBoard, { foreignKey: "boardId", targetKey: "id" });
+        db.TipReply.belongsTo(db.TipReply, { foreignKey: "replyId", targetKey: "id"});
 
         // 1 : N
         db.TipReply.hasMany(db.TipReply, { foreignKey: "replyId", sourceKey: "id"});
