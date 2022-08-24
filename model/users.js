@@ -56,7 +56,7 @@ class User extends Sequelize.Model {
                 modelName : "User",
                 // 테이블 이름 설정
                 tableName : "users",
-                // 생성 및 수정 컬럼 생성
+                // 생성 및 수정 컬럼 생성(update_at을 로그인 시간으로 해도 될 듯)
                 timestamps : true, 
                 // 삭제 컬럼 생성
                 paranoid : true,
