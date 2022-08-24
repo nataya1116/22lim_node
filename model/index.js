@@ -8,6 +8,7 @@ const TipBoard = require("./tip_board");
 const TipReply = require("./tip_reply");
 const Chatting = require("./chatting");
 const GameSkinProducts = require("./game_skin_products");
+const GameSkinUser = require("./game_skin_user");
 
 const sequelize = new Sequelize(
     config.dev.database,
@@ -25,6 +26,7 @@ db.TipBoard = TipBoard;
 db.TipReply = TipReply;
 db.Chatting = Chatting;
 db.GameSkinProducts = GameSkinProducts;
+db.GameSkinUser = GameSkinUser;
 
 // 테이블 생성
 Authority.init(sequelize);
@@ -33,6 +35,7 @@ TipBoard.init(sequelize);
 TipReply.init(sequelize);
 Chatting.init(sequelize);
 GameSkinProducts.init(sequelize);
+GameSkinUser.init(sequelize);
 
 // 테이블간의 관계 설정
 Authority.associate(db)
@@ -41,5 +44,6 @@ TipBoard.associate(db);
 TipReply.associate(db);
 Chatting.associate(db);
 GameSkinProducts.associate(db);
+GameSkinUser.associate(db);
 
 module.exports = db;
