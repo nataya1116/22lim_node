@@ -1,0 +1,87 @@
+@media (min-width: 992px) {
+  html.w-mod-js:not(.w-mod-ix)
+    [data-w-id="17ac18b5-161b-07f2-842a-a33f4d0523d8"] {
+    opacity: 0;
+  }
+}
+
+html {
+  font-size: 62.5%;
+}
+
+html,
+body,
+/* ---------------------------------마우스 커서 부분----------------------------------------------------------- */
+/* .site-container { */
+/* cursor: url("https://assets.website-files.com/5e87e737ee7085b9ba02c101/5e8a415aacdbb524713eb277_cursor.png"),
+    auto;
+cursor: -webkit-image-set(
+    url("https://assets.website-files.com/5e87e737ee7085b9ba02c101/5e8a415aacdbb524713eb277_cursor.png")
+        1x,
+    url("https://assets.website-files.com/5e87e737ee7085b9ba02c101/5e8a415acce5fbb114b18c35_cursor%402x.png")
+        2x
+    ), */
+    /* auto; */
+/* } */
+a,
+.dropdown-toggle,
+.button {
+  /* cursor: url("https://assets.website-files.com/5e87e737ee7085b9ba02c101/5e8a4a6206f67059bcd497ce_cursor-pointer.png"), */
+  /* auto; */
+  cursor: -webkit-image-set(
+      /* url("https://assets.website-files.com/5e87e737ee7085b9ba02c101/5e8a4a6206f67059bcd497ce_cursor-pointer.png")
+                  1x,
+                url("https://assets.website-files.com/5e87e737ee7085b9ba02c101/5e8a4a62ab1cf8419ea62647_cursor-pointer%402x.png")
+                  2x */
+    ),
+    auto;
+}
+/*width*/
+.site-container::-webkit-scrollbar {
+  width: 14px;
+}
+/*track*/
+.site-container::-webkit-scrollbar-track {
+  background: url("https://assets.website-files.com/5e83fdebae1ad8747ffce684/5e864de332df030389abf5bd_pattern-grey.svg");
+  background-size: 6px;
+  border-left: 4px solid #000000;
+}
+/*thumb*/
+.site-container::-webkit-scrollbar-thumb {
+  background: #c4c4c4;
+  border: 4px solid #000000;
+  border-right: none;
+}
+/*thumb hover*/
+.site-container::-webkit-scrollbar-thumb:hover {
+  background: #ffffff;
+}
+/*thumb pressed*/
+.site-container::-webkit-scrollbar-thumb:active {
+  background: #ffffff;
+}
+
+.header {
+  width: calc(100% - 16px);
+}
+
+.site-container {
+  height: calc(100vh - 68px);
+  overflow-x: hidden;
+  overflow-y: scroll;
+  margin-top: -4px;
+  margin-bottom: -4px;
+}
+@media screen and (min-width: 768px) {
+  .header {
+    width: calc(100% - 24px);
+  }
+}
+@media screen and (min-width: 991px) {
+  .header {
+    width: calc(100% - 40px);
+  }
+  .site-container::-webkit-scrollbar {
+    width: 24px;
+  }
+}
