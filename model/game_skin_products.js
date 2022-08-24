@@ -33,7 +33,8 @@ class GameSkinProducts extends Sequelize.Model {
     }
 
     static associate(db) {
-        
+        db.GameSkinProducts.hasMany(db.GameSkinUser, { foreignKey: "productId", sourceKey: "id" });
+        db.GameSkinProducts.hasMany(db.GameSkinWish, { foreignKey: "productId", sourceKey: "id" });
     }
 }
 
