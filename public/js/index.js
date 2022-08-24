@@ -1,7 +1,3 @@
-WebFont.load({
-  google: { families: ["Baloo Thambi 2:regular,500,600,700,800"] },
-});
-
 !(function (o, c) {
   console.log("o",o);
   console.log("c",c);

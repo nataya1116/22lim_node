@@ -3,7 +3,7 @@ const { jwt , dot } = require("../modules/common");
 
 dot.config();
 
-module.exports.CreateAccessToken = (userId) => {
+module.exports.createAccessToken = (userId) => {
     
     return jwt.sign(
                     {
@@ -16,7 +16,7 @@ module.exports.CreateAccessToken = (userId) => {
                 );
 }
 
-module.exports.CreateRefreshToken = (userId) => {
+module.exports.createRefreshToken = (userId) => {
     
     return jwt.sign(
                     {
@@ -27,14 +27,6 @@ module.exports.CreateRefreshToken = (userId) => {
                         expiresIn : "1d"
                     }
                 );
-}
-
-module.exports.SetSessionAccessToken = (session, accessToken) => {
-    session.access_token = accessToken;
-}
-
-module.exports.SetSessionRefreshToken = (session,  refreshToken) => {
-    session.refresh_token = refreshToken;
 }
 
 // module.exports.CheckToken = 
