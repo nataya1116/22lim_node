@@ -1367,9 +1367,9 @@ html {
     display: block;
     color: #222222;
   }
-  .w-dropdown-link.w--current {
+  /* .w-dropdown-link.w--current {
     color: #0082f3;
-  }
+  } */
   @media screen and (max-width: 767px) {
     .w-nav-brand {
       padding-left: 10px;
@@ -1792,9 +1792,9 @@ html {
     margin-left: auto;
     margin-right: auto;
   }
-  .w-nav-link.w--current {
+  /* .w-nav-link.w--current {
     color: #0082f3;
-  }
+  } */
   .w-nav-menu {
     position: relative;
     float: right;
@@ -2243,10 +2243,10 @@ html {
     color: #fff;
   }
   
-  .nav-link.w--current {
+  /* .nav-link.w--current {
     background-color: #000;
     color: #fff;
-  }
+  } */
   
   .section {
     position: relative;
