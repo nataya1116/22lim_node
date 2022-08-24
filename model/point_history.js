@@ -11,7 +11,11 @@ class PointHistory extends Sequelize.Model {
                 typeId : {
                     type : Sequelize.INTEGER,
                     allowNull : false
+                },
+                point : {
+                    type : Sequelize.INTEGER
                 }
+
             },
             {
                 sequelize,
@@ -27,7 +31,7 @@ class PointHistory extends Sequelize.Model {
     }
     static associate(db){
         // N : 1
-        db.PointHistory.belongsTo(db.User, { foreignKey: "authorityId", targetKey: "id" });
+        db.PointHistory.belongsTo(db.User, { foreignKey: "userId", targetKey: "id" });
         db.PointHistory.belongsTo(db.PointType, { foreignKey: "typeId", targetKey: "id" });
     }
 }

@@ -32,7 +32,7 @@ class PointTotal extends Sequelize.Model {
 
     static associate(db){
         // 1 : 1
-        db.PointTotal.belongsTo(db.User, {foreignKey: "userId", targetKey: "id"});
+        // db.PointTotal.belongsTo(db.User, {foreignKey: "userId", targetKey: "id"});
     }
 }
 

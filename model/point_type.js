@@ -7,6 +7,9 @@ class PointType extends Sequelize.Model {
                 name : {
                     type : Sequelize.STRING(30),
                     allowNull : false
+                },
+                isPayment : {
+                    type : Sequelize.BOOLEAN
                 }
             },
             {
@@ -26,6 +29,7 @@ class PointType extends Sequelize.Model {
     }
 
     static associate(db) {
+        // 1 : N
         db.PointType.hasMany(db.PointHistory, { foreignKey: "typeId", sourceKey: "id" });
     }
 }
