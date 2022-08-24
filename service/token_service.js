@@ -3,7 +3,7 @@ const { jwt , dot } = require("../modules/common");
 
 dot.config();
 
-module.exports.CreateAccessToken = (userId) => {
+module.exports.createAccessToken = (userId) => {
     
     return jwt.sign(
                     {
@@ -16,7 +16,7 @@ module.exports.CreateAccessToken = (userId) => {
                 );
 }
 
-module.exports.CreateRefreshToken = (userId) => {
+module.exports.createRefreshToken = (userId) => {
     
     return jwt.sign(
                     {
