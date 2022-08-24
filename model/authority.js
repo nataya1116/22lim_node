@@ -34,7 +34,7 @@ class Authority extends Sequelize.Model {
     static associate(db) {
         // 1 : N
         db.Authority.hasMany(db.User, { foreignKey: "authorityId", sourceKey: "id" });
-      }
+    }
 }
 
 module.exports = Authority;

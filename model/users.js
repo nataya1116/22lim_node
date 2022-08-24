@@ -65,9 +65,12 @@ class User extends Sequelize.Model {
     static associate(db) {
         // 1 : N
         db.User.hasMany(db.TipBoard, { foreignKey: "userId", sourceKey: "id" });
+        db.User.hasMany(db.Chatting, { foreignKey: "userId1", sourceKey: "id" });
+        db.User.hasMany(db.Chatting, { foreignKey: "userId2", sourceKey: "id" });
 
         // N : 1
         db.User.belongsTo(db.Authority, { foreignKey: "authorityId", sourceKey: "id" });
+
       }
 
 }
