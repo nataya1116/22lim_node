@@ -1933,9 +1933,9 @@ html {
     color: #222222;
     background-color: #dddddd;
   }
-  .w-tab-link.w--current {
+  /* .w-tab-link.w--current {
     background-color: #c8c8c8;
-  }
+  } */
   .w-tab-link:focus {
     outline: 0;
   }
@@ -2386,10 +2386,10 @@ html {
     background-color: #000;
   }
   
-  .logo-wrapper.w--current {
+  /* .logo-wrapper.w--current {
     padding-right: 20px;
     padding-left: 20px;
-  }
+  } */
   
   .quick-links-wrapper {
     position: relative;
