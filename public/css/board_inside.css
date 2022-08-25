@@ -170,6 +170,7 @@ a,
 }
 .retext-box {
   display: flex;
+  position: relative;
 }
 .retext {
   text-align: left;
@@ -210,8 +211,8 @@ a,
   font-family: "NanumSquareRound-B";
   position: absolute;
   z-index: 999;
-  margin-left: 49.3%;
-  margin-top: 2%;
+  right: 10px;
+  top: 38px;
   font-size: 14.995px;
 }
 .bord-list {
@@ -246,4 +247,7 @@ a,
 .bottom-menu {
   padding-top: 0px;
   padding-bottom: 0px;
+}
+.con-data a {
+  margin-left: 5px;
 }

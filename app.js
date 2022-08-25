@@ -20,35 +20,34 @@ app.engine("html", ejs.renderFile);
 // 뷰 엔진 설정을 html을 랜더링 할때 사용 하겠다.
 app.set("view engine", "html");
 
-app.use(express.urlencoded({ extended : false }));
+app.use(express.urlencoded({ extended: false }));
 
 // public 폴더 내의 폴더 및 파일들의 경로를 절대경로로 호출할 수 있게 처리
-app.use(express.static('public'));
+app.use(express.static("public"));
 
 app.use(
-    session({
-        secret : process.env.SESSION_KEY,
-        // 저장된 세션을 불러올 때 재 저장 여부
-        resave : false,
-        // 세션에 저장할 때 초기화 여부
-        saveUninitialized : true
-    })
-)
-
+  session({
+    secret: process.env.SESSION_KEY,
+    // 저장된 세션을 불러올 때 재 저장 여부
+    resave: false,
+    // 세션에 저장할 때 초기화 여부
+    saveUninitialized: true,
+  })
+);
 
 // 라우터 사용 설정
 app.use(userRouter);
 app.use(indexRouter);
 
 app.listen(PORT, () => {
-    console.log(PORT,"번 포트 대기 중");
-})
+  console.log(PORT, "번 포트 대기 중");
+});
 
 sequelize
-.sync({focus : true})
-.then(() => {
+  .sync({ focus: true })
+  .then(() => {
     console.log("DB 연결 성공...");
-})
-.catch((err) => {
+  })
+  .catch((err) => {
     console.error(err);
-})
+  });
