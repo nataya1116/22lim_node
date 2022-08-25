@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* Generated on: Sun Jun 07 2020 16:12:30 GMT+0000 (Coordinated Universal Time) */
 /* ==========================================================================
    normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css 
@@ -186,13 +187,13 @@ th {
      ========================================================================== */
 
 /* 고양덕양체 */
-/* @font-face {
-    font-family: "GoyangDeogyang";
-    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/GoyangDeogyang.woff")
-      format("woff");
-    font-weight: normal;
-    font-style: normal;
-  } */
+@font-face {
+  font-family: "GoyangDeogyang";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/GoyangDeogyang.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
 
 /* 고양일산체 */
 /* @font-face {
