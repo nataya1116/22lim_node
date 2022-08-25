@@ -164,15 +164,16 @@ left: 50%; */
   display: inline-block;
 }
 #clickBtn {
-  height: 38px;
+  font-family: "NanumSquareRound-EB";
+  height: 34px;
   margin-right: 5px;
 }
 
 #find-btn {
   border: solid 1px rgb(109, 109, 109);
-
+  font-family: "NanumSquareRound-EB";
   width: 45px;
-  height: 38px;
+  height: 34px;
   margin-left: 5px;
   font-weight: bold;
   font-size: 14.995px;
