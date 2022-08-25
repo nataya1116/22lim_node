@@ -12,8 +12,8 @@
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta content="Webflow" name="generator" />
 
-    <link rel="stylesheet" href="./common.css" type="text/css" />
-    <link rel="stylesheet" href="./signup.css" type="text/css" />
+    <link rel="stylesheet" href="/public/css/common.css" type="text/css" />
+    <link rel="stylesheet" href="/public/css/signup.css" type="text/css" />
 
     <script
       src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"
@@ -51,76 +51,41 @@
       data-collapse="medium"
       data-animation="default"
       data-duration="400"
+      data-easing="ease"
+      data-easing2="ease"
       role="banner"
       class="header w-nav">
-      <div class="w-embed"></div>
-      <a href="/" class="logo-wrapper w-nav-brand"
-        ><img
-          src="https://assets.website-files.com/5e87e737ee7085b9ba02c101/5e91e984961046c05f7459d8_mac-logo.svg"
-          alt="Mac Logo"
-          class="logo"
+      <a
+        href="/"
+        aria-current="page"
+        class="logo-wrapper w-nav-brand w--current"
+        ><img src="/public/img/22lim_home_logo.svg" alt="Mac Logo" class="logo"
       /></a>
+
       <nav role="navigation" class="nav-menu w-nav-menu">
-        <a
-          href="/projects"
-          data-w-id="1b0214a5-408b-540b-64df-3835fd7e4438"
-          class="nav-link w-nav-link"
-          >Projects</a
-        ><a
-          href="/blog"
-          data-w-id="1b0214a5-408b-540b-64df-3835fd7e443a"
-          class="nav-link w-nav-link"
-          >Blog</a
-        ><a
-          href="https://www.flowmingo.co/"
-          data-w-id="1b0214a5-408b-540b-64df-3835fd7e443c"
-          class="nav-link w-nav-link"
-          >Learn</a
-        ><a
-          href="https://webflow.com/website/Meet-Mac-a-free-retro-themed-template"
-          data-w-id="1b0214a5-408b-540b-64df-3835fd7e443e"
-          target="_blank"
-          class="nav-link w-nav-link"
-          >Clone me</a
-        >
-        <div data-hover="1" data-delay="0" class="w-dropdown">
-          <div
-            data-w-id="1b0214a5-408b-540b-64df-3835fd7e4441"
-            class="dropdown-toggle w-dropdown-toggle">
-            <div>Find me</div>
+        <a class="nav-link w-nav-link">Game </a>
+
+        <a class="nav-link w-nav-link">Products </a>
+
+        <div data-hover="true" data-delay="0" class="w-dropdown">
+          <div class="dropdown-toggle w-dropdown-toggle">
+            <div>Boards</div>
           </div>
           <nav class="nav-dropdown-list w-dropdown-list">
-            <a
-              href="https://www.mackenziechild.me/"
-              target="_blank"
-              class="nav-dropdown-link w-dropdown-link"
-              >On the World Wide Web</a
-            ><a
-              href="https://twitter.com/mackenziechild"
-              target="_blank"
-              class="nav-dropdown-link w-dropdown-link"
-              >On Twitter</a
-            ><a
-              href="https://www.youtube.com/user/mackenziechild"
-              target="_blank"
-              class="nav-dropdown-link w-dropdown-link"
-              >On YouTube</a
-            ><a
-              href="https://www.instagram.com/mackenziechild/"
-              target="_blank"
-              class="nav-dropdown-link w-dropdown-link"
-              >On Instagram</a
-            ><a
-              href="https://dribbble.com/mackenziechild"
-              target="_blank"
-              class="nav-dropdown-link w-dropdown-link"
-              >On Dribbble</a
+            <a href="/board/tip" class="nav-dropdown-link w-dropdown-link"
+              >Tip</a
+            ><a href="/board/free" class="nav-dropdown-link w-dropdown-link"
+              >Free</a
+            ><a href="/board/q&a" class="nav-dropdown-link w-dropdown-link"
+              >Q&A</a
             >
           </nav>
         </div>
       </nav>
-      <div class="menu-button w-nav-button">
-        <div class="w-icon-nav-menu"></div>
+
+      <div class="my_menu">
+        <!-- 세션에 값이 없을 경우 "Login"(연결 : 로그인), 있을 경우 "닉네임"(연결 : 마이페이지) -->
+        <a href="/login" class="nav-link w-nav-link">Login </a>
       </div>
     </div>
     <div class="site-container">
@@ -132,41 +97,35 @@
                 <div class="button-circle"></div>
                 <div class="button-circle"></div>
               </div>
-              <div>Paranoid 계정 생성</div>
+              <div>sign up</div>
             </div>
             <div class="modal-body">
               <div class="container-width-medium">
                 <!-- sdsadas -->
                 <div class="center-box">
                   <!-- 이따 여기 메인 -->
-                  <div class="main-text"></div>
 
                   <div class="join-main">
-                    <input type="text" placeholder="name@example.com" />
-                    <input type="text" placeholder="아이디" />
-                    <input type="password" placeholder="암호" />
-                    <input type="password" placeholder="암호 확인" />
-                    <input type="text" placeholder="010-****-****" />
+                    <input type="text" placeholder="e-mail" />
+                    <div class="id-div">
+                      <input type="text" placeholder="id" />
+                      <button class="check-id">중복확인</button>
+                    </div>
+                    <input type="password" placeholder="pw" />
+                    <input type="password" placeholder="pw check" />
+                    <input type="tel" placeholder="phone" />
                   </div>
-                  <button class="yes-btn" role="button">확인</button>
+                  <button class="yes-btn">완료</button>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="footer-section">
+      <div class="footer-section wf-section">
         <div class="container">
           <div class="footer">
-            <div>
-              ©2020 Company Name. All rights reserved. Made by
-              <a href="https://www.mackenziechild.me/" target="_blank"
-                >Mackenzie</a
-              >. Built with
-              <a href="https://webflow.com/?rfsn=907313.fd59a6" target="_blank"
-                >Webflow</a
-              >.
-            </div>
+            <div>©2020 Company Name. All rights reserved. Made by 22Lim</div>
           </div>
         </div>
       </div>
