@@ -4,10 +4,6 @@ const router = express.Router();
 
 const userController = require("../controllers/user_controller");
 
-router.get('/login2', (req, res) => {
-    res.render("login");
-});
-
 router.get('/login', (req, res) => {
     res.render("login");
 });

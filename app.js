@@ -52,3 +52,26 @@ sequelize
 .catch((err) => {
     console.error(err);
 })
+
+
+const TipBoardService = require("./service/tip_board_sevice");
+
+app.get("/test", async (req, res) => {
+
+    // await TipBoardService.create({
+    //     userId : "tt",
+    //     title : "tqtqtq",
+    //     content : "tqtqtqtertqter"
+    // })
+    // await TipBoardService.update({
+    //     id : 1,
+    //     title : "tqtqtq",
+    //     content : "tqtqtqtertqter"
+    // })
+    await TipBoardService.delete(
+        5
+    )
+    const count = await TipBoardService.readList(0, 10);
+    console.log(count[0].updatedAt.getTime())
+    res.send(count);
+});
