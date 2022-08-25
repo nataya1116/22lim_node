@@ -203,6 +203,15 @@ th {
     font-style: normal;
   } */
 
+/* 투게더  */
+@font-face {
+  font-family: "TTTogether";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/TTTogetherA.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
 /* 티머니 둥근바람 */
 @font-face {
   font-family: "TmoneyRoundWind-Regular";
@@ -357,7 +366,7 @@ html.w-mod-touch * {
 }
 .w-button {
   display: inline-block;
-  padding: 9px 15px;
+  padding: 3px 15px;
   background-color: #3898ec;
   color: white;
   border: 0;
@@ -2382,9 +2391,9 @@ blockquote {
   align-items: center;
 }
 
-.logo-wrapper:hover {
+/* .logo-wrapper:hover {
   background-color: #000;
-}
+} */
 
 /* .logo-wrapper.w--current {
     padding-right: 20px;
@@ -2437,6 +2446,7 @@ blockquote {
   border: 4px solid #000;
   background-color: #fff;
   box-shadow: 8px 8px 0 0 #000;
+  height: 500px;
 }
 
 .modal-wrapper.project {
@@ -2471,20 +2481,20 @@ blockquote {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  padding: 32px;
+  padding: 28px;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
   -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
+  -webkit-justify-content: center;
   -ms-flex-pack: justify;
-  justify-content: space-between;
+  justify-content: center;
   -webkit-box-align: start;
-  -webkit-align-items: flex-start;
+  -webkit-align-items: center;
   -ms-flex-align: start;
-  align-items: flex-start;
+  align-items: center;
   -webkit-box-flex: 1;
   -webkit-flex: 1;
   -ms-flex: 1;
@@ -2492,14 +2502,13 @@ blockquote {
 }
 
 .grid-halves {
-  display: -ms-grid;
   display: grid;
   width: 100%;
-  grid-auto-columns: 1fr;
+  grid-auto-columns: -3fr;
   grid-column-gap: 36px;
   grid-row-gap: 36px;
   -ms-grid-columns: 1fr 1fr;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   -ms-grid-rows: auto;
   grid-template-rows: auto;
 }
@@ -3065,9 +3074,7 @@ blockquote {
   .modal-wrapper.course-mockup {
     width: 100%;
   }
-  .modal-body {
-    padding: 36px;
-  }
+
   .grid-halves {
     -ms-grid-columns: 1fr;
     grid-template-columns: 1fr;
@@ -3213,9 +3220,10 @@ blockquote {
     -ms-flex-direction: column;
     flex-direction: column;
     -webkit-box-align: start;
-    -webkit-align-items: flex-start;
+    /* -webkit-align-items: flex-start; */
     -ms-flex-align: start;
-    align-items: flex-start;
+    /* align-items: flex-start; */
+    margin-top: 15px;
   }
   .course-cta-wrapper {
     padding: 48px 20px 20px;
