@@ -1,6 +1,5 @@
 const TipBoard = require("../model/tip_board");
 const User = require("../model/users");
-const sequelize = require("sequelize");
 
 module.exports.count = async () => {
     try {
@@ -15,10 +14,10 @@ module.exports.create = async ({userId, title, content}) => {
     try {
         User.findOne({
             where : { userId }
-        }).then((users) => {
+        }).then((user) => {
             TipBoard.create(
                 {
-                    userId : users.id, 
+                    userId : user.id, 
                     title, 
                     content
                 });
@@ -36,7 +35,7 @@ module.exports.readList = async (offset, limit) => {
                     attributes : ['id', 'title', 'updatedAt', 'views'],
                     include: [
                            {
-                            attributes : ['user_id'],  
+                            attributes : ['userId'],  
                             model : User }
                         ]
                     ,

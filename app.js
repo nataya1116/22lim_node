@@ -53,24 +53,41 @@ sequelize
 })
 
 
-const TipBoardService = require("./service/tip_board_sevice");
+// const TipBoardService = require("./service/tip_board_sevice");
+const TipReplyService = require("./service/tip_reply_sevice");
 
 app.get("/test", async (req, res) => {
 
-    // await TipBoardService.create({
+    // TipBoardService.create({
     //     userId : "tt",
     //     title : "tqtqtq",
     //     content : "tqtqtqtertqter"
     // })
-    // await TipBoardService.update({
+    // TipBoardService.update({
     //     id : 1,
     //     title : "tqtqtq",
     //     content : "tqtqtqtertqter"
     // })
-    await TipBoardService.delete(
-        5
-    )
-    const count = await TipBoardService.readList(0, 10);
-    console.log(count[0].updatedAt.getTime())
+    // TipBoardService.delete(
+    //     5
+    // )
+    // const count = TipBoardService.readList(0, 10);
+    // console.log(count[0].updatedAt.getTime())
+    // res.send(count);
+
+    // TipReplyService.create({
+    //     userId : "tt",
+    //     boardId : 1,
+    //     replyId : 1,
+    //     content : "ㅅㄷㄳㅂㄷㅅㅄtqtqtqtertqter"
+    // }) ;
+    // TipReplyService.update({
+    //     id : 1,
+    //     content : "행복행복"
+    // })
+
+    // TipReplyService.delete(4);
+    const count = await TipReplyService.readList(1);
+    // console.log(count[0].updatedAt.getTime())
     res.send(count);
 });

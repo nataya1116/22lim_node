@@ -14,7 +14,7 @@ class TipReply extends Sequelize.Model {
                 },
                 boardId : {
                     type : Sequelize.INTEGER,
-                    allowNull : true
+                    allowNull : false
                 },
                 replyId : {
                     type : Sequelize.INTEGER,
