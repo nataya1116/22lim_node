@@ -87,7 +87,8 @@ app.get("/test", async (req, res) => {
     // })
 
     // TipReplyService.delete(4);
-    const count = await TipReplyService.readList(1);
-    // console.log(count[0].updatedAt.getTime())
-    res.send(count);
+    // const count = await TipReplyService.readList(1);
+    // // console.log(count[0].updatedAt.getTime())
+    // res.send(count);
+    res.render("board_list");
 });
