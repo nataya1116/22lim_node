@@ -1,5 +1,4 @@
-const TipBoard = require("../model/tip_board");
-const User = require("../model/users");
+const { TipBoard, User } = require("../model/index");
 
 module.exports.count = async () => {
     try {

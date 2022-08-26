@@ -1,5 +1,4 @@
-const TipReply = require("../model/tip_reply");
-const User = require("../model/users");
+const { TipReply, User } = require("../model/index");
 
 module.exports.create = async ({userId, boardId, replyId, content}) => {
     try {

@@ -1,6 +1,6 @@
 const UserService = require("../service/user_service");
-const Token = require("../service/token_service");
-const Encryption = require("../service/encryption_service");
+const TokenService = require("../service/token_service");
+const EncryptionService = require("../service/encryption_service");
 
 
 module.exports.loginTmp = async (req, res) => {
@@ -25,11 +25,11 @@ module.exports.login = async (req, res) => {
 
     const resultPw = await UserService.login(id);
 
-    const isLogin = Encryption.isPwCheck(pw, resultPw);
+    const isLogin = EncryptionService.isPwCheck(pw, resultPw);
     
     if(resultPw && isLogin) {
-        const accessToken = Token.createAccessToken(id);
-        const refreshToken = Token.createRefreshToken(id);
+        const accessToken = TokenService.createAccessToken(id);
+        const refreshToken = TokenService.createRefreshToken(id);
 
         req.session.access_Token = accessToken;
         req.session.refresh_Token = refreshToken;

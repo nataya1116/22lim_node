@@ -53,8 +53,8 @@ sequelize
 })
 
 
-// const TipBoardService = require("./service/tip_board_sevice");
-const TipReplyService = require("./service/tip_reply_sevice");
+const TipBoardService = require("./service/tip_board_sevice");
+// const TipReplyService = require("./service/tip_reply_sevice");
 
 app.get("/test", async (req, res) => {
 
@@ -71,9 +71,9 @@ app.get("/test", async (req, res) => {
     // TipBoardService.delete(
     //     5
     // )
-    // const count = TipBoardService.readList(0, 10);
+    const count = await TipBoardService.readList(1, 2);
     // console.log(count[0].updatedAt.getTime())
-    // res.send(count);
+    res.send(count);
 
     // TipReplyService.create({
     //     userId : "tt",
@@ -90,5 +90,5 @@ app.get("/test", async (req, res) => {
     // const count = await TipReplyService.readList(1);
     // // console.log(count[0].updatedAt.getTime())
     // res.send(count);
-    res.render("board_list");
+    // res.render("board_list");
 });
