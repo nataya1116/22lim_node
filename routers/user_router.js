@@ -16,6 +16,11 @@ router.get("/signup", (req, res) => {
   res.render("signup");
 });
 
+// 임시로 만든 라우터! 헤더랑 푸터 붙임
+router.get("/shop", (req, res) => {
+  res.render("shop");
+});
+
 // router.post("/login", userController.loginTmp);
 router.post("/login", userController.login);
 

@@ -1,3 +1,4 @@
+/* <<<<<<< HEAD */
 /* Generated on: Sun Jun 07 2020 16:12:30 GMT+0000 (Coordinated Universal Time) */
 /* ==========================================================================
    normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css 
@@ -2437,6 +2438,7 @@ blockquote {
   border: 4px solid #000;
   background-color: #fff;
   box-shadow: 8px 8px 0 0 #000;
+  height: 500px;
 }
 
 .modal-wrapper.project {
@@ -2471,20 +2473,20 @@ blockquote {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  padding: 32px;
+  padding: 28px;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
   -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
+  -webkit-justify-content: center;
   -ms-flex-pack: justify;
-  justify-content: space-between;
+  justify-content: center;
   -webkit-box-align: start;
-  -webkit-align-items: flex-start;
+  -webkit-align-items: center;
   -ms-flex-align: start;
-  align-items: flex-start;
+  align-items: center;
   -webkit-box-flex: 1;
   -webkit-flex: 1;
   -ms-flex: 1;
@@ -2492,14 +2494,13 @@ blockquote {
 }
 
 .grid-halves {
-  display: -ms-grid;
   display: grid;
   width: 100%;
-  grid-auto-columns: 1fr;
+  grid-auto-columns: -3fr;
   grid-column-gap: 36px;
   grid-row-gap: 36px;
   -ms-grid-columns: 1fr 1fr;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   -ms-grid-rows: auto;
   grid-template-rows: auto;
 }
@@ -3065,9 +3066,7 @@ blockquote {
   .modal-wrapper.course-mockup {
     width: 100%;
   }
-  .modal-body {
-    padding: 36px;
-  }
+
   .grid-halves {
     -ms-grid-columns: 1fr;
     grid-template-columns: 1fr;
@@ -3213,9 +3212,10 @@ blockquote {
     -ms-flex-direction: column;
     flex-direction: column;
     -webkit-box-align: start;
-    -webkit-align-items: flex-start;
+    /* -webkit-align-items: flex-start; */
     -ms-flex-align: start;
-    align-items: flex-start;
+    /* align-items: flex-start; */
+    margin-top: 15px;
   }
   .course-cta-wrapper {
     padding: 48px 20px 20px;
