@@ -27,6 +27,7 @@ module.exports.create = async ({userId, title, content}) => {
 }
 
 module.exports.list = async (offset, limit) => {
+    console.log("list() limit ", limit);
     try {
         return await TipBoard.findAll(
                 {

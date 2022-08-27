@@ -1,4 +1,5 @@
 const Sequelize = require("sequelize");
+const moment = require("moment");
 
 class GameSkinUser extends Sequelize.Model {
     static init(sequelize) {

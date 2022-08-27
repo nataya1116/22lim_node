@@ -1,4 +1,5 @@
 const Sequelize = require("sequelize");
+const moment = require("moment");
 
 class PointHistory extends Sequelize.Model {
     static init(sequelize) {
