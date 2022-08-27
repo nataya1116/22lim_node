@@ -6,6 +6,7 @@ const { sequelize } = require("./model");
 
 const userRouter = require("./routers/user_router");
 const indexRouter = require("./routers/index_router");
+const tipBoardRouter = require("./routers/tip_board_router");
 
 const app = express();
 
@@ -38,6 +39,7 @@ app.use(
 // 라우터 사용 설정
 app.use(userRouter);
 app.use(indexRouter);
+app.use(tipBoardRouter);
 
 app.listen(PORT, () => {
   console.log(PORT, "번 포트 대기 중");
@@ -58,11 +60,26 @@ const TipBoardService = require("./service/tip_board_sevice");
 
 app.get("/test", async (req, res) => {
 
-    // TipBoardService.create({
-    //     userId : "tt",
-    //     title : "tqtqtq",
-    //     content : "tqtqtqtertqter"
-    // })
+  await TipBoardService.create({
+        userId : "gg",
+        title : "tqtqtq1",
+        content : "tqtqtqtertqter"
+    })
+    await TipBoardService.create({
+      userId : "gg",
+      title : "tqtqtq2",
+      content : "tqtqtqtertqter"
+  })
+  await TipBoardService.create({
+    userId : "gg",
+    title : "tqtqtq3",
+    content : "tqtqtqtertqter"
+})
+await TipBoardService.create({
+  userId : "gg",
+  title : "tqtqtq4",
+  content : "tqtqtqtertqter"
+})
     // TipBoardService.update({
     //     id : 1,
     //     title : "tqtqtq",
@@ -71,7 +88,7 @@ app.get("/test", async (req, res) => {
     // TipBoardService.delete(
     //     5
     // )
-    const count = await TipBoardService.readList(1, 2);
+    const count = await TipBoardService.list(0, 10);
     // console.log(count[0].updatedAt.getTime())
     res.send(count);
 

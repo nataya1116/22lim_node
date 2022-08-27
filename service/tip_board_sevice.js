@@ -1,4 +1,4 @@
-const { TipBoard, User } = require("../model/index");
+const { TipBoard, User, sequelize } = require("../model/index");
 
 module.exports.count = async () => {
     try {
@@ -26,20 +26,27 @@ module.exports.create = async ({userId, title, content}) => {
     }
 }
 
-module.exports.readList = async (offset, limit) => {
+module.exports.list = async (offset, limit) => {
     try {
         return await TipBoard.findAll(
                 {
                     
-                    attributes : ['id', 'title', 'updatedAt', 'views'],
+                    attributes : [
+                        'id', 
+                        'title',
+                        'updatedAt',
+                        'view'
+                    ],
                     include: [
                            {
                             attributes : ['userId'],  
-                            model : User }
-                        ]
+                            model : User 
+                           }
+                    ]
                     ,
                     offset,
-                    limit
+                    limit,
+                    order : [["id", "ASC"]]
                 }
             );
     } catch (err) {
@@ -74,5 +81,20 @@ module.exports.delete = async (id) => {
         )
     } catch (err) {
         
+    }
+}
+
+module.exports.updateViewsCount = async (id) => {
+    try {
+        TipBoard.increment(
+            {
+                view : 1
+            },
+            {
+                where : { id }
+            }
+        )
+    } catch (err) {
+        console.error(err);
     }
 }

@@ -1,4 +1,4 @@
-const { TipReply, User } = require("../model/index");
+const { TipReply, User, sequelize } = require("../model/index");
 
 module.exports.create = async ({userId, boardId, replyId, content}) => {
     try {
@@ -18,7 +18,7 @@ module.exports.create = async ({userId, boardId, replyId, content}) => {
     }
 }
 
-module.exports.readList = async (boardId) => {
+module.exports.list = async (boardId) => {
     try {
         return await TipReply.findAll(
                 {
