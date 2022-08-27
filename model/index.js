@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize");
 
 const config = require("../config/config");
- 
+
 const User = require("./users");
 const Authority = require("./authority");
 const TipBoard = require("./tip_board");
@@ -14,12 +14,13 @@ const GameSkinWish = require("./game_skin_wish");
 const PointHistory = require("./point_history");
 const PointType = require("./point_type");
 const ConditionUser = require("./condition_user");
+const QnaBoard = require("./qna_board");
 
 const sequelize = new Sequelize(
-    config.dev.database,
-    config.dev.username,
-    config.dev.password,
-    config.dev
+  config.dev.database,
+  config.dev.username,
+  config.dev.password,
+  config.dev
 );
 
 const db = {};
@@ -37,6 +38,7 @@ db.GameSkinWish = GameSkinWish;
 db.PointHistory = PointHistory;
 db.PointType = PointType;
 db.ConditionUser = ConditionUser;
+QnaBoard.init(sequelize);
 
 // 테이블 생성
 Authority.init(sequelize);
@@ -45,15 +47,9 @@ TipBoard.init(sequelize);
 TipReply.init(sequelize);
 Chatting.init(sequelize);
 GameSkinProducts.init(sequelize);
-GameSkinUser.init(sequelize);
-GameSkinWish.init(sequelize);
-// PointTotal.init(sequelize);
-PointHistory.init(sequelize);
-PointType.init(sequelize);
-ConditionUser.init(sequelize);
 
 // 테이블간의 관계 설정
-Authority.associate(db)
+Authority.associate(db);
 User.associate(db);
 TipBoard.associate(db);
 TipReply.associate(db);
@@ -65,5 +61,6 @@ GameSkinWish.associate(db);
 PointHistory.associate(db);
 PointType.associate(db);
 ConditionUser.associate(db);
+QnaBoard.associate(db);
 
 module.exports = db;
