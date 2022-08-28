@@ -1,5 +1,5 @@
 const { TipBoard, User, sequelize } = require("../model/index");
-const Op = sequelize;
+const Op = require("sequelize").Op;
 
 module.exports.create = async ({userId, title, content}) => {
     try {
@@ -19,7 +19,6 @@ module.exports.create = async ({userId, title, content}) => {
 }
 
 module.exports.list = async (offset, limit) => {
-    console.log("서비스 list() 호출 ");
     try {
         return await TipBoard.findAndCountAll(
                 {
@@ -48,13 +47,15 @@ module.exports.list = async (offset, limit) => {
 }
 
 module.exports.listSearchUserId = async (offset, limit, userId) => {
-    console.log("list() limit ", limit);
+    console.log("s listSearchUserId");
     try {
         return await User.findOne(
                         {
                             attributes : [ 'id' ],
                             where : {
-                                userId
+                                userId : {
+                                    [Op.like] : `%${userId}%`
+                                }
                             }
                         }
 
@@ -91,7 +92,7 @@ module.exports.listSearchUserId = async (offset, limit, userId) => {
 }
 
 module.exports.listSearchTitle = async (offset, limit, searchWord) => {
-    console.log("list() limit ", limit);
+    console.log("s listSearchTitle");
     try {
         return await TipBoard.findAndCountAll(
                 {
@@ -125,7 +126,7 @@ module.exports.listSearchTitle = async (offset, limit, searchWord) => {
 }
 
 module.exports.listSearchContent = async (offset, limit, searchWord) => {
-    console.log("list() limit ", limit);
+    console.log("s listSearchContent");
     try {
         return await TipBoard.findAndCountAll(
                 {

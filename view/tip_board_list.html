@@ -128,12 +128,11 @@
                 <tr class="divideIn">
                   <td><%= post.id %></td>
                   <td><a href="/tip_board/read/<%= post.id %>"><%= post.title %></a> </td>
-                  <!-- <td onclick="href='/tip_board/read/<%= post.id %>'"><%= post.title %></td> -->
                   <td><%= post.User.userId %></td>
                   <td><%= post.updatedAt %></td>
                   <td><%= post.view %></td>
                 </tr>
-              
+                
                 <% })  %>
                </table>
         
@@ -142,37 +141,37 @@
     <div class="button-container">
       <div class="btn-div">
         <select class="button" id="search_key">
-          <option value="title">제목</option>
-          <option value="content">내용</option>
-          <option value="userId">작성자</option>
+          <option value="title" <%=searchKey == "title" ? "selected" : "" %> >제목</option>
+          <option value="content" <%=searchKey == "content" ? "selected" : "" %> >내용</option>
+          <option value="userId" <%=searchKey == "userId" ? "selected" : "" %> >작성자</option>
         </select>
 
       </div>
-      <input id="find-input" type="text">
-      <button id="find-btn">찾기</button>
+      <input id="find_input" type="text" value="<%= searchWord %>">
+      <button id="find_btn" data-limit="<%= limit %>">찾기</button>
       
     </div>
     <div class="page-nav">
       <a class="page-info" 
-        href="/tip_board/list/1/<%= limit %>">
+        href="/tip_board/list/1/<%= limit %><%= searchKey != '' ? '/'+searchKey : '' %><%= searchWord != '' ? '/'+searchWord : '' %>">
         <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAHCAQAAABwkq/rAAAAHUlEQVR42mNgAIPi/8X/kWkwA8SE0UQIMJAsCKMBBzk27fqtkcYAAAAASUVORK5CYII=" alt="처음페이지로 이동">
       </a>
       <a class="page-info" 
-        href="/tip_board/list/<%= pageNum > 1 ? pageNum - 1 : 1 %>/<%= limit %>">
+        href="/tip_board/list/<%= pageNum > 1 ? pageNum - 1 : 1 %>/<%= limit %><%= searchKey != '' ? '/'+searchKey : '' %><%= searchWord != '' ? '/'+searchWord : '' %>">
         <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAHCAQAAABqrk9lAAAAGElEQVR42mNgAIPi/8X/4QwwE5PBQJADAAKSG3cyVhtXAAAAAElFTkSuQmCC" alt="이전페이지 이동 아이콘">
       </a>
 
       <% for( let i = 1; i <= totalPage; i++) {%>
-      <a class="page-info"  href="/tip_board/list/<%= i %>/<%= limit %>" ><%= i %></a>
+      <a class="page-info"  href="/tip_board/list/<%= i %>/<%= limit %><%= searchKey != '' ? '/'+searchKey : '' %><%= searchWord != '' ? '/'+searchWord : '' %>" ><%= i %></a>
       <% } %>
 
 
       <a class="page-info"
-      href="/tip_board/list/<%= pageNum < totalPage ? pageNum + 1 : totalPage %>/<%= limit %>">
+      href="/tip_board/list/<%= pageNum < totalPage ? pageNum + 1 : totalPage %>/<%= limit %><%= searchKey != '' ? '/'+searchKey : '' %><%= searchWord != '' ? '/'+searchWord : '' %>">
       <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAHCAQAAABqrk9lAAAAGUlEQVR42mMo/l/8nwECQEwCHEwGhAlRBgA2mht3SwgzrwAAAABJRU5ErkJggg==" alt="다음페이지 이동">
       </a>
       <a class="page-info"
-        href="/tip_board/list/<%= totalPage %>/<%= limit %>">
+        href="/tip_board/list/<%= totalPage %>/<%= limit %><%= searchKey != '' ? '/'+searchKey : '' %><%= searchWord != '' ? '/'+searchWord : '' %>">
         <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAHCAQAAABwkq/rAAAAIElEQVR42mMo/l/8n4GBgQFGQ5kgDowmQZCwAMImhDkAb0k27Zcisn8AAAAASUVORK5CYII=" alt="마지막 페이지 이동">
       </a>
     </div>
