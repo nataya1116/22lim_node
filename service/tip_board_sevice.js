@@ -1,13 +1,5 @@
 const { TipBoard, User, sequelize } = require("../model/index");
-
-module.exports.count = async () => {
-    try {
-         const result =  await TipBoard.findAndCountAll({});
-        return result.count;
-    } catch (err) {
-        console.error(err);
-    }
-}
+const Op = sequelize;
 
 module.exports.create = async ({userId, title, content}) => {
     try {
@@ -27,15 +19,15 @@ module.exports.create = async ({userId, title, content}) => {
 }
 
 module.exports.list = async (offset, limit) => {
-    console.log("list() limit ", limit);
+    console.log("서비스 list() 호출 ");
     try {
-        return await TipBoard.findAll(
+        return await TipBoard.findAndCountAll(
                 {
                     
                     attributes : [
                         'id', 
                         'title',
-                        'updatedAt',
+                        'createdAt',
                         'view'
                     ],
                     include: [
@@ -45,9 +37,120 @@ module.exports.list = async (offset, limit) => {
                            }
                     ]
                     ,
+                    order : [["createdAt", "ASC"]],
                     offset,
-                    limit,
-                    order : [["id", "ASC"]]
+                    limit
+                }
+            );
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+module.exports.listSearchUserId = async (offset, limit, userId) => {
+    console.log("list() limit ", limit);
+    try {
+        return await User.findOne(
+                        {
+                            attributes : [ 'id' ],
+                            where : {
+                                userId
+                            }
+                        }
+
+                    ).then((user) => {
+                        return TipBoard.findAndCountAll(
+                            {
+                                
+                                attributes : [
+                                    'id', 
+                                    'title',
+                                    'createdAt',
+                                    'view'
+                                ],
+                                include: [
+                                    {
+                                        attributes : ['userId'],  
+                                        model : User 
+                                    }
+                                ]
+                                ,
+                                where : {
+                                    userId : user.id
+                                },
+                                order : [["createdAt", "ASC"]],
+                                offset,
+                                limit
+                            }
+                        );
+                    });
+        
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+module.exports.listSearchTitle = async (offset, limit, searchWord) => {
+    console.log("list() limit ", limit);
+    try {
+        return await TipBoard.findAndCountAll(
+                {
+                    
+                    attributes : [
+                        'id', 
+                        'title',
+                        'createdAt',
+                        'view'
+                    ],
+                    include: [
+                           {
+                            attributes : ['userId'],  
+                            model : User 
+                           }
+                    ],
+                    where : {
+                        title : {
+                            [Op.like] : `%${searchWord}%`
+                        }
+                    },
+                    order : [["createdAt", "ASC"]],
+                    offset,
+                    limit
+                    
+                }
+            );
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+module.exports.listSearchContent = async (offset, limit, searchWord) => {
+    console.log("list() limit ", limit);
+    try {
+        return await TipBoard.findAndCountAll(
+                {
+                    
+                    attributes : [
+                        'id', 
+                        'title',
+                        'createdAt',
+                        'view'
+                    ],
+                    include: [
+                           {
+                            attributes : ['userId'],  
+                            model : User 
+                           }
+                    ],
+                    where : {
+                        content : {
+                            [Op.like] : `%${searchWord}%`
+                        }
+                    },
+                    order : [["createdAt", "ASC"]],
+                    offset,
+                    limit
+                    
                 }
             );
     } catch (err) {

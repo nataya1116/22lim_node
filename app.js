@@ -39,9 +39,10 @@ app.use(
 // 라우터 사용 설정
 app.use(userRouter);
 app.use(indexRouter);
-app.use(tipBoardRouter);
+app.use("/tip_board", tipBoardRouter);
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
+  server.setTimeout( 0 )
   console.log(PORT, "번 포트 대기 중");
 });
 
@@ -55,31 +56,31 @@ sequelize
 })
 
 
-const TipBoardService = require("./service/tip_board_sevice");
+// const TipBoardService = require("./service/tip_board_sevice");
 // const TipReplyService = require("./service/tip_reply_sevice");
 
-app.get("/test", async (req, res) => {
+// app.get("/test", async (req, res) => {
 
-  await TipBoardService.create({
-        userId : "gg",
-        title : "tqtqtq1",
-        content : "tqtqtqtertqter"
-    })
-    await TipBoardService.create({
-      userId : "gg",
-      title : "tqtqtq2",
-      content : "tqtqtqtertqter"
-  })
-  await TipBoardService.create({
-    userId : "gg",
-    title : "tqtqtq3",
-    content : "tqtqtqtertqter"
-})
-await TipBoardService.create({
-  userId : "gg",
-  title : "tqtqtq4",
-  content : "tqtqtqtertqter"
-})
+//   await TipBoardService.create({
+//         userId : "gg",
+//         title : "tqtqtq1",
+//         content : "tqtqtqtertqter"
+//     })
+//     await TipBoardService.create({
+//       userId : "gg",
+//       title : "tqtqtq2",
+//       content : "tqtqtqtertqter"
+//   })
+//   await TipBoardService.create({
+//     userId : "gg",
+//     title : "tqtqtq3",
+//     content : "tqtqtqtertqter"
+// })
+// await TipBoardService.create({
+//   userId : "gg",
+//   title : "tqtqtq4",
+//   content : "tqtqtqtertqter"
+// })
     // TipBoardService.update({
     //     id : 1,
     //     title : "tqtqtq",
@@ -88,9 +89,9 @@ await TipBoardService.create({
     // TipBoardService.delete(
     //     5
     // )
-    const count = await TipBoardService.list(0, 10);
+    // const count = await TipBoardService.list(0, 10);
     // console.log(count[0].updatedAt.getTime())
-    res.send(count);
+    // res.send(count);
 
     // TipReplyService.create({
     //     userId : "tt",
@@ -108,4 +109,4 @@ await TipBoardService.create({
     // // console.log(count[0].updatedAt.getTime())
     // res.send(count);
     // res.render("board_list");
-});
+// });

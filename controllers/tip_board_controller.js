@@ -2,27 +2,65 @@ const TipBoardService = require("../service/tip_board_sevice");
 const TipReplyService = require("../service/tip_reply_sevice");
 
 module.exports.list = async (req, res) => {
+    console.log("콘트롤러 list() 호출");
+    const pageNum = Number(req.params.page || '1');
+    const limit = Number(req.params.perPage || '10');
+    let offset = 0;
+    
+    if( pageNum > 1 ) {
+        offset = 10 * (pageNum - 1);
+    }
+    const result = await TipBoardService.list(offset, limit);
 
-    const pageNum = await Number(req.params.page || '1');
-    const limit = await Number(req.params.perPage || '10');
+    const list = result.rows
+    const postNum = result.count;
+    const totalPage = Math.ceil( postNum / limit );
+
+    res.render( "tip_board_list", { list , totalPage , pageNum, limit });
+}
+
+module.exports.listSearch = async (req, res) => {
+
+    const pageNum = Number(req.params.page || '1');
+    const limit = Number(req.params.perPage || '10');
+    const { searchKey, searchWord } = req.params;
+
     let offset = 0;
     
     if( pageNum > 1 ) {
         offset = 10 * (pageNum - 1);
     }
 
-    console.log("typeof limit ",typeof(limit));
-    const list = await TipBoardService.list(offset, limit);
-    const postNum = await TipBoardService.count();
-    const totalPage = await  Math.ceil( postNum / limit );
+    let result;
 
+    switch (searchKey) {
+        case "userId":
+            result = await TipBoardService.listSearchUserId(offset, limit, searchWord);
+            break;
+        case "title":
+            result = await TipBoardService.listSearchTitle(offset, limit, searchWord);
+            break;
+        case "content":
+            result = await TipBoardService.listSearchContent(offset, limit, searchWord);
+            break;
+        default:
+            result = await TipBoardService.list(offset, limit);
+            break;
+    }
 
-    console.log("pageNum ", pageNum);
-    console.log("limit ", limit);
-    console.log("offset ", offset);
-    console.log("postNum ", postNum);
-    console.log("totalPage ", totalPage);
+    const list = result.rows;
+    const postNum = result.count;
+
+    const totalPage = Math.ceil( postNum / limit );
 
     res.render( "tip_board_list", { list , totalPage , pageNum, limit });
-    // res.redirect("/");
 }
+
+
+module.exports.test = async (req, res) => {
+    console.log("콘트롤러 test() 호출");
+    const count = await TipBoardService.list(0, 10);
+
+    // res.send(count);
+    res.render("index");
+} 
