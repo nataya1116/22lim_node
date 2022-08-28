@@ -18,6 +18,20 @@ module.exports.create = async ({userId, title, content}) => {
     }
 }
 
+module.exports.read = async (id) => {
+    try {
+        return TipBoard.findOne(
+            {
+                where : {
+                    id
+                }
+            }
+        )
+    } catch (err) {
+        console.error(err);
+    }
+}
+
 module.exports.list = async (offset, limit) => {
     try {
         return await TipBoard.findAndCountAll(

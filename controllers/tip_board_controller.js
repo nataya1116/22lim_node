@@ -55,7 +55,14 @@ module.exports.listSearch = async (req, res) => {
 
     const totalPage = Math.ceil( postNum / limit );
 
-    res.render( "tip_board_list", { list , totalPage , pageNum, limit, searchKey, searchWord });
+    res.render("tip_board_list", { list , totalPage , pageNum, limit, searchKey, searchWord });
+}
+
+module.exports.read = async (req, res) => {
+    const id = req.params.id;
+    const post = await TipBoardService.read(id);
+
+    res.render("tip_board_view", { post });
 }
 
 

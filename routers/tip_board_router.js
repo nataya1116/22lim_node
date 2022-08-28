@@ -8,6 +8,8 @@ router.get("/list/:page/:perPage/", tipBoardController.list);
 
 router.get("/list/:page/:perPage/:searchKey/:searchWord", tipBoardController.listSearch);
 
+router.get("/read/:id", tipBoardController.read)
+
 // router.get("/test/:tq", (req, res) => {
 //     console.log("router test호출하는 부분");
 //     tipBoardController.test(req, res);
