@@ -27,7 +27,7 @@ module.exports.list = async (offset, limit) => {
                     attributes : [
                         'id', 
                         'title',
-                        'createdAt',
+                        'updatedAt',
                         'view'
                     ],
                     include: [
@@ -37,7 +37,7 @@ module.exports.list = async (offset, limit) => {
                            }
                     ]
                     ,
-                    order : [["createdAt", "ASC"]],
+                    order : [["id", "ASC"]],
                     offset,
                     limit
                 }
@@ -65,7 +65,7 @@ module.exports.listSearchUserId = async (offset, limit, userId) => {
                                 attributes : [
                                     'id', 
                                     'title',
-                                    'createdAt',
+                                    'updatedAt',
                                     'view'
                                 ],
                                 include: [
@@ -78,7 +78,7 @@ module.exports.listSearchUserId = async (offset, limit, userId) => {
                                 where : {
                                     userId : user.id
                                 },
-                                order : [["createdAt", "ASC"]],
+                                order : [["id", "ASC"]],
                                 offset,
                                 limit
                             }
@@ -99,7 +99,7 @@ module.exports.listSearchTitle = async (offset, limit, searchWord) => {
                     attributes : [
                         'id', 
                         'title',
-                        'createdAt',
+                        'updatedAt',
                         'view'
                     ],
                     include: [
@@ -113,7 +113,7 @@ module.exports.listSearchTitle = async (offset, limit, searchWord) => {
                             [Op.like] : `%${searchWord}%`
                         }
                     },
-                    order : [["createdAt", "ASC"]],
+                    order : [["id", "ASC"]],
                     offset,
                     limit
                     
@@ -133,7 +133,7 @@ module.exports.listSearchContent = async (offset, limit, searchWord) => {
                     attributes : [
                         'id', 
                         'title',
-                        'createdAt',
+                        'updatedAt',
                         'view'
                     ],
                     include: [
@@ -147,7 +147,7 @@ module.exports.listSearchContent = async (offset, limit, searchWord) => {
                             [Op.like] : `%${searchWord}%`
                         }
                     },
-                    order : [["createdAt", "ASC"]],
+                    order : [["id", "ASC"]],
                     offset,
                     limit
                     

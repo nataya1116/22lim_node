@@ -163,7 +163,14 @@ left: 50%; */
 .btn-div {
   display: inline-block;
 }
+
 #clickBtn {
+  font-family: "NanumSquareRound-EB";
+  height: 34px;
+  margin-right: 5px;
+}
+
+#search_key {
   font-family: "NanumSquareRound-EB";
   height: 34px;
   margin-right: 5px;

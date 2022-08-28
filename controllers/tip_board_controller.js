@@ -2,7 +2,6 @@ const TipBoardService = require("../service/tip_board_sevice");
 const TipReplyService = require("../service/tip_reply_sevice");
 
 module.exports.list = async (req, res) => {
-    console.log("콘트롤러 list() 호출");
     const pageNum = Number(req.params.page || '1');
     const limit = Number(req.params.perPage || '10');
     let offset = 0;
@@ -57,10 +56,9 @@ module.exports.listSearch = async (req, res) => {
 }
 
 
-module.exports.test = async (req, res) => {
-    console.log("콘트롤러 test() 호출");
-    const count = await TipBoardService.list(0, 10);
+// module.exports.test = async (req, res) => {
+//     const count = await TipBoardService.list(0, 10);
 
-    // res.send(count);
-    res.render("index");
-} 
+//     // res.send(count);
+//     res.render("index");
+// } 

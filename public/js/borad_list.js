@@ -1,3 +1,5 @@
+const { search } = require("../../routers/tip_board_router");
+
 const button = document.querySelector('.button');
 
 button.addEventListener('click', () => {
@@ -6,6 +8,16 @@ button.addEventListener('click', () => {
 });
 
 button.addEventListener('blur', () => {
+  const dropdown = document.querySelector('.dropdown');
+  dropdown.style.display = '';
+});
+
+search_key.addEventListener('click', () => {
+  const dropdown = document.querySelector('.dropdown');
+  dropdown.style.display = 'block';
+});
+
+search_key.addEventListener('blur', () => {
   const dropdown = document.querySelector('.dropdown');
   dropdown.style.display = '';
 });
@@ -203,3 +215,9 @@ console.log(boardManager.getContents());
 // </div>`;
 //   articles.appendChild(newEl);
 // });
+
+
+find-btn.addEventListener("click", () => {
+  const searchKey = search_key.value;
+  console.log(search_key.value);
+});

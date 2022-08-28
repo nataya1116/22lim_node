@@ -128,6 +128,7 @@
                 <tr class="divideIn">
                   <td><%= post.id %></td>
                   <td><a href="/tip_board/read/<%= post.id %>"><%= post.title %></a> </td>
+                  <!-- <td onclick="href='/tip_board/read/<%= post.id %>'"><%= post.title %></td> -->
                   <td><%= post.User.userId %></td>
                   <td><%= post.updatedAt %></td>
                   <td><%= post.view %></td>
@@ -140,7 +141,7 @@
     </div>
     <div class="button-container">
       <div class="btn-div">
-        <select class="button" id="clickBtn">
+        <select class="button" id="search_key">
           <option value="title">제목</option>
           <option value="content">내용</option>
           <option value="userId">작성자</option>
@@ -195,6 +196,6 @@
     <!--[if lte IE 9
       ]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script
     ><![endif]-->
-    <script src="./borad_list.js"></script>
+    <script src="/js/borad_list.js"></script>
   </body>
 </html>
