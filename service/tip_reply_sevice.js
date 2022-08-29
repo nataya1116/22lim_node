@@ -64,7 +64,7 @@ module.exports.delete = async (id) => {
                     [Op.or] : [{
                         id
                     },{
-                        replyId : id // 댓글이 삭제되면 해당 대댓글도 
+                        replyId : id // 댓글이 삭제되면 해당 대댓글도 삭제
                     }]
                 }
             }
