@@ -1,4 +1,5 @@
 const Sequelize = require("sequelize");
+const moment = require("moment");
 
 class TipBoard extends Sequelize.Model {
     static init(sequelize) {
@@ -14,13 +15,34 @@ class TipBoard extends Sequelize.Model {
                     type : Sequelize.TEXT,
                     allowNull : false
                 },
-                views : {
+                view : {
                     type : Sequelize.INTEGER,
                     defaultValue : 0
                 },
                 userId : {
                     type : Sequelize.INTEGER,
                     allowNull : false
+                }
+                ,
+                createdAt : {
+                    type: Sequelize.DATE,
+                    allowNull : false,             
+                  get() {
+                        return moment(this.getDataValue('createdAt')).format('YYYY/MM/DD hh:mm:ss');
+                    }
+                },
+                updatedAt : {
+                    type: Sequelize.DATE,
+                    allowNull : false,
+                    get() {
+                        return moment(this.getDataValue('updatedAt')).format('YYYY/MM/DD hh:mm:ss');
+                    }
+                },
+                deletedAt : {
+                    type: Sequelize.DATE,
+                    get() {
+                        return moment(this.getDataValue('deletedAt')).format('YYYY/MM/DD hh:mm:ss');
+                    }
                 }
             },
             {
@@ -48,6 +70,9 @@ class TipBoard extends Sequelize.Model {
         // N : 1
         db.TipBoard.belongsTo(db.User, { foreignKey: "userId", targetKey: "id" });
     }
+    
 }
+
+
 
 module.exports = TipBoard;

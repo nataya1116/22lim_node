@@ -1,4 +1,5 @@
 const Sequelize = require("sequelize");
+const moment = require("moment");
 
 class PointHistory extends Sequelize.Model {
     static init(sequelize) {
@@ -14,6 +15,20 @@ class PointHistory extends Sequelize.Model {
                 },
                 point : {
                     type : Sequelize.INTEGER
+                },
+                createdAt : {
+                    type: Sequelize.DATE,
+                    allowNull : false,             
+                  get() {
+                        return moment(this.getDataValue('createdAt')).format('YYYY/MM/DD hh:mm:ss');
+                    }
+                },
+                updatedAt : {
+                    type: Sequelize.DATE,
+                    allowNull : false,
+                    get() {
+                        return moment(this.getDataValue('updatedAt')).format('YYYY/MM/DD hh:mm:ss');
+                    }
                 }
 
             },

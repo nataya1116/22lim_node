@@ -26,41 +26,62 @@ const sequelize = new Sequelize(
 const db = {};
 db.sequelize = sequelize;
 
-db.User = User;
 db.Authority = Authority;
+db.ConditionUser = ConditionUser;
+db.User = User;
+
 db.TipBoard = TipBoard;
 db.TipReply = TipReply;
+
 db.Chatting = Chatting;
+
 db.GameSkinProducts = GameSkinProducts;
 db.GameSkinUser = GameSkinUser;
 db.GameSkinWish = GameSkinWish;
 // db.PointTotal = PointTotal;
 db.PointHistory = PointHistory;
 db.PointType = PointType;
-db.ConditionUser = ConditionUser;
-QnaBoard.init(sequelize);
+
+
 
 // 테이블 생성
 Authority.init(sequelize);
+ConditionUser.init(sequelize);
 User.init(sequelize);
+
 TipBoard.init(sequelize);
 TipReply.init(sequelize);
+
 Chatting.init(sequelize);
+
 GameSkinProducts.init(sequelize);
+GameSkinUser.init(sequelize);
+GameSkinWish.init(sequelize);
+
+PointHistory.init(sequelize);
+PointType.init(sequelize);
+
+QnaBoard.init(sequelize);
+
 
 // 테이블간의 관계 설정
 Authority.associate(db);
+ConditionUser.associate(db);
 User.associate(db);
+
 TipBoard.associate(db);
 TipReply.associate(db);
+
 Chatting.associate(db);
+
 GameSkinProducts.associate(db);
 GameSkinUser.associate(db);
 GameSkinWish.associate(db);
+
 // PointTotal.associate(db);
 PointHistory.associate(db);
 PointType.associate(db);
-ConditionUser.associate(db);
+
 QnaBoard.associate(db);
 
 module.exports = db;
