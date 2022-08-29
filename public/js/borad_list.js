@@ -1,16 +1,18 @@
-const button = document.querySelector(".button");
+const button = document.querySelector('.button');
 
-button.addEventListener("click", () => {
-  const dropdown = document.querySelector(".dropdown");
-  dropdown.style.display = "block";
+button.addEventListener('click', () => {
+  const dropdown = document.querySelector('.dropdown');
+  dropdown.style.display = 'block';
 });
 
-button.addEventListener("blur", () => {
-  const dropdown = document.querySelector(".dropdown");
-  dropdown.style.display = "";
+button.addEventListener('blur', () => {
+  const dropdown = document.querySelector('.dropdown');
+  dropdown.style.display = '';
 });
 
-const articles = document.querySelector(".articles");
+
+
+const articles = document.querySelector("#articles");
 // const inConstents = [
 //   {
 //     date: "날짜1",
@@ -88,6 +90,7 @@ const another_constents = [
 ];
 
 class BoardManager {
+
   //class const let 변수 선언
   constructor() {
     this.contents = [];
@@ -150,7 +153,7 @@ const boardManager = new BoardManager();
 
 boardManager.setContents(another_constents);
 
-boardManager.createElement();
+boardManager.createElement()
 
 console.log(boardManager.getContents());
 
