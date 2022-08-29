@@ -44,7 +44,7 @@ app.listen(PORT, () => {
 });
 
 sequelize
-  .sync({ focus: true })
+  .sync({ focus: false })
   .then(() => {
     console.log("DB 연결 성공...");
   })
