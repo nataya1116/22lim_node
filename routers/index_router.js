@@ -1,11 +1,10 @@
 const { express } = require("../modules/common");
+const indexController = require("../controllers/index_controller");
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  // res.render("index");
-  res.render("index");
-});
+router.get("/", indexController.index);
+
 router.get("/board_list", (req, res) => {
   // res.render("index");
   res.render("board_list");

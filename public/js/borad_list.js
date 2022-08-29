@@ -102,7 +102,7 @@ class BoardManager {
 
   createElement() {
     this.contents.forEach(({ number, title, Writer, dateCreated, views }) => {
-      const listTable = document.querySelector(".list_table");
+      const listTable = document.querySelector(".list-table");
 
       const newRow = document.createElement("tr");
       newRow.classList.add("divideIn");
@@ -141,7 +141,7 @@ class BoardManager {
 
       // articles.appendChild(newRow);
 
-      listTable.appendChild(newRow);
+      // listTable.appendChild(newRow);
     });
   }
 }

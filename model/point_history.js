@@ -1,22 +1,20 @@
 const Sequelize = require("sequelize");
 const moment = require("moment");
 
-class Chatting extends Sequelize.Model {
-
-    static init(sequelize){
+class PointHistory extends Sequelize.Model {
+    static init(sequelize) {
         return super.init(
             {
-                userId1 : {
+                userId : {
                     type : Sequelize.INTEGER,
                     allowNull : false
                 },
-                userId2 : {
+                typeId : {
                     type : Sequelize.INTEGER,
                     allowNull : false
                 },
-                url : {
-                    type : Sequelize.STRING,
-                    allowNull : false
+                point : {
+                    type : Sequelize.INTEGER
                 },
                 createdAt : {
                     type: Sequelize.DATE,
@@ -31,32 +29,26 @@ class Chatting extends Sequelize.Model {
                     get() {
                         return moment(this.getDataValue('updatedAt')).format('YYYY/MM/DD hh:mm:ss');
                     }
-                },
-                deletedAt : {
-                    type: Sequelize.DATE,
-                    get() {
-                        return moment(this.getDataValue('deletedAt')).format('YYYY/MM/DD hh:mm:ss');
-                    }
                 }
+
             },
             {
                 sequelize,
                 underscored : true,
-                modelName : "Chatting",
-                tableName : "chatting",
+                modelName : "PointHistory",
+                tableName : "point_history",
                 timestamps : true,
-                paranoid : true,
+                paranoid : false,
                 charset: "utf8",
                 collate: "utf8_general_ci"
             }
         )
     }
-
-    static associate(db) {
+    static associate(db){
         // N : 1
-        db.Chatting.belongsTo(db.User, { foreignKey: "userId1", targetKey: "id" });
-        db.Chatting.belongsTo(db.User, { foreignKey: "userId2", targetKey: "id" });
+        db.PointHistory.belongsTo(db.User, { foreignKey: "userId", targetKey: "id" });
+        db.PointHistory.belongsTo(db.PointType, { foreignKey: "typeId", targetKey: "id" });
     }
 }
 
-module.exports = Chatting;
+module.exports = PointHistory;

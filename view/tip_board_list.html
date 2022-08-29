@@ -11,7 +11,11 @@
     <meta content="Projects" property="twitter:title" />
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta content="Webflow" name="generator" />
-  
+    <!-- <link
+      href="https://assets.website-files.com/5e87e737ee7085b9ba02c101/css/mac-template.webflow.28334f589.css"
+      rel="stylesheet"
+      type="text/css"
+    /> -->
     <link rel="stylesheet" href="/css/common.css" type="text/css">
     <link rel="stylesheet" href="/css/board_list.css" type="text/css">
     <script
@@ -44,7 +48,7 @@
       rel="shortcut icon"
       type="image/x-icon"
     />
-    
+   
   </head>
   <body>
     <div
@@ -89,7 +93,7 @@
     <div class="site-container">
       <div class="section small-section wf-section">
         <div class="container">
-          <h1>Board List</h1>
+          <h1>Tip Boards</h1>
           <div class="subhead"></div>
         </div>
       </div>
@@ -114,61 +118,58 @@
                   <td id="Divide4">작성일</td>
                   <td id="Divide5">조회</td>
                 </tr>
+
+                <% list.forEach((post) => { %>
+
                 <tr class="divideIn">
-                  <td>1</td>
-                  <td>Notice</td>
-                  <td>22lim</td>
-                  <td>2022-08-31</td>
-                  <td>1052</td>
+                  <td><%= post.id %></td>
+                  <td><a href="/tip_board/read/<%= post.id %>"><%= post.title %></a> </td>
+                  <td><%= post.User.userId %></td>
+                  <td><%= post.updatedAt %></td>
+                  <td><%= post.view %></td>
                 </tr>
-                <tr class="divideIn">
-                  <td>2</td>
-                  <td>Notice</td>
-                  <td>22lim</td>
-                  <td>2022-08-31</td>
-                  <td>1052</td>
-                </tr>
-                <tr class="divideIn">
-                  <td>3</td>
-                  <td>Notice</td>
-                  <td>22lim</td>
-                  <td>2022-08-31</td>
-                  <td>1052</td>
-                </tr>
-                <tr class="divideIn">
-                  <td>4</td>
-                  <td>Notice</td>
-                  <td>22lim</td>
-                  <td>2022-08-31</td>
-                  <td>1052</td>
-                </tr>
-              
+                
+                <% })  %>
                </table>
         
 
     </div>
     <div class="button-container">
       <div class="btn-div">
-        <select class="button" id="clickBtn">
-          <option value="">닉네임</option>
-          <option value="">제목</option>
-          <option value="">내용</option>
+        <select class="button" id="search_key">
+          <option value="title" <%=searchKey == "title" ? "selected" : "" %> >제목</option>
+          <option value="content" <%=searchKey == "content" ? "selected" : "" %> >내용</option>
+          <option value="userId" <%=searchKey == "userId" ? "selected" : "" %> >작성자</option>
         </select>
 
       </div>
-      <input id="find-input" type="text">
-      <button id="find-btn">찾기</button>
+      <input id="find_input" type="text" value="<%= searchWord %>">
+      <button id="find_btn" data-limit="<%= limit %>">찾기</button>
+      
     </div>
     <div class="page-nav">
-      <a class="page-info"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAHCAQAAABwkq/rAAAAHUlEQVR42mNgAIPi/8X/kWkwA8SE0UQIMJAsCKMBBzk27fqtkcYAAAAASUVORK5CYII=" alt="처음페이지로 이동"></a>
-      <a class="page-info"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAHCAQAAABqrk9lAAAAGElEQVR42mNgAIPi/8X/4QwwE5PBQJADAAKSG3cyVhtXAAAAAElFTkSuQmCC" alt="이전페이지 이동 아이콘"></a>
-      <a class="page-info">1</a>
-      <a class="page-info">2</a>
-      <a class="page-info">3</a>
-      <a class="page-info">4</a>
-      <a class="page-info">5</a>
-      <a class="page-info"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAHCAQAAABqrk9lAAAAGUlEQVR42mMo/l/8nwECQEwCHEwGhAlRBgA2mht3SwgzrwAAAABJRU5ErkJggg==" alt="다음페이지 이동"></a>
-      <a class="page-info"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAHCAQAAABwkq/rAAAAIElEQVR42mMo/l/8n4GBgQFGQ5kgDowmQZCwAMImhDkAb0k27Zcisn8AAAAASUVORK5CYII=" alt="마지막 페이지 이동"></a>
+      <a class="page-info" 
+        href="/tip_board/list/1/<%= limit %><%= searchKey != '' ? '/'+searchKey : '' %><%= searchWord != '' ? '/'+searchWord : '' %>">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAHCAQAAABwkq/rAAAAHUlEQVR42mNgAIPi/8X/kWkwA8SE0UQIMJAsCKMBBzk27fqtkcYAAAAASUVORK5CYII=" alt="처음페이지로 이동">
+      </a>
+      <a class="page-info" 
+        href="/tip_board/list/<%= pageNum > 1 ? pageNum - 1 : 1 %>/<%= limit %><%= searchKey != '' ? '/'+searchKey : '' %><%= searchWord != '' ? '/'+searchWord : '' %>">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAHCAQAAABqrk9lAAAAGElEQVR42mNgAIPi/8X/4QwwE5PBQJADAAKSG3cyVhtXAAAAAElFTkSuQmCC" alt="이전페이지 이동 아이콘">
+      </a>
+
+      <% for( let i = 1; i <= totalPage; i++) {%>
+      <a class="page-info"  href="/tip_board/list/<%= i %>/<%= limit %><%= searchKey != '' ? '/'+searchKey : '' %><%= searchWord != '' ? '/'+searchWord : '' %>" ><%= i %></a>
+      <% } %>
+
+
+      <a class="page-info"
+      href="/tip_board/list/<%= pageNum < totalPage ? pageNum + 1 : totalPage %>/<%= limit %><%= searchKey != '' ? '/'+searchKey : '' %><%= searchWord != '' ? '/'+searchWord : '' %>">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAHCAQAAABqrk9lAAAAGUlEQVR42mMo/l/8nwECQEwCHEwGhAlRBgA2mht3SwgzrwAAAABJRU5ErkJggg==" alt="다음페이지 이동">
+      </a>
+      <a class="page-info"
+        href="/tip_board/list/<%= totalPage %>/<%= limit %><%= searchKey != '' ? '/'+searchKey : '' %><%= searchWord != '' ? '/'+searchWord : '' %>">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAHCAQAAABwkq/rAAAAIElEQVR42mMo/l/8n4GBgQFGQ5kgDowmQZCwAMImhDkAb0k27Zcisn8AAAAASUVORK5CYII=" alt="마지막 페이지 이동">
+      </a>
     </div>
     <div class="footer-section wf-section">
       <div class="container">
@@ -190,6 +191,6 @@
     <!--[if lte IE 9
       ]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script
     ><![endif]-->
-    <script src="./borad_list.js"></script>
+    <script src="/js/borad_list.js"></script>
   </body>
 </html>

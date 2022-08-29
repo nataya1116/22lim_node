@@ -1,4 +1,5 @@
 const Sequelize = require("sequelize");
+const moment = require("moment");
 
 class User extends Sequelize.Model {
     static init(sequelize) {
@@ -15,6 +16,10 @@ class User extends Sequelize.Model {
                 userPw : {
                     type : Sequelize.STRING(100),
                     allowNull : false,
+                },
+                userName : {
+                    type : Sequelize.STRING(100),
+                    allowNull : false, 
                 },
                 phone : {
                     type : Sequelize.STRING(11),
@@ -42,6 +47,30 @@ class User extends Sequelize.Model {
                 authorityId : {
                     type : Sequelize.INTEGER,
                     allowNull : false
+                },
+                conditionId : {
+                    type : Sequelize.INTEGER,
+                    allowNull : false
+                },
+                createdAt : {
+                    type: Sequelize.DATE,
+                    allowNull : false,             
+                  get() {
+                        return moment(this.getDataValue('createdAt')).format('YYYY/MM/DD hh:mm:ss');
+                    }
+                },
+                updatedAt : {
+                    type: Sequelize.DATE,
+                    allowNull : false,
+                    get() {
+                        return moment(this.getDataValue('updatedAt')).format('YYYY/MM/DD hh:mm:ss');
+                    }
+                },
+                deletedAt : {
+                    type: Sequelize.DATE,
+                    get() {
+                        return moment(this.getDataValue('deletedAt')).format('YYYY/MM/DD hh:mm:ss');
+                    }
                 }
             },
             {
@@ -52,7 +81,7 @@ class User extends Sequelize.Model {
                 modelName : "User",
                 // 테이블 이름 설정
                 tableName : "users",
-                // 생성 및 수정 컬럼 생성
+                // 생성 및 수정 컬럼 생성(update_at을 로그인 시간으로 해도 될 듯)
                 timestamps : true, 
                 // 삭제 컬럼 생성
                 paranoid : true,
@@ -65,11 +94,22 @@ class User extends Sequelize.Model {
     static associate(db) {
         // 1 : N
         db.User.hasMany(db.TipBoard, { foreignKey: "userId", sourceKey: "id" });
+        db.User.hasMany(db.TipReply, { foreignKey: "userId", sourceKey: "id" });
+
+        db.User.hasMany(db.GameSkinUser, { foreignKey: "userId", sourceKey: "id" });
+        db.User.hasMany(db.GameSkinWish, { foreignKey: "userId", sourceKey: "id" });
+
         db.User.hasMany(db.Chatting, { foreignKey: "userId1", sourceKey: "id" });
         db.User.hasMany(db.Chatting, { foreignKey: "userId2", sourceKey: "id" });
 
+        db.User.hasMany(db.PointHistory, { foreignKey: "userId", sourceKey: "id" });
+
+        // 1 : 1
+        // db.User.hasOne(db.PointTotal, { foreignKey: "userId", sourceKey: "id" });
+
         // N : 1
-        db.User.belongsTo(db.Authority, { foreignKey: "authorityId", sourceKey: "id" });
+        db.User.belongsTo(db.Authority, { foreignKey: "authorityId", targetKey: "id" });
+        db.User.belongsTo(db.ConditionUser, { foreignKey: "conditionId", targetKey: "id" });
 
       }
 
