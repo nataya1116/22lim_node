@@ -2383,14 +2383,14 @@ blockquote {
   align-items: center;
 }
 
-.logo-wrapper:hover {
+/* .logo-wrapper:hover {
   background-color: #000;
-}
+} */
 
 /* .logo-wrapper.w--current {
-    padding-right: 20px;
-    padding-left: 20px;
-  } */
+  padding-right: 20px;
+  padding-left: 20px;
+} */
 
 .quick-links-wrapper {
   position: relative;
@@ -2438,7 +2438,6 @@ blockquote {
   border: 4px solid #000;
   background-color: #fff;
   box-shadow: 8px 8px 0 0 #000;
-  height: 500px;
 }
 
 .modal-wrapper.project {
@@ -2807,8 +2806,7 @@ blockquote {
 }
 
 .logo {
-  width: 44px;
-  height: 44px;
+  width: 80px;
 }
 
 .footer {

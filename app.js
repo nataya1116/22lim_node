@@ -6,7 +6,6 @@ const { sequelize } = require("./model");
 
 const userRouter = require("./routers/user_router");
 const indexRouter = require("./routers/index_router");
-
 const app = express();
 
 const PORT = 4000;
