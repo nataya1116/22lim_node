@@ -84,7 +84,7 @@ a,
     height: 100%;
   }
 }
-#text_box {
+.text_box {
   margin-top: 25px;
   border: solid 3px black;
   /* margin-left: 50px; */

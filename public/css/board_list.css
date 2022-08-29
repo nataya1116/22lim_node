@@ -163,13 +163,13 @@ left: 50%; */
 .btn-div {
   display: inline-block;
 }
-#clickBtn {
+.clickBtn {
   font-family: "NanumSquareRound-EB";
   height: 34px;
   margin-right: 5px;
 }
 
-#find-btn {
+.find-btn {
   border: solid 1px rgb(109, 109, 109);
   font-family: "NanumSquareRound-EB";
   width: 45px;
