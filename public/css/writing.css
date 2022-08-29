@@ -7,32 +7,7 @@
 html {
   font-size: 62.5%;
 }
-html,
-body,
-.site-container {
-  cursor: url("https://assets.website-files.com/5e87e737ee7085b9ba02c101/5e8a415aacdbb524713eb277_cursor.png"),
-    auto;
-  cursor: -webkit-image-set(
-      url("https://assets.website-files.com/5e87e737ee7085b9ba02c101/5e8a415aacdbb524713eb277_cursor.png")
-        1x,
-      url("https://assets.website-files.com/5e87e737ee7085b9ba02c101/5e8a415acce5fbb114b18c35_cursor%402x.png")
-        2x
-    ),
-    auto;
-}
-a,
-.dropdown-toggle,
-.button {
-  cursor: url("https://assets.website-files.com/5e87e737ee7085b9ba02c101/5e8a4a6206f67059bcd497ce_cursor-pointer.png"),
-    auto;
-  cursor: -webkit-image-set(
-      url("https://assets.website-files.com/5e87e737ee7085b9ba02c101/5e8a4a6206f67059bcd497ce_cursor-pointer.png")
-        1x,
-      url("https://assets.website-files.com/5e87e737ee7085b9ba02c101/5e8a4a62ab1cf8419ea62647_cursor-pointer%402x.png")
-        2x
-    ),
-    auto;
-}
+
 /*width*/
 .site-container::-webkit-scrollbar {
   width: 14px;

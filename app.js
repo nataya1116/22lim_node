@@ -21,8 +21,6 @@ app.set("view engine", "html");
 // html의 뷰 엔진을 ejs 랜더링 방식으로 바꾼다.
 app.engine("html", ejs.renderFile);
 
-
-
 app.use(express.urlencoded({ extended: false }));
 
 // public 폴더 내의 폴더 및 파일들의 경로를 절대경로로 호출할 수 있게 처리
