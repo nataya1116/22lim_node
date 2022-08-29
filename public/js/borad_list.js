@@ -1,16 +1,14 @@
-const button = document.querySelector('.button');
-
-button.addEventListener('click', () => {
-  const dropdown = document.querySelector('.dropdown');
-  dropdown.style.display = 'block';
+const button = document.querySelector(".button");
+const pageInfo = document.querySelector(".page-info");
+button.addEventListener("click", () => {
+  const dropdown = document.querySelector(".dropdown");
+  dropdown.style.display = "block";
 });
 
-button.addEventListener('blur', () => {
-  const dropdown = document.querySelector('.dropdown');
-  dropdown.style.display = '';
+button.addEventListener("blur", () => {
+  const dropdown = document.querySelector(".dropdown");
+  dropdown.style.display = "";
 });
-
-
 
 const articles = document.querySelector("#articles");
 // const inConstents = [
@@ -90,7 +88,6 @@ const another_constents = [
 ];
 
 class BoardManager {
-
   //class const let 변수 선언
   constructor() {
     this.contents = [];
@@ -153,7 +150,7 @@ const boardManager = new BoardManager();
 
 boardManager.setContents(another_constents);
 
-boardManager.createElement()
+boardManager.createElement();
 
 console.log(boardManager.getContents());
 
@@ -203,3 +200,8 @@ console.log(boardManager.getContents());
 // </div>`;
 //   articles.appendChild(newEl);
 // });
+
+pageInfo.onclick = function () {
+  if (pageInfo.value === 1) {
+  }
+};
