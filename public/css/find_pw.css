@@ -1,0 +1,26 @@
+.find-pw div {
+  margin: 15px;
+  border: 4px solid black;
+  /* background-color: solid 1px rgb(109, 109, 109); */
+}
+.find-pw div input {
+  background-color: solid 1px rgb(109, 109, 109);
+}
+.pw-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.certi-btn1 {
+  position: absolute;
+}
+.certi-btn2 {
+  position: absolute;
+}
+.find-btn a {
+  text-decoration: none;
+}
+.body-pwchange {
+  display: flex;
+  justify-content: center;
+}

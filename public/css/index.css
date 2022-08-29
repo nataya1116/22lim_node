@@ -164,7 +164,7 @@ html {
     display: -ms-flexbox;
     display: flex;
     width: 550px;
-    height: 650px;
+    height: 750px;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
     -webkit-flex-direction: column;
@@ -180,3 +180,8 @@ html {
     margin-bottom: 30px;
 }
 /* LOGIN 추가 CSS END*/
+.check-pw{
+  font-family: "Baloo Thambi 2";
+  font-weight: bold;
+  font-size: 2rem;
+}
