@@ -1,9 +1,9 @@
-const { TipBoard, User, sequelize } = require("../model/index");
+const { TipBoard, TipReply, User, sequelize } = require("../model/index");
 const Op = require("sequelize").Op;
 
 module.exports.count = async () => {
     try {
-        return User.count();
+        return TipBoard.count();
     } catch (err) {
         console.error(err);
     }
@@ -56,6 +56,7 @@ module.exports.view = async (offset) => {
                         model : User 
                     }
                 ],
+                order : [["id", "DESC"]],
                 offset,
                 limit : 1
             }
@@ -83,7 +84,7 @@ module.exports.list = async (offset, limit) => {
                            }
                     ]
                     ,
-                    order : [["id", "ASC"]],
+                    order : [["id", "DESC"]],
                     offset,
                     limit
                 }
@@ -126,7 +127,7 @@ module.exports.listSearchUserId = async (offset, limit, userId) => {
                                 where : {
                                     userId : user.id
                                 },
-                                order : [["id", "ASC"]],
+                                order : [["id", "DESC"]],
                                 offset,
                                 limit
                             }
@@ -161,7 +162,7 @@ module.exports.listSearchTitle = async (offset, limit, searchWord) => {
                             [Op.like] : `%${searchWord}%`
                         }
                     },
-                    order : [["id", "ASC"]],
+                    order : [["id", "DESC"]],
                     offset,
                     limit
                     
@@ -195,7 +196,7 @@ module.exports.listSearchContent = async (offset, limit, searchWord) => {
                             [Op.like] : `%${searchWord}%`
                         }
                     },
-                    order : [["id", "ASC"]],
+                    order : [["id", "DESC"]],
                     offset,
                     limit
                     
@@ -224,16 +225,33 @@ module.exports.update = async ({id, title, content}) => {
     }
 }
 
+
 module.exports.delete = async (id) => {
+
     try {
-        TipBoard.destroy(
-            {
-                where : { id }
-            }
-        )
+        // 게시글이 삭제되면 댓글도 함께 삭제된다.
+        await sequelize.transaction(async (t) => {
+
+            TipBoard.destroy(
+                {
+                    where : { id },
+                    transaction: t
+                }
+            );
+            
+        await TipReply.destroy(
+                {
+                    where : { boardId : id },
+                    transaction: t
+                }
+            )
+
+        });
+    
     } catch (err) {
-        
+        console.log(err);
     }
+
 }
 
 module.exports.updateViewsCount = async (id) => {

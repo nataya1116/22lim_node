@@ -73,17 +73,3 @@ module.exports.delete = async (id) => {
         console.error(err);
     }
 }
-
-module.exports.deletePost = async (boardId) => {
-    try {
-        TipReply.destroy(
-            {
-                where : { 
-                    boardId
-                }
-            }
-        )
-    } catch (err) {
-        console.error(err);
-    }
-}

@@ -130,8 +130,11 @@
                 </div>
 
                 <div class="con-data">
-                  <div> <a onclick="">수정</a></div>
-                  <div> <a onclick="">삭제</a></div>
+                  <!-- 작성자와 현재 로그인되어 있는 유저가 같을 경우에만 수정과 삭제 버튼을 보여준다 -->
+                <% if(post.User.userId == userId) { %>
+                  <div> <a href="/tip_board/update/<%= id %>/<%= offset %>">수정</a></div>
+                  <div> <a href="/tip_board/delete/<%= id %>">삭제</a></div>
+                <% } %>
                   <div><%= post.createdAt %></div>
                   <div>조회수 <%= post.view %></div>
                   <div>작성자 <%= post.User.userId %></div>
@@ -221,8 +224,12 @@
         class="section wf-section bottom-menu">
        <!-- --------------------------------------------------------------------------- -->
        <div class="list-guid">
-        <div class="bfr-list">↑ &nbsp; 이전글<a>이전글 제목</a></div>
-        <div class="nxt-list">↓ &nbsp; 다음글<a>다음글 제목</a></div>
+        <% if (offset < postNum -1 ) {%>
+        <div class="bfr-list">↑ &nbsp;<a href="/tip_board/read/<%= offset+1 %>">이전글</a></div>
+        <% } %>
+        <% if (offset >= 1 ) {%>
+        <div class="nxt-list">↓ &nbsp;<a href="/tip_board/read/<%= offset-1 %>">다음글</a></div>
+        <% } %>
        </div>
         </div>
       </div>
