@@ -90,7 +90,7 @@
     <div class="site-container">
       <div class="section small-section wf-section">
         <div class="container">
-          <h1>QnA <span class="bord-list">게시판</span></h1>
+          <h1>Tip Board</h1>
           <div></div>
         </div>
       </div>
@@ -103,15 +103,15 @@
                 <div class="button-circle"></div>
               </div>
               <div class="flex-center">
-                <div>제목란</div>
-                <div>-pdf</div>
+                <div><%= post.title %></div>
+                <div>.html</div>
               </div>
             </div>
-            <div
+            <!-- <div
               style="
                 background-image: url('https://img.insight.co.kr/static/2017/12/15/700/urq74d7vvw0llfq33gjy.jpg');
               "
-              class="modal-thumbnail large"></div>
+              class="modal-thumbnail large"></div> -->
             <div class="modal-body">
               <div class="w-embed">
                 <style>
@@ -125,20 +125,19 @@
                 </style>
               </div>
               <div class="container-width-medium">
-                <h1>5 Web Design Blogs You Should Be Reading</h1>
+                <h1><%= post.title %></h1>
                 <div class="rich-text-block w-richtext">
                   <p>
-                    Rerum voluptas inventore tempore ullam dolor cum ut magnam.
-                    Tempore dolor eius. Ut et voluptatem. Sit officiis rerum. Ut
-                    commodi natus et et. Porro eligendi sed rem quia molestias
-                    vero. Mollitia maxime illum voluptas repellat rem recusandae
-                    quibusdam. Quod nemo quaerat qui unde atque. Enim commodi
-                    amet enim nisi pariatur dignissimos quae saepe enim.
+                    <%= post.content %>
                   </p>
                 </div>
+
                 <div class="con-data">
-                  <div>2022.04.06</div>
-                  <div>조회수<a>5</a></div>
+                  <div> <a onclick=""> 수정</a></div>
+                  <div>삭제</div>
+                  <div><%= post.createdAt %></div>
+                  <div>조회수 <%= post.view %></div>
+                  <div>작성자 <%= post.User.userId %></div>
                 </div>
               </div>
             </div>

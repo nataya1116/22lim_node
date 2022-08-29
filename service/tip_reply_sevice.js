@@ -1,4 +1,5 @@
 const { TipReply, User, sequelize } = require("../model/index");
+const Op = require("sequelize").Op;
 
 module.exports.create = async ({userId, boardId, replyId, content}) => {
     try {
@@ -22,7 +23,7 @@ module.exports.list = async (boardId) => {
     try {
         return await TipReply.findAll(
                 {
-                    attributes : ['id', 'content', 'updatedAt'],
+                    attributes : ['id', 'replyId', 'content', 'createdAt'],
                     include: [
                         {
                          attributes : ['userId'],  
@@ -59,7 +60,27 @@ module.exports.delete = async (id) => {
     try {
         TipReply.destroy(
             {
-                where : { id }
+                where : { 
+                    [Op.or] : [{
+                        id
+                    },{
+                        replyId : id // 댓글이 삭제되면 해당 대댓글도 
+                    }]
+                }
+            }
+        )
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+module.exports.deletePost = async (boardId) => {
+    try {
+        TipReply.destroy(
+            {
+                where : { 
+                    boardId
+                }
             }
         )
     } catch (err) {

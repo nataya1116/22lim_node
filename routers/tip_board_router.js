@@ -4,6 +4,8 @@ const router = express.Router();
 
 const tipBoardController = require("../controllers/tip_board_controller");
 
+router.get("/list", tipBoardController.list);
+
 router.get("/list/:page/:perPage/", tipBoardController.list);
 
 router.get("/list/:page/:perPage/:searchKey/:searchWord", tipBoardController.listSearch);

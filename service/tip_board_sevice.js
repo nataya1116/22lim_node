@@ -1,6 +1,14 @@
 const { TipBoard, User, sequelize } = require("../model/index");
 const Op = require("sequelize").Op;
 
+module.exports.count = async () => {
+    try {
+        return User.count();
+    } catch (err) {
+        console.error(err);
+    }
+}
+
 module.exports.create = async ({userId, title, content}) => {
     try {
         User.findOne({
@@ -22,9 +30,15 @@ module.exports.read = async (id) => {
     try {
         return TipBoard.findOne(
             {
-                where : {
-                    id
-                }
+                include: [
+                    {
+                     attributes : ['userId'],  
+                     model : User 
+                    }
+                ]
+                ,where : {
+                        id
+                    }
             }
         )
     } catch (err) {
@@ -40,7 +54,7 @@ module.exports.list = async (offset, limit) => {
                     attributes : [
                         'id', 
                         'title',
-                        'updatedAt',
+                        'createdAt',
                         'view'
                     ],
                     include: [
@@ -80,7 +94,7 @@ module.exports.listSearchUserId = async (offset, limit, userId) => {
                                 attributes : [
                                     'id', 
                                     'title',
-                                    'updatedAt',
+                                    'createdAt',
                                     'view'
                                 ],
                                 include: [
@@ -114,7 +128,7 @@ module.exports.listSearchTitle = async (offset, limit, searchWord) => {
                     attributes : [
                         'id', 
                         'title',
-                        'updatedAt',
+                        'createdAt',
                         'view'
                     ],
                     include: [
@@ -148,7 +162,7 @@ module.exports.listSearchContent = async (offset, limit, searchWord) => {
                     attributes : [
                         'id', 
                         'title',
-                        'updatedAt',
+                        'createdAt',
                         'view'
                     ],
                     include: [

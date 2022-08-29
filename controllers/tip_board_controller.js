@@ -61,8 +61,9 @@ module.exports.listSearch = async (req, res) => {
 module.exports.read = async (req, res) => {
     const id = req.params.id;
     const post = await TipBoardService.read(id);
-
-    res.render("tip_board_view", { post });
+    const postNum = await TipBoardService.count();
+    const reply = await TipReplyService.list(id);
+    res.render("tip_board_view", { post, postNum, reply });
 }
 
 
