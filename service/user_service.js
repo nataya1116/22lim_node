@@ -48,6 +48,7 @@ module.exports.findPw = async (userId) => {
   }
 };
 
+// 마이페이지 수정 DB 조회
 module.exports.userMyPage = async (userId) => {
   try {
     return await User.findOne({

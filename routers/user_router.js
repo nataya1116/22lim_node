@@ -3,6 +3,7 @@ const { express } = require("../modules/common");
 const router = express.Router();
 
 const userController = require("../controllers/user_controller");
+const { query } = require("express");
 
 router.get("/login2", (req, res) => {
   res.render("login");
@@ -13,6 +14,7 @@ router.get("/login", (req, res) => {
 });
 
 router.get("/signup", (req, res) => {
+  console.log(req);
   res.render("signup");
 });
 

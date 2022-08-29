@@ -43,8 +43,12 @@ module.exports.login = async (req, res) => {
   }
 };
 
+// 마이페이지(수정 페이지)------------------------------
 module.exports.userMyPageEdit = async (req, res) => {
+  // userMyPage의 매개변수로 아이디를 넣어주면 된다
+  // 나중에 데이터에서 가져올 유저의 아이디 값을 주면 됨
   UserService.userMyPage("temp").then((e) => {
+    // render의 두번째 매개변수로 받아올 데이터?...
     res.render("mypage_edit", { data: e });
   });
 };

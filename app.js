@@ -6,8 +6,11 @@ const { sequelize } = require("./model");
 
 const userRouter = require("./routers/user_router");
 const indexRouter = require("./routers/index_router");
+<<<<<<< HEAD
 const tipBoardRouter = require("./routers/tip_board_router");
 
+=======
+>>>>>>> jinny
 const app = express();
 
 const PORT = 4000;
