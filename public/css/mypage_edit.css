@@ -9,10 +9,6 @@ html {
   font-size: 62.5%;
 }
 
-html {
-  font-size: 62.5%;
-}
-
 /*width*/
 .site-container::-webkit-scrollbar {
   width: 14px;
