@@ -142,8 +142,7 @@ a,
 }
 .feedback {
   font-family: "NanumSquareRound-B";
-  /* overflow: hidden; */
-  /* display: none; */
+  display: none;
   margin-top: 10px;
   margin-left: 10px;
   width: 50vw;
