@@ -6,11 +6,8 @@ const { sequelize } = require("./model");
 
 const userRouter = require("./routers/user_router");
 const indexRouter = require("./routers/index_router");
-<<<<<<< HEAD
 const tipBoardRouter = require("./routers/tip_board_router");
 
-=======
->>>>>>> jinny
 const app = express();
 
 const PORT = 4000;
@@ -23,8 +20,6 @@ app.set("view engine", "html");
 
 // html의 뷰 엔진을 ejs 랜더링 방식으로 바꾼다.
 app.engine("html", ejs.renderFile);
-
-
 
 app.use(express.urlencoded({ extended: false }));
 
@@ -57,8 +52,7 @@ sequelize
   })
   .catch((err) => {
     console.error(err);
-})
-
+  });
 
 // const TipBoardService = require("./service/tip_board_sevice");
 // const TipReplyService = require("./service/tip_reply_sevice");
@@ -85,32 +79,32 @@ sequelize
 //   title : "tqtqtq4",
 //   content : "tqtqtqtertqter"
 // })
-    // TipBoardService.update({
-    //     id : 1,
-    //     title : "tqtqtq",
-    //     content : "tqtqtqtertqter"
-    // })
-    // TipBoardService.delete(
-    //     5
-    // )
-    // const count = await TipBoardService.list(0, 10);
-    // console.log(count[0].updatedAt.getTime())
-    // res.send(count);
+// TipBoardService.update({
+//     id : 1,
+//     title : "tqtqtq",
+//     content : "tqtqtqtertqter"
+// })
+// TipBoardService.delete(
+//     5
+// )
+// const count = await TipBoardService.list(0, 10);
+// console.log(count[0].updatedAt.getTime())
+// res.send(count);
 
-    // TipReplyService.create({
-    //     userId : "tt",
-    //     boardId : 1,
-    //     replyId : 1,
-    //     content : "ㅅㄷㄳㅂㄷㅅㅄtqtqtqtertqter"
-    // }) ;
-    // TipReplyService.update({
-    //     id : 1,
-    //     content : "행복행복"
-    // })
+// TipReplyService.create({
+//     userId : "tt",
+//     boardId : 1,
+//     replyId : 1,
+//     content : "ㅅㄷㄳㅂㄷㅅㅄtqtqtqtertqter"
+// }) ;
+// TipReplyService.update({
+//     id : 1,
+//     content : "행복행복"
+// })
 
-    // TipReplyService.delete(4);
-    // const count = await TipReplyService.readList(1);
-    // // console.log(count[0].updatedAt.getTime())
-    // res.send(count);
-    // res.render("board_list");
+// TipReplyService.delete(4);
+// const count = await TipReplyService.readList(1);
+// // console.log(count[0].updatedAt.getTime())
+// res.send(count);
+// res.render("board_list");
 // });

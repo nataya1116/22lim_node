@@ -13,7 +13,7 @@
 
     <!-- @@@@@@@@@ CSS 파일 START @@@@@@@@@-->
     <link href="css/common.css" rel="stylesheet" type="text/css" />
-    <link href="css/mypage.css" rel="stylesheet" type="text/css" />
+    <link href="css/mypage_edit.css" rel="stylesheet" type="text/css" />
     <!-- @@@@@@@@@ CSS 파일 START @@@@@@@@@-->
 
     <link
@@ -105,20 +105,20 @@
                       <span>character</span>
                       <div class="character-skin">
                         <div class="character">
-                          <img src="/public/img/HC_Service_Dogs.png" alt="">
+                          <img src="/img/HC_Service_Dogs.png" alt="">
                         </div>
                         <!-- 나중에 이부분 ejs 형식으로 바꿔줘야함 -->
                         <button class="edit-skin-btn">스킨 변경</button>
                       </div>
-                      <div class="id-box"><%= e.userId %></div>
+                      <div class="id-box"><%= data.userId %></div>
                     </div>
                     <div class="info-box">
                       <label for="">pw</label>
                       <button class="change-pw-btn">비밀번호 변경하기</button>
                       <label for="">email</label>
-                      <input type="text" class="text-box" value="<%= e.email %>" />
+                      <input type="text" class="text-box" value="<%= data.email %>" />
                       <label for="">phone</label>
-                      <input type="text" class="text-box" value="<%= e.phone %>" />
+                      <input type="text" class="text-box" value="<%= data.phone %>" />
                     </div>
                 </div>
                 <div class="writing">

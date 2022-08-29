@@ -32,5 +32,3 @@ router.get("/shop", (req, res) => {
 router.post("/login", userController.login);
 
 module.exports = router;
-
-
