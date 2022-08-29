@@ -2383,14 +2383,14 @@ blockquote {
   align-items: center;
 }
 
-.logo-wrapper:hover {
+/* .logo-wrapper:hover {
   background-color: #000;
-}
+} */
 
 /* .logo-wrapper.w--current {
-    padding-right: 20px;
-    padding-left: 20px;
-  } */
+  padding-right: 20px;
+  padding-left: 20px;
+} */
 
 .quick-links-wrapper {
   position: relative;
@@ -2806,8 +2806,7 @@ blockquote {
 }
 
 .logo {
-  width: 44px;
-  height: 44px;
+  width: 80px;
 }
 
 .footer {
@@ -3239,3 +3238,4 @@ blockquote {
 }
 
 /* HEADER 추가 CSS END*/
+>>>>>>> jinny

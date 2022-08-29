@@ -48,15 +48,6 @@
   font-size: 15px;
   font-weight: bolder;
 }
-.chat-border::-webkit-scrollbar {
-  width: 10px;
-}
-.chat-border::-webkit-scrollbar-thumb {
-  background-color: #2f3542;
-}
-.chat-border::-webkit-scrollbar-track {
-  background-color: grey;
-}
 .chet-box {
   /* 세로 스크롤 구현 */
   overflow-x: hidden;

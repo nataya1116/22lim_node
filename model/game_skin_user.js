@@ -1,4 +1,5 @@
 const Sequelize = require("sequelize");
+const moment = require("moment");
 
 class GameSkinUser extends Sequelize.Model {
     static init(sequelize) {
@@ -16,6 +17,26 @@ class GameSkinUser extends Sequelize.Model {
                     type : Sequelize.BOOLEAN,
                     allowNull : false,
                     defaultValue : false,
+                },
+                createdAt : {
+                    type: Sequelize.DATE,
+                    allowNull : false,             
+                  get() {
+                        return moment(this.getDataValue('createdAt')).format('YYYY/MM/DD hh:mm:ss');
+                    }
+                },
+                updatedAt : {
+                    type: Sequelize.DATE,
+                    allowNull : false,
+                    get() {
+                        return moment(this.getDataValue('updatedAt')).format('YYYY/MM/DD hh:mm:ss');
+                    }
+                },
+                deletedAt : {
+                    type: Sequelize.DATE,
+                    get() {
+                        return moment(this.getDataValue('deletedAt')).format('YYYY/MM/DD hh:mm:ss');
+                    }
                 }
             },
             {

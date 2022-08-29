@@ -9,5 +9,4 @@ nds.onclick = function () {
 
 exitBtn.onclick = function () {
   mainBox.style.zIndex = -1;
-  location.reload("mainBox");
 };
