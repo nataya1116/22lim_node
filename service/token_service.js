@@ -29,5 +29,5 @@ module.exports.createRefreshToken = (userId) => {
                 );
 }
 
-// module.exports.checkToken = 
+// module.exports.CheckToken = 
 

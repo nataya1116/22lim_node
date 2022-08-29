@@ -19,4 +19,3 @@ $(".click-to-top").click(function () {
   });
   $(this).css("z-index", topZ + 1);
 });
-

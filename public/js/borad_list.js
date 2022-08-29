@@ -1,24 +1,14 @@
 const button = document.querySelector('.button');
 
-// button.addEventListener('click', () => {
-//   const dropdown = document.querySelector('.dropdown');
-//   dropdown.style.display = 'block';
-// });
+button.addEventListener('click', () => {
+  const dropdown = document.querySelector('.dropdown');
+  dropdown.style.display = 'block';
+});
 
-// button.addEventListener('blur', () => {
-//   const dropdown = document.querySelector('.dropdown');
-//   dropdown.style.display = '';
-// });
-
-// search_key.addEventListener('click', () => {
-//   const dropdown = document.querySelector('.dropdown');
-//   dropdown.style.display = 'block';
-// });
-
-// search_key.addEventListener('blur', () => {
-//   const dropdown = document.querySelector('.dropdown');
-//   dropdown.style.display = '';
-// });
+button.addEventListener('blur', () => {
+  const dropdown = document.querySelector('.dropdown');
+  dropdown.style.display = '';
+});
 
 
 
@@ -115,7 +105,7 @@ class BoardManager {
 
   createElement() {
     this.contents.forEach(({ number, title, Writer, dateCreated, views }) => {
-      const listTable = document.querySelector(".list-table");
+      const listTable = document.querySelector(".list_table");
 
       const newRow = document.createElement("tr");
       newRow.classList.add("divideIn");
@@ -154,7 +144,7 @@ class BoardManager {
 
       // articles.appendChild(newRow);
 
-      // listTable.appendChild(newRow);
+      listTable.appendChild(newRow);
     });
   }
 }
@@ -213,20 +203,3 @@ console.log(boardManager.getContents());
 // </div>`;
 //   articles.appendChild(newEl);
 // });
-
-
-find_btn.addEventListener("click", () => {
-
-  const searchKey = search_key.value;
-  const searchWord = find_input.value;
-  const limit = find_btn.dataset.limit;
-
-  const form = document.createElement("form");
-  
-  form.method = "get";
-  form.action = `/tip_board/list/1/${limit}/${searchKey}/${searchWord}`;
-
-  document.body.appendChild(form);
-
-  form.submit();
-});

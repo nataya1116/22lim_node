@@ -1,5 +1,4 @@
 const Sequelize = require("sequelize");
-const moment = require("moment");
 
 class TipReply extends Sequelize.Model {
     static init(sequelize) {
@@ -15,32 +14,12 @@ class TipReply extends Sequelize.Model {
                 },
                 boardId : {
                     type : Sequelize.INTEGER,
-                    allowNull : false
+                    allowNull : true
                 },
                 replyId : {
                     type : Sequelize.INTEGER,
                     allowNull : true
                 },
-                createdAt : {
-                    type: Sequelize.DATE,
-                    allowNull : false,             
-                  get() {
-                        return moment(this.getDataValue('createdAt')).format('YYYY/MM/DD hh:mm:ss');
-                    }
-                },
-                updatedAt : {
-                    type: Sequelize.DATE,
-                    allowNull : false,
-                    get() {
-                        return moment(this.getDataValue('updatedAt')).format('YYYY/MM/DD hh:mm:ss');
-                    }
-                },
-                deletedAt : {
-                    type: Sequelize.DATE,
-                    get() {
-                        return moment(this.getDataValue('deletedAt')).format('YYYY/MM/DD hh:mm:ss');
-                    }
-                }
             },
             {
                 sequelize,

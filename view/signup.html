@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <!-- This site was created in Webflow. http://www.webflow.com --><!-- Last Published: Sun Jun 07 2020 16:12:30 GMT+0000 (Coordinated Universal Time) -->
 <html
+  data-wf-domain="mac-template.webflow.io"
   data-wf-page="5e96271775cfea35cf33d77b"
   data-wf-site="5e87e737ee7085b9ba02c101">
   <head>
@@ -10,12 +11,12 @@
     <meta content="Contact" property="twitter:title" />
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta content="Webflow" name="generator" />
-    <link rel="stylesheet" href="/css/common.css" type="text/css" />
-    <link rel="stylesheet" href="/css/signup.css" type="text/css" />
-    <link rel="stylesheet" href="/css/chat_ui.css" />
+    <link rel="stylesheet" href="/public/css/common.css" type="text/css" />
+    <link rel="stylesheet" href="/public/css/signup.css" type="text/css" />
+    <link rel="stylesheet" href="/public/css/chat_ui.css" />
     <link
       rel="stylesheet"
-      href="/css/floating-button.css"
+      href="/public/css/floating-button.css"
       type="text/css" />
     <script
       src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"
@@ -41,10 +42,12 @@
       })(window, document);
     </script>
     <link
-      href="/img/22lim-logo.svg"
+      href="https://assets.website-files.com/5e87e737ee7085b9ba02c101/5e8d5452f5d16a49aca4c850_mac-fav.png"
       rel="shortcut icon"
       type="image/x-icon" />
-    
+    <link
+      href="https://assets.website-files.com/img/webclip.png"
+      rel="apple-touch-icon" />
   </head>
   <body>
     <div
@@ -59,11 +62,11 @@
         href="/"
         aria-current="page"
         class="logo-wrapper w-nav-brand w--current"
-        ><img src="/img/22lim-logo.svg" alt="Mac Logo" class="logo"
+        ><img src="/public/img/22lim_home_logo.svg" alt="Mac Logo" class="logo"
       /></a>
 
       <nav role="navigation" class="nav-menu w-nav-menu">
-        <a class="nav-link w-nav-link">Game</a>
+        <a class="nav-link w-nav-link">Game </a>
 
         <a class="nav-link w-nav-link">Products </a>
 
@@ -106,22 +109,14 @@
                   <!-- 이따 여기 메인 -->
 
                   <div class="join-main">
-                    <input type="text" placeholder="이름(실명)">
+                    <input type="text" placeholder="e-mail" />
                     <div class="id-div">
-                      <input type="text" placeholder="아이디" />
+                      <input type="text" placeholder="id" />
                       <button class="check-id">중복확인</button>
                     </div>
-                    <input type="password" placeholder="비밀번호" />
-                    <input type="password" placeholder="비밀번호 확인" />
-                    <input type="tel" placeholder="핸드폰 번호" />
-                    <div class="email-div">
-                      <input type="text" placeholder="이메일" />
-                      <button class="check-email">메일인증</button>
-                    </div>
-                    <div class="num-div">
-                      <input type="text"placeholder="인증번호 확인" >
-                      <button class="check-num">인증확인</button>
-                    </div>
+                    <input type="password" placeholder="pw" />
+                    <input type="password" placeholder="pw check" />
+                    <input type="tel" placeholder="phone" />
                   </div>
                   <button class="yes-btn">완료</button>
                 </div>
@@ -138,21 +133,21 @@
         </div>
       </div>
       <!-- ----------------------------------button 부분------------------------------------ -->
-      <div class="container-floating">
+      <div id="container-floating">
         <!-- <div class="nd4 nds">
         <img class="reminder" />
         <p class="letter">C</p>
-        </div>
+      </div>
 
-        <div class="nd3 nds">
+      <div class="nd3 nds">
         <img
           class="reminder"
           src="//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/1x/ic_reminders_speeddial_white_24dp.png" />
-        </div> -->
+      </div> -->
         <div class="nd1 nds">
           <p class="letter">💬</p>
         </div>
-        <div class="floating-button">
+        <div id="floating-button">
           <p class="plus">+</p>
           <div class="edit">😀</div>
           <!-- 이미지로 넣어도 됨 -->
@@ -189,7 +184,7 @@
         </div>
      </div>
     </div>
-    <script src="/js/chat_ui.js"></script>
+    <script src="/public/js/chat_ui.js"></script>
     <script
       src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.4.1.min.220afd743d.js?site=5e87e737ee7085b9ba02c101"
       type="text/javascript"
