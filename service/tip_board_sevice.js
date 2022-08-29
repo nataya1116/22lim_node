@@ -46,6 +46,25 @@ module.exports.read = async (id) => {
     }
 }
 
+module.exports.view = async (offset) => {
+    try {
+        return await TipBoard.findAll(
+            {
+                include: [
+                    {
+                        attributes : ['userId'],  
+                        model : User 
+                    }
+                ],
+                offset,
+                limit : 1
+            }
+        )
+    } catch (err) {
+        console.error(err);
+    }
+}
+
 module.exports.list = async (offset, limit) => {
     try {
         return await TipBoard.findAndCountAll(

@@ -119,17 +119,23 @@
                   <td id="Divide5">조회</td>
                 </tr>
 
-                <% list.forEach((post) => { %>
+                <% for( let i = 0; i < list.length; i++) {%>
+                      <% const post = list[i] %>
 
-                <tr class="divideIn">
-                  <td><%= post.id %></td>
-                  <td><a href="/tip_board/read/<%= post.id %>"><%= post.title %></a> </td>
-                  <td><%= post.User.userId %></td>
-                  <td><%= post.createdAt %></td>
-                  <td><%= post.view %></td>
-                </tr>
-                
-                <% })  %>
+                      <% let offset = i; %>
+                      <% if( pageNum > 1 ) { %>
+                        <% offset += 10 * (pageNum - 1); %>
+                      <% } %>
+
+                      <tr class="divideIn">
+                        <td><%= post.id %></td>
+                        <td><a href="/tip_board/read/<%= post.id %>/<%= offset %>"><%= post.title %></a> </td>
+                        <!-- <td><a href="/tip_board/read/<%= post.id %>"><%= post.title %></a> </td> -->
+                        <td><%= post.User.userId %></td>
+                        <td><%= post.updatedAt %></td>
+                        <td><%= post.view %></td>
+                      </tr>
+                <% }  %>
                </table>
         
 
