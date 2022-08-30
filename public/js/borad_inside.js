@@ -100,6 +100,12 @@ function createReply(offset, userId, boardId, content) {
   form.submit();
 }
 
-function replyUpdate(updateBtn, saveBtn, upateInput) {
+function replyUpdate(updateBtn, saveBtn, updateInput) {
+  updateBtn.style.display = 'none';
+  saveBtn.style.display = 'block';
+  updateInput.style.display = 'block';
+}
+
+function replySave(id, content){
   
 }
