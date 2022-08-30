@@ -106,6 +106,7 @@ function replyUpdate(updateBtn, content, saveBtn, updateInput ) {
   content.style.display = 'none';
   saveBtn.style.display = 'block';
   updateInput.style.display = 'block';
+  updateInput.focus();
 }
 
 function replySave(offset, id, content){
