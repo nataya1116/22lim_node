@@ -12,7 +12,9 @@ router.get("/login", (req, res) => {
   res.render("login");
 });
 
+// 회원가입창
 router.get("/signup", (req, res) => {
+  // console.log(req);
   res.render("signup");
 });
 

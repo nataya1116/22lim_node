@@ -6,7 +6,7 @@
 >
   <head>
     <meta charset="utf-8" />
-    <title>Projects</title>
+    <title>22Lim Games</title>
     <meta content="Projects" property="og:title" />
     <meta content="Projects" property="twitter:title" />
     <meta content="width=device-width, initial-scale=1" name="viewport" />
@@ -14,6 +14,10 @@
   
     <link rel="stylesheet" href="/css/common.css" type="text/css">
     <link rel="stylesheet" href="/css/board_list.css" type="text/css">
+    <link
+    rel="stylesheet"
+    href="/css/floating-button.css"
+    type="text/css" />
     <script
       src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"
       type="text/javascript"
@@ -99,7 +103,10 @@
       >
         <div class="container">
           <div class="w-dyn-list list-box">
-            <div id="articles" role="list" class="grid-column w-dyn-items">
+            <div class="text-div">
+              <button class="text-btn"><a href="/view/writing.html">글쓰기</a></button>
+            </div>
+            <div role="list" class="grid-column w-dyn-items articles">
              <!-- 여기 기점 부터 리스트 -->
                
                <table class="list-table">
@@ -108,11 +115,11 @@
                     <div class="button-circle"></div>
                     <div class="button-circle"></div>
                   </div> -->
-                  <td id="Divide1">번호</td>
-                  <td id="Divide2">제목</td>
-                  <td id="Divide3">작성자</td>
-                  <td id="Divide4">작성일</td>
-                  <td id="Divide5">조회</td>
+                  <td>번호</td>
+                  <td>제목</td>
+                  <td>작성자</td>
+                  <td>작성일</td>
+                  <td>조회</td>
                 </tr>
                 <tr class="divideIn">
                   <td>1</td>
@@ -149,15 +156,15 @@
     </div>
     <div class="button-container">
       <div class="btn-div">
-        <select class="button" id="clickBtn">
+        <select class="button clickBtn">
           <option value="">닉네임</option>
           <option value="">제목</option>
           <option value="">내용</option>
         </select>
 
       </div>
-      <input id="find-input" type="text">
-      <button id="find-btn">찾기</button>
+      <input class="find-input" type="text">
+      <button class="find-btn">찾기</button>
     </div>
     <div class="page-nav">
       <a class="page-info"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAHCAQAAABwkq/rAAAAHUlEQVR42mNgAIPi/8X/kWkwA8SE0UQIMJAsCKMBBzk27fqtkcYAAAAASUVORK5CYII=" alt="처음페이지로 이동"></a>
@@ -169,6 +176,26 @@
       <a class="page-info">5</a>
       <a class="page-info"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAHCAQAAABqrk9lAAAAGUlEQVR42mMo/l/8nwECQEwCHEwGhAlRBgA2mht3SwgzrwAAAABJRU5ErkJggg==" alt="다음페이지 이동"></a>
       <a class="page-info"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAHCAQAAABwkq/rAAAAIElEQVR42mMo/l/8n4GBgQFGQ5kgDowmQZCwAMImhDkAb0k27Zcisn8AAAAASUVORK5CYII=" alt="마지막 페이지 이동"></a>
+    </div>
+    <div class="container-floating">
+      <!-- <div class="nd4 nds">
+      <img class="reminder" />
+      <p class="letter">C</p>
+      </div>
+
+      <div class="nd3 nds">
+      <img
+        class="reminder"
+        src="//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/1x/ic_reminders_speeddial_white_24dp.png" />
+      </div> -->
+      <div class="nd1 nds">
+        <p class="letter">💬</p>
+      </div>
+      <div class="floating-button">
+        <p class="plus">+</p>
+        <div class="edit">😀</div>
+        <!-- 이미지로 넣어도 됨 -->
+      </div>
     </div>
     <div class="footer-section wf-section">
       <div class="container">
