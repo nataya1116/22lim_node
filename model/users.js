@@ -18,7 +18,7 @@ class User extends Sequelize.Model {
                     allowNull : false,
                 },
                 userName : {
-                    type : Sequelize.STRING(100),
+                    type : Sequelize.STRING(50),
                     allowNull : false, 
                 },
                 phone : {

@@ -132,8 +132,8 @@
                 <div class="con-data">
                   <!-- 작성자와 현재 로그인되어 있는 유저가 같을 경우에만 수정과 삭제 버튼을 보여준다 -->
                 <% if(post.User.userId == userId) { %>
-                  <div> <a href="/tip_board/update/<%= id %>/<%= offset %>">수정</a></div>
-                  <div> <a href="/tip_board/delete/<%= id %>">삭제</a></div>
+                  <div> <a href="/tip_board/update/<%= post.id %>/<%= offset %>">수정</a></div>
+                  <div> <a href="/tip_board/delete/<%= post.id %>">삭제</a></div>
                 <% } %>
                   <div><%= post.createdAt %></div>
                   <div>조회수 <%= post.view %></div>
@@ -150,71 +150,61 @@
                   id="text_box"
                   placeholder="댓글을 남겨주세요~/" />
                 <div id="text_btn">
-                  <button>저장</button>
-                  <button>취소</button>
+                  <button onclick="replyCreate(<%= offset %>, <%= userId %>, <%= post.id %>, null, text_box.value )">저장</button>
+                  <!-- <button>취소</button> -->
                 </div>
               </div>
               <div class="cm-content">
-                <div class="writer">
-                  <div>작성자</div>
-                  <div class="write-day">2022.05.27</div>
-                </div>
-                <div class="wr-comment">댓글내용</div>
-                <div class="reply-box">
-                  <a role="button">
-                    <div class="check-feedback" onclick="checkFeed()">
-                      <strong>답글 </strong><span>2</span>
-                    </div>
-                    <div class="feedback">
-                      <label class="retext-box">
-                        <textarea
-                          class="retext"
-                          rows="3"
-                          cols="30"
-                          placeholder="답글을 달아주세요"></textarea>
+              <% for(let ri = 0; ri < replyList.length; ri++) { %>
+                  <% const reply = replyList[ri]; %>
+                  <% if ( reply.replyId == null ) { %>
+                    <div class="writer">
+                      <div><%= reply.User.userId %></div>
 
-                        <button class="re-svaebtn">저장</button>
-                      </label>
-                      <div class="feedback-num">
-                        <div class="user-day">
-                          <span>작성자</span>
-                          <span>2022.05.78</span>
-                        </div>
-                        <div class="recomment">
-                          <div>작성내용</div>
-                          <div class="re-button">
-                            <button>수정</button>
-                            <button>삭제</button>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="feedback-num">
-                        <div class="user-day">
-                          <span>작성자</span>
-                          <span>2022.05.78</span>
-                        </div>
-                        <div class="recomment">
-                          <div>작성내용</div>
-                          <div class="re-button">
-                            <button>수정</button>
-                            <button>삭제</button>
-                          </div>
-                        </div>
+                      <div class="write-day"><%= reply.createdAt %></div>
+                      &nbsp;&nbsp;
+                      <div class="re-button">
+                        <button>수정</button>
+                        <button>삭제</button>
                       </div>
                     </div>
-                  </a>
-                  <div>
-                    <a>
-                      <span>👍</span>
-                      <em>58</em></a
-                    >
-                    <a>
-                      <span>👎</span>
-                      <em>38</em>
-                    </a>
-                  </div>
-                </div>
-              </div>
+                    <div class="wr-comment" onclick="nestedReplyView('replyLabel'<%= reply.id %>)"><%= reply.content %></div>
+
+                    <label class="retext-box" id="replyLabel<%= reply.id %>" style="display: none;">
+                      <textarea
+                        id="replyTextarea<%= reply.id %>"
+                        class="retext"
+                        rows="3"
+                        cols="30"
+                        placeholder="답글을 달아주세요"></textarea>
+
+                      <button class="re-svaebtn" onclick="replyCreate(<%= offset %>, <%= userId %>, <%= post.id %>, <%= reply.id %>, replyTextarea<%= reply.id %>.innerHTML )" >저장</button>
+                    </label>
+                    <% for(let ni = 0; ni < replyList.length; ni++) { %>
+                      <% const nestedReply = replyList[ni]; %>
+                      <% if (reply.id == nestedReply.replyId) { %>
+                        <div class="feedback-num">
+                          <div class="user-day">
+                            <span><%= nestedReply.User.userId %></span>
+                            <span><%= nestedReply.createdAt %></span>
+                          </div>
+                          <div class="recomment">
+                            <div><%= nestedReply.content %></div>
+                            <div class="re-button">
+                              <button>수정</button>
+                              <button>삭제</button>
+                            </div>
+                          </div>
+                        </div>
+                      <% } %>
+                    <% } %>
+
+                  <% } %>
+
+              <% } %>
+
+              </div> <!-- <div class="cm-content"> END-->
+            
             </div>
           </div>
         </div>
@@ -249,7 +239,7 @@
     <script
       src="https://assets.website-files.com/5e87e737ee7085b9ba02c101/js/webflow.be692164d.js"
       type="text/javascript"></script>
-    <script src="/js/borad_list.js"></script>
+    <!-- <script src="/js/borad_list.js"></script> -->
     <script src="/js/borad_inside.js"></script>
     <!--[if lte IE 9
       ]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script

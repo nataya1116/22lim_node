@@ -61,25 +61,25 @@ module.exports.listSearch = async (req, res) => {
 
 module.exports.view = async (req, res) => {
     const offset  = Number(req.params.offset);
-    const result = await TipBoardService.view(offset);
+    const result = await TipBoardService.viewOffset(offset);
     
     const post = result[0];
-        console.log(post);
     const id = post.dataValues.id;
 
 
     const postNum = await TipBoardService.count();
-    const reply = await TipReplyService.list(id);
+    const replyList = await TipReplyService.list(id);
 
-    // res.render("tip_board_view", { post, postNum, reply, offset });
+    // res.render("tip_board_view", { post, postNum, replyList, offset });
 
     //                                                           임시로 아이디 값 삽입
-    res.render("tip_board_view", { id, offset, post, postNum, reply, offset, userId : "temp" });
+    res.render("tip_board_view", { offset, post, postNum, replyList, offset, userId : "temp" });
 }
 
-module.exports.update = async (req, res) => {
+module.exports.updatePrint = async (req, res) => {
     const { id, offset } = req.body;
     
+    res.render("tip_board_update");
 }
 
 module.exports.delete = async (req, res) => {

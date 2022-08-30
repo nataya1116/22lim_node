@@ -26,7 +26,7 @@ module.exports.create = async ({userId, title, content}) => {
     }
 }
 
-module.exports.read = async (id) => {
+module.exports.viewId = async (id) => {
     try {
         return TipBoard.findOne(
             {
@@ -46,7 +46,7 @@ module.exports.read = async (id) => {
     }
 }
 
-module.exports.view = async (offset) => {
+module.exports.viewOffset = async (offset) => {
     try {
         return await TipBoard.findAll(
             {

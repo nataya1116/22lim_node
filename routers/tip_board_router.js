@@ -10,7 +10,7 @@ router.get("/list/:page/:perPage/:searchKey/:searchWord", tipBoardController.lis
 
 router.get("/read/:offset", tipBoardController.view);
 
-router.get("/update/:id/:offset", tipBoardController.update);
+router.get("/update/:id/:offset", tipBoardController.updatePrint);
 
 router.get("/delete/:id/", tipBoardController.delete)
 
