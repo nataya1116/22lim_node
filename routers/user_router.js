@@ -3,7 +3,6 @@ const { express } = require("../modules/common");
 const router = express.Router();
 
 const userController = require("../controllers/user_controller");
-const { query } = require("express");
 
 router.get("/login2", (req, res) => {
   res.render("login");
@@ -13,8 +12,9 @@ router.get("/login", (req, res) => {
   res.render("login");
 });
 
+// 회원가입창
 router.get("/signup", (req, res) => {
-  console.log(req);
+  // console.log(req);
   res.render("signup");
 });
 
