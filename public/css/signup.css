@@ -135,6 +135,12 @@ html {
   margin-top: 30px;
   padding: 0px;
 }
+.id-div input:nth-of-type(1) {
+  border: transparent;
+  width: 100px;
+  font-size: 16px;
+  margin: 0px;
+}
 .email-div {
   display: flex;
   align-items: center;
@@ -145,12 +151,6 @@ html {
   font-family: "NanumSquareRound-R";
   margin-top: 30px;
   padding: 0px;
-}
-.id-div input:nth-of-type(1) {
-  border: transparent;
-  width: 100px;
-  font-size: 16px;
-  margin: 0px;
 }
 .email-div input:nth-of-type(1) {
   border: transparent;
@@ -178,13 +178,32 @@ html {
   background-color: #000000;
   color: #ffffff;
 }
-.num-check {
-  position: absolute;
-  font-size: 12px;
-  margin-left: 305px;
-  margin-top: 470px;
+.num-div {
+  display: flex;
+  align-items: center;
+  border: 4px solid black;
+  font-size: 16px;
+  min-width: 300px;
+  font-size: 16px;
+  font-family: "NanumSquareRound-R";
+  margin-top: 30px;
+  padding: 0px;
 }
-.num-check:hover {
+.num-div input:nth-of-type(1) {
+  border: transparent;
+  width: 100px;
+  font-size: 16px;
+  margin: 0px;
+}
+
+.check-num {
+  font-family: "NanumSquareRound-B";
+  font-size: 12px;
+  height: 25px;
+  margin-right: 5px;
+}
+
+.check-num:hover {
   background-color: #000000;
   color: #ffffff;
 }
