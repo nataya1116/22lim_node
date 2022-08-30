@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 
-class QnaBoard extends Sequelize.Model {
+class Writing extends Sequelize.Model {
   static init(sequelize) {
     return super.init(
       {
@@ -37,9 +37,9 @@ class QnaBoard extends Sequelize.Model {
         // 스네이크(ex user_date) 표기법으로 변경
         underscored: true,
         // 모델 이름 설정
-        modelName: "QnaBoard",
+        modelName: "Writing",
         // 테이블 이름 설정
-        tableName: "qna_board",
+        tableName: "writing",
         // 생성 및 수정 컬럼 생성
         timestamps: true,
         // 삭제 컬럼 생성
@@ -52,13 +52,13 @@ class QnaBoard extends Sequelize.Model {
 
   static associate(db) {
     // 1 : N
-    db.QnaBoard.hasMany(db.TipReply, {
+    db.Writing.hasMany(db.TipReply, {
       foreignKey: "boardId",
       sourceKey: "id",
     });
     // N : 1
-    db.QnaBoard.belongsTo(db.User, { foreignKey: "userId", sourceKey: "id" });
+    db.Writing.belongsTo(db.User, { foreignKey: "userId", sourceKey: "id" });
   }
 }
 
-module.exports = QnaBoard;
+module.exports = Writing;
