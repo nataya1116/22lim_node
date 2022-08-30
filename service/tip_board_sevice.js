@@ -3,7 +3,7 @@ const Op = require("sequelize").Op;
 
 module.exports.count = async () => {
     try {
-        return TipBoard.count();
+        return await TipBoard.count();
     } catch (err) {
         console.error(err);
     }
@@ -11,7 +11,7 @@ module.exports.count = async () => {
 
 module.exports.create = async ({userId, title, content}) => {
     try {
-        User.findOne({
+        await User.findOne({
             where : { userId }
         }).then((user) => {
             TipBoard.create(
@@ -28,7 +28,7 @@ module.exports.create = async ({userId, title, content}) => {
 
 module.exports.viewId = async (id) => {
     try {
-        return TipBoard.findOne(
+        return await TipBoard.findOne(
             {
                 include: [
                     {
@@ -209,7 +209,7 @@ module.exports.listSearchContent = async (offset, limit, searchWord) => {
 
 module.exports.update = async ({id, title, content}) => {
     try {
-        TipBoard.update(
+        await TipBoard.update(
             {
                 title, 
                 content
@@ -256,7 +256,7 @@ module.exports.delete = async (id) => {
 
 module.exports.updateViewsCount = async (id) => {
     try {
-        TipBoard.increment(
+        await TipBoard.increment(
             {
                 view : 1
             },
@@ -264,6 +264,20 @@ module.exports.updateViewsCount = async (id) => {
                 where : { id }
             }
         )
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+
+module.exports.create = async ({userId, title, content}) => {
+    try {
+        await TipBoard.create(
+                {
+                    userId,
+	        title, 
+                    content
+                });
     } catch (err) {
         console.error(err);
     }
