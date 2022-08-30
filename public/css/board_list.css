@@ -76,13 +76,13 @@ html {
 
 .list-table {
   font-family: "NanumSquareRound-R";
-  border: solid 1px black;
+  border: solid 4px black;
   background-color: white;
   border-left: rgba(0, 0, 0, 1);
   border-right: rgba(0, 0, 0, 1);
 }
 .Divide {
-  border-bottom: 1px solid black;
+  border-bottom: 4px solid black;
   background: #c4c4c4;
 }
 .Divide td {
@@ -102,15 +102,16 @@ html {
   align-items: center;
   margin-top: 15px;
   justify-content: flex-end;
+  margin-bottom: 30px;
 }
 
 .button {
   display: flex;
   align-items: center;
   background: white;
-  border: 1px solid grey;
-  padding: 3px 20px 3px 20px;
-  font-size: 15px;
+  border: 4px solid black;
+  padding: 4px 20px 4px 20px;
+  font-size: 16px;
   cursor: pointer;
   outline: none;
 }
@@ -124,7 +125,7 @@ left: 50%; */
   /* transform: translateX(-50%); */
 
   width: 100px;
-  border: 1px solid grey;
+  border: 4px solid black;
 }
 
 .dropdown-item {
@@ -139,31 +140,35 @@ left: 50%; */
   display: inline-block;
 }
 
-#clickBtn {
+.clickBtn {
   font-family: "NanumSquareRound-EB";
   height: 34px;
   margin-right: 5px;
 }
 
-#search_key {
+.search_key {
   font-family: "NanumSquareRound-EB";
   height: 34px;
   margin-right: 5px;
 }
 
-#find-btn {
-  border: solid 1px rgb(109, 109, 109);
-  font-family: "NanumSquareRound-EB";
-  width: 45px;
+.find-btn {
+  border: solid 4px black;
+  font-family: "NanumSquareRound-B";
+  width: 68px;
   height: 34px;
   margin-left: 5px;
   font-weight: bold;
   font-size: 14.995px;
 }
+.find-btn:hover {
+  background-color: #000000;
+  color: #ffffff;
+}
 .footer {
   flex-direction: column-reverse;
 }
-#footer-text {
+.footer-text {
   margin-top: 100px;
   margin-left: 20%;
 }
@@ -180,4 +185,30 @@ left: 50%; */
 .page-nav {
   display: flex;
   justify-content: center;
+}
+.text-div {
+  text-align: right;
+}
+.text-div button {
+  font-family: "NanumSquareRound-B";
+  font-size: 14.995px;
+  border: 4px solid black;
+  margin-bottom: 10px;
+}
+.text-div button a {
+  text-decoration: none;
+}
+.text-div button:hover {
+  background-color: #000000;
+  color: #ffffff;
+}
+.text-div button a:hover {
+  color: #ffffff;
+}
+.find-input {
+  border: 4px solid black;
+  height: 34px;
+}
+.page-info {
+  cursor: pointer;
 }

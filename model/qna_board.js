@@ -52,7 +52,7 @@ class QnaBoard extends Sequelize.Model {
 
   static associate(db) {
     // 1 : N
-    db.QnaBoard.hasMany(db.TipReply, {
+    db.QnaBoard.hasMany(db.QnaReply, {
       foreignKey: "boardId",
       sourceKey: "id",
     });
