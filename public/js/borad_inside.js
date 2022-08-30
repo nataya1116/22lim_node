@@ -68,6 +68,7 @@ function createReplyNested(offset, userId, boardId, replyId, content) {
 }
 
 function createReply(offset, userId, boardId, content) {
+  console.log(offset, userId, boardId, content);
   const form = document.createElement("form");
   form.method = "post";
   form.action = `/tip_reply/create`;
@@ -100,12 +101,36 @@ function createReply(offset, userId, boardId, content) {
   form.submit();
 }
 
-function replyUpdate(updateBtn, saveBtn, updateInput) {
+function replyUpdate(updateBtn, content, saveBtn, updateInput ) {
   updateBtn.style.display = 'none';
+  content.style.display = 'none';
   saveBtn.style.display = 'block';
   updateInput.style.display = 'block';
 }
 
-function replySave(id, content){
-  
+function replySave(offset, id, content){
+  const form = document.createElement("form");
+  form.method = "post";
+  form.action = `/tip_reply/update`;
+  document.body.appendChild(form);
+
+  const offsetInput = document.createElement("input");
+  offsetInput.type = "hidden";
+  offsetInput.name = "offset"
+  offsetInput.value = offset;
+  form.appendChild(offsetInput);
+
+  const idInput = document.createElement("input");
+  idInput.type = "hidden";
+  idInput.name = "id"
+  idInput.value = id;
+  form.appendChild(idInput);
+
+  const contentInput = document.createElement("input");
+  contentInput.type = "hidden";
+  contentInput.name = "content"
+  contentInput.value = content;
+  form.appendChild(contentInput);
+
+  form.submit();
 }

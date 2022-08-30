@@ -56,7 +56,7 @@ module.exports.list = async (boardId) => {
     }
 }
 
-module.exports.update = async ({id, content}) => {
+module.exports.update = async (id, content) => {
     try {
         TipReply.update(
             {
