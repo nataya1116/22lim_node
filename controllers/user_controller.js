@@ -17,30 +17,33 @@ module.exports.loginTmp = async (req, res) => {
   }
 };
 
-module.exports.login = async (req, res) => {
-  const id = req.body.user_id;
-  const pw = req.body.user_pw;
+// 회원가입
+module.exports.signUp =
+  // 로그인
+  module.exports.login = async (req, res) => {
+    const id = req.body.user_id;
+    const pw = req.body.user_pw;
 
-  const resultPw = await UserService.login(id);
+    const resultPw = await UserService.login(id);
 
-  const isLogin = EncryptionService.isPwCheck(pw, resultPw);
+    const isLogin = EncryptionService.isPwCheck(pw, resultPw);
 
-  if (resultPw && isLogin) {
-    const accessToken = TokenService.createAccessToken(id);
-    const refreshToken = TokenService.createRefreshToken(id);
+    if (resultPw && isLogin) {
+      const accessToken = TokenService.createAccessToken(id);
+      const refreshToken = TokenService.createRefreshToken(id);
 
-    req.session.access_Token = accessToken;
-    req.session.refresh_Token = refreshToken;
+      req.session.access_Token = accessToken;
+      req.session.refresh_Token = refreshToken;
 
-    UserService.updateRefreshToken(id, refreshToken);
+      UserService.updateRefreshToken(id, refreshToken);
 
-    // console.log(req.session);
+      // console.log(req.session);
 
-    res.redirect("/");
-  } else {
-    res.redirect("/login");
-  }
-};
+      res.redirect("/");
+    } else {
+      res.redirect("/login");
+    }
+  };
 
 // 마이페이지(수정 페이지)------------------------------
 module.exports.userMyPageEdit = async (req, res) => {
