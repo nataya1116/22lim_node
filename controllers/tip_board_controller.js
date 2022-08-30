@@ -66,7 +66,7 @@ module.exports.view = async (req, res) => {
     const post = result[0];
     const id = post.dataValues.id;
 
-
+    console.log(post);
     const postNum = await TipBoardService.count();
     const replyList = await TipReplyService.list(id);
 
@@ -76,10 +76,24 @@ module.exports.view = async (req, res) => {
     res.render("tip_board_view", { offset, post, postNum, replyList, offset, userId : "temp" });
 }
 
+module.exports.update = async (req, res) => {
+    const id = Number(req.body.id);
+    const offset= Number(req.body.offset);
+    const { title, content } = req.body;
+
+    await TipBoardService.update({id, title, content});
+
+    res.redirect("/tip_board/read/"+offset);
+}
+
 module.exports.updatePrint = async (req, res) => {
-    const { id, offset } = req.body;
-    
-    res.render("tip_board_update");
+    const id = Number(req.params.id);
+    const offset= Number(req.params.offset);
+    // console.log(id, offset);
+    const post = await TipBoardService.viewId(id);
+    // const post = result[0];
+    // console.log(result);
+    res.render("tip_board_update", { offset, post, userId : "temp" });
 }
 
 module.exports.delete = async (req, res) => {

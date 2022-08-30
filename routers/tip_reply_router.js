@@ -2,17 +2,17 @@ const { express } = require("../modules/common");
 
 const router = express.Router();
 
-const tipReplyController = require("../controllers/tip_reply_controller");
+const TipReplyController = require("../controllers/tip_reply_controller");
 
-router.post("/create",tipReplyController.create);
+router.post("/create",TipReplyController.create);
 
-router.post("/create_nested",tipReplyController.createNested);
+router.post("/create_nested",TipReplyController.createNested);
 
-router.post("/update", tipReplyController.update);
+router.post("/update", TipReplyController.update);
 
-// router.get("/update/:id/:offset", tipReplyController.updatePrint);
+// router.get("/update/:id/:offset", TipReplyController.updatePrint);
 
-router.get("/delete/:id/:offset", tipReplyController.delete)
+router.get("/delete/:id/:offset", TipReplyController.delete)
 
 
 

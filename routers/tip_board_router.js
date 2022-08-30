@@ -2,21 +2,23 @@ const { express } = require("../modules/common");
 
 const router = express.Router();
 
-const tipBoardController = require("../controllers/tip_board_controller");
+const TipBoardController = require("../controllers/tip_board_controller");
 
-router.get("/list/:page/:perPage/", tipBoardController.list);
+router.post("/update", TipBoardController.update);
 
-router.get("/list/:page/:perPage/:searchKey/:searchWord", tipBoardController.listSearch);
+router.get("/list/:page/:perPage/", TipBoardController.list);
 
-router.get("/read/:offset", tipBoardController.view);
+router.get("/list/:page/:perPage/:searchKey/:searchWord", TipBoardController.listSearch);
 
-router.get("/update/:id/:offset", tipBoardController.updatePrint);
+router.get("/read/:offset", TipBoardController.view);
 
-router.get("/delete/:id/", tipBoardController.delete)
+router.get("/update/:id/:offset", TipBoardController.updatePrint);
+
+router.get("/delete/:id/", TipBoardController.delete)
 
 // router.get("/test/:tq", (req, res) => {
 //     console.log("router test호출하는 부분");
-//     tipBoardController.test(req, res);
+//     TipBoardController.test(req, res);
 // });
 
 module.exports = router;

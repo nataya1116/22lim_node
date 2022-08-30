@@ -90,8 +90,8 @@
     <div class="site-container">
       <div class="section small-section wf-section">
         <div class="container">
-          <h1>게시판</h1>
-          <div class="subhead">Beep boop bop.</div>
+          <h1>Tip Boards</h1>
+          <div class="subhead"></div>
         </div>
       </div>
       <div
@@ -111,13 +111,20 @@
                 <div class="dropdown">
                   Tip Board
                 </div>
-                 <input id="Title_writ" type="text" style="padding-left:15px ;" value="">
+                <form action="/tip_board/update" method="post">
+                  <input type="hidden" name="id" value="<%= post.id %>" >
+                  <input type="hidden" name="offset" value="<%= offset %>" >
+
+                  <input id="Title_writ" type="text" name="title" style="padding-left:15px ;" value="<%= post.title %>">
                   <div class="modal-body">
                     <div>
-                    <textarea id="in_writ"type="text" style="padding:20px ;"></textarea>
+                    <textarea id="in_writ" type="text" name="content" style="padding:20px ;"><%= post.content %></textarea>
                     </div>
                   </div>
-                  <button id="saveBtn">수정</button>
+                <% if(userId == post.User.userId) { %>
+                  <button type="submit" id="saveBtn">수정</button>
+                <% } %>
+              </form>
               </div>
 
               </div>
@@ -163,7 +170,7 @@
       src="https://assets.website-files.com/5e87e737ee7085b9ba02c101/js/webflow.be692164d.js"
       type="text/javascript"
     ></script>
-    <script src="./membership.js"></script>
+    <!-- <script src="/js/membership.js"></script> -->
     <!--[if lte IE 9
       ]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script
     ><![endif]-->
