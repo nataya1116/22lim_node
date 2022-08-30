@@ -11,7 +11,7 @@ module.exports.list = async (req, res) => {
         offset = 10 * (pageNum - 1);
     }
     const result = await TipBoardService.list(offset, limit);
-
+    console.log(result);
     const list = result.rows
     const postNum = result.count;
     const totalPage = Math.ceil( postNum / limit );
@@ -49,26 +49,42 @@ module.exports.listSearch = async (req, res) => {
             result = await TipBoardService.list(offset, limit);
             break;
     }
-
+    console.log(result);
     const list = result.rows;
     const postNum = result.count;
 
     const totalPage = Math.ceil( postNum / limit );
 
-    res.render("tip_board_list", { list , totalPage , pageNum, limit, searchKey, searchWord });
+    res.render( "tip_board_list", { list , totalPage , pageNum, limit, searchKey, searchWord });
+
 }
 
-module.exports.read = async (req, res) => {
-    const id = req.params.id;
-    const post = await TipBoardService.read(id);
+module.exports.view = async (req, res) => {
+    const offset  = Number(req.params.offset);
+    const result = await TipBoardService.viewOffset(offset);
+    
+    const post = result[0];
+    const id = post.dataValues.id;
 
-    res.render("tip_board_view", { post });
+
+    const postNum = await TipBoardService.count();
+    const replyList = await TipReplyService.list(id);
+
+    // res.render("tip_board_view", { post, postNum, replyList, offset });
+
+    //                                                           임시로 아이디 값 삽입
+    res.render("tip_board_view", { offset, post, postNum, replyList, offset, userId : "temp" });
 }
 
+module.exports.updatePrint = async (req, res) => {
+    const { id, offset } = req.body;
+    
+    res.render("tip_board_update");
+}
 
-// module.exports.test = async (req, res) => {
-//     const count = await TipBoardService.list(0, 10);
+module.exports.delete = async (req, res) => {
+    const id = Number(req.params.id);
+    await TipBoardService.delete(id);
 
-//     // res.send(count);
-//     res.render("index");
-// } 
+    res.redirect("/tip_board/list/1/10");
+}

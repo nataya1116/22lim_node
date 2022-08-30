@@ -18,7 +18,7 @@ module.exports.loginTmp = async (req, res) => {
 };
 
 // 회원가입
-module.exports.signUp =
+// module.exports.signUp =
   // 로그인
   module.exports.login = async (req, res) => {
     const id = req.body.user_id;

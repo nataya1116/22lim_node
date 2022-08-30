@@ -117,7 +117,7 @@ html {
 }
 .feedback {
   font-family: "NanumSquareRound-B";
-  display: none;
+  /* display: none; */
   margin-top: 10px;
   margin-left: 10px;
   width: 50vw;
