@@ -18,18 +18,20 @@ let noneclick = false;
 //   console.log("클릭됨");
 // }
 
-function nestedReplyView(labelId) {
+function viewReplyNested(labelId) {
   if (labelId.style.display == "none"){
     labelId.style.display = "block";
+
   } else {
     labelId.style.display = "none"
   }
 }
 
-function replyCreate(offset, userId, boardId, replyId, content) {
+function createReplyNested(offset, userId, boardId, replyId, content) {
+  // console.log(offset, userId, boardId, replyId, content);
   const form = document.createElement("form");
   form.method = "post";
-  form.action = `/tip_reply/create`;
+  form.action = `/tip_reply/create_nested`;
   document.body.appendChild(form);
 
   const offsetInput = document.createElement("input");
@@ -63,4 +65,41 @@ function replyCreate(offset, userId, boardId, replyId, content) {
   form.appendChild(contentInput);
 
   form.submit();
+}
+
+function createReply(offset, userId, boardId, content) {
+  const form = document.createElement("form");
+  form.method = "post";
+  form.action = `/tip_reply/create`;
+  document.body.appendChild(form);
+
+  const offsetInput = document.createElement("input");
+  offsetInput.type = "hidden";
+  offsetInput.name = "offset"
+  offsetInput.value = offset;
+  form.appendChild(offsetInput);
+
+  const userIdInput = document.createElement("input");
+  userIdInput.type = "hidden";
+  userIdInput.name = "userId"
+  userIdInput.value = userId;
+  form.appendChild(userIdInput);
+
+  const boardIdInput = document.createElement("input");
+  boardIdInput.type = "hidden";
+  boardIdInput.name = "boardId"
+  boardIdInput.value = boardId;
+  form.appendChild(boardIdInput);
+
+  const contentInput = document.createElement("input");
+  contentInput.type = "hidden";
+  contentInput.name = "content"
+  contentInput.value = content;
+  form.appendChild(contentInput);
+
+  form.submit();
+}
+
+function replyUpdate(updateBtn, saveBtn, upateInput) {
+  
 }

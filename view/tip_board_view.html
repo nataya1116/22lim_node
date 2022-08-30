@@ -150,7 +150,7 @@
                   id="text_box"
                   placeholder="댓글을 남겨주세요~/" />
                 <div id="text_btn">
-                  <button onclick="replyCreate(<%= offset %>, <%= userId %>, <%= post.id %>, null, text_box.value )">저장</button>
+                  <button onclick="createReply(<%= offset %>, '<%= userId %>', <%= post.id %>, text_box.value )">저장</button>
                   <!-- <button>취소</button> -->
                 </div>
               </div>
@@ -163,22 +163,24 @@
 
                       <div class="write-day"><%= reply.createdAt %></div>
                       &nbsp;&nbsp;
-                      <div class="re-button">
-                        <button>수정</button>
-                        <button>삭제</button>
+                      <div class="re-button" >
+                        <button id="reply_update_btn<%= reply.id %>" onclick="replyUpdate(reply_update_btn<%= reply.id %>, reply_save_btn<%= reply.id %>, reply_update_input<%= reply.id %>)">수정</button>
+                        <button id="reply_save_btn<%= reply.id %>" style="display: none;" onclick="replySave(<%= reply.id %>, reply_update_input<%= reply.id %>.value)">저장</button>
+                        <button onclick="location.href='/tip_reply/delete/<%= reply.id %>/<%= offset %>';">삭제</button>
                       </div>
                     </div>
-                    <div class="wr-comment" onclick="nestedReplyView('replyLabel'<%= reply.id %>)"><%= reply.content %></div>
-
-                    <label class="retext-box" id="replyLabel<%= reply.id %>" style="display: none;">
+                    <div class="wr-comment" onclick="viewReplyNested(reply_label<%= reply.id %>)"> 
+                      <input type="text" style="width: 100%; height: 80%; display: none;" id="reply_update_input<%= reply.id %>" value="<%= reply.content %>"> 
+                    </div>
+                    <label class="retext-box" id="reply_label<%= reply.id %>" style="display: none;">
                       <textarea
-                        id="replyTextarea<%= reply.id %>"
+                        id="reply_create_text<%= reply.id %>"
                         class="retext"
                         rows="3"
                         cols="30"
                         placeholder="답글을 달아주세요"></textarea>
 
-                      <button class="re-svaebtn" onclick="replyCreate(<%= offset %>, <%= userId %>, <%= post.id %>, <%= reply.id %>, replyTextarea<%= reply.id %>.innerHTML )" >저장</button>
+                      <button class="re-svaebtn" onclick="createReplyNested(<%= offset %>, '<%= userId %>', <%= post.id %>, <%= reply.id %>, reply_create_text<%= reply.id %>.value )" >저장</button>
                     </label>
                     <% for(let ni = 0; ni < replyList.length; ni++) { %>
                       <% const nestedReply = replyList[ni]; %>
@@ -192,7 +194,7 @@
                             <div><%= nestedReply.content %></div>
                             <div class="re-button">
                               <button>수정</button>
-                              <button>삭제</button>
+                              <button onclick="location.href='/tip_reply/delete/<%= nestedReply.id %>/<%= offset %>';">삭제</button>
                             </div>
                           </div>
                         </div>

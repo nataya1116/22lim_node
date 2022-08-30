@@ -1,7 +1,24 @@
 const { TipReply, User, sequelize } = require("../model/index");
 const Op = require("sequelize").Op;
 
-module.exports.create = async ({userId, boardId, replyId, content}) => {
+module.exports.create = async ({userId, boardId, content}) => {
+    try {
+        User.findOne({
+            where : { userId }
+        }).then((user) => {
+            TipReply.create(
+                {
+                    userId : user.id,
+                    boardId, 
+                    content
+                });
+        });
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+module.exports.createNested = async ({userId, boardId, replyId, content}) => {
     try {
         User.findOne({
             where : { userId }

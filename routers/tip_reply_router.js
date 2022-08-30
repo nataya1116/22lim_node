@@ -6,8 +6,10 @@ const tipReplyController = require("../controllers/tip_reply_controller");
 
 router.post("/create",tipReplyController.create);
 
-// router.get("/update/:id/:offset", tipBoardController.updatePrint);
+router.post("/create_nested",tipReplyController.createNested);
 
-// router.get("/delete/:id/", tipBoardController.delete)
+// router.get("/update/:id/:offset", tipReplyController.updatePrint);
+
+router.get("/delete/:id/:offset", tipReplyController.delete)
 
 module.exports = router;
