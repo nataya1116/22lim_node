@@ -7,9 +7,13 @@ const { sequelize } = require("./model");
 const userRouter = require("./routers/user_router");
 const indexRouter = require("./routers/index_router");
 const tipBoardRouter = require("./routers/tip_board_router");
+
 const randomNum = require("./service/random");
 const mailer = require("./controllers/user_controller");
 const mysql = require("mysql2");
+
+const tipReplyRouter = require("./routers/tip_reply_router");
+
 const app = express();
 const jwt = require("jsonwebtoken");
 
@@ -50,6 +54,7 @@ app.use(
 app.use(userRouter);
 app.use(indexRouter);
 app.use("/tip_board", tipBoardRouter);
+app.use("/tip_reply", tipReplyRouter);
 
 app.listen(PORT, () => {
   console.log(PORT, "번 포트 대기 중");
@@ -94,18 +99,23 @@ sequelize
 //     title : "tqtqtq",
 //     content : "tqtqtqtertqter"
 // })
-// TipBoardService.delete(
-//     5
-// )
+// await TipBoardService.delete(2);
 // const count = await TipBoardService.list(0, 10);
-// console.log(count[0].updatedAt.getTime())
+
 // res.send(count);
 
-// TipReplyService.create({
-//     userId : "tt",
+//   TipReplyService.create({
+//       userId : "gg",
+//       boardId : 1,
+//       replyId : null,
+//       content : "ㅅㄷㄳㅂㄷㅅㅄtqtqtqtertqter"
+//   }) ;
+
+//   TipReplyService.create({
+//     userId : "gg",
 //     boardId : 1,
-//     replyId : 1,
-//     content : "ㅅㄷㄳㅂㄷㅅㅄtqtqtqtertqter"
+//     replyId : 2,
+//     content : "대댓글"
 // }) ;
 // TipReplyService.update({
 //     id : 1,

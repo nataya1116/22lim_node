@@ -4,23 +4,32 @@ class QnaBoard extends Sequelize.Model {
   static init(sequelize) {
     return super.init(
       {
-        title: {
+        number: {
           // 데이터 타입 설정
           type: Sequelize.STRING(200),
           // 널 값 허용 여부
           allowNull: false,
         },
-        content: {
+        title: {
           type: Sequelize.TEXT,
           allowNull: false,
-        },
-        views: {
-          type: Sequelize.INTEGER,
-          defaultValue: 0,
         },
         userId: {
           type: Sequelize.INTEGER,
           allowNull: false,
+        },
+        createdAt: {
+          type: Sequelize.DATE,
+          allowNull: false,
+          get() {
+            return moment(this.getDataValue("createdAt")).format(
+              "YYYY/MM/DD hh:mm:ss"
+            );
+          },
+        },
+        view: {
+          type: Sequelize.INTEGER,
+          defaultValue: 0,
         },
       },
       {
@@ -43,13 +52,12 @@ class QnaBoard extends Sequelize.Model {
 
   static associate(db) {
     // 1 : N
-    // db.QnaBoard.hasMany(db.TipReply, {
-    //   foreignKey: "boardId",
-    //   sourceKey: "id",
-    // });
-
+    db.QnaBoard.hasMany(db.QnaReply, {
+      foreignKey: "boardId",
+      sourceKey: "id",
+    });
     // N : 1
-    // db.QnaBoard.belongsTo(db.User, { foreignKey: "userId", sourceKey: "id" });
+    db.QnaBoard.belongsTo(db.User, { foreignKey: "userId", sourceKey: "id" });
   }
 }
 

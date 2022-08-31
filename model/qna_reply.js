@@ -1,21 +1,25 @@
 const Sequelize = require("sequelize");
 const moment = require("moment");
 
-class Chatting extends Sequelize.Model {
+class QnaReply extends Sequelize.Model {
   static init(sequelize) {
     return super.init(
       {
-        userId1: {
+        content: {
+          type: Sequelize.TEXT,
+          allowNull: false,
+        },
+        userId: {
           type: Sequelize.INTEGER,
           allowNull: false,
         },
-        userId2: {
+        boardId: {
           type: Sequelize.INTEGER,
           allowNull: false,
         },
-        url: {
-          type: Sequelize.STRING,
-          allowNull: false,
+        replyId: {
+          type: Sequelize.INTEGER,
+          allowNull: true,
         },
         createdAt: {
           type: Sequelize.DATE,
@@ -46,10 +50,15 @@ class Chatting extends Sequelize.Model {
       },
       {
         sequelize,
+        // 스네이크(ex user_date) 표기법으로 변경
         underscored: true,
-        modelName: "Chatting",
-        tableName: "chatting",
+        // 모델 이름 설정
+        modelName: "QnaReply",
+        // 테이블 이름 설정
+        tableName: "qna_reply",
+        // 생성 및 수정 컬럼 생성
         timestamps: true,
+        // 삭제 컬럼 생성
         paranoid: true,
         charset: "utf8",
         collate: "utf8_general_ci",
@@ -59,9 +68,22 @@ class Chatting extends Sequelize.Model {
 
   static associate(db) {
     // N : 1
-    db.Chatting.belongsTo(db.User, { foreignKey: "userId1", targetKey: "id" });
-    db.Chatting.belongsTo(db.User, { foreignKey: "userId2", targetKey: "id" });
+    db.QnaReply.belongsTo(db.User, { foreignKey: "userId", targetKey: "id" });
+    db.QnaReply.belongsTo(db.QnaBoard, {
+      foreignKey: "boardId",
+      targetKey: "id",
+    });
+    db.QnaReply.belongsTo(db.QnaReply, {
+      foreignKey: "replyId",
+      targetKey: "id",
+    });
+
+    // 1 : N
+    db.TipReply.hasMany(db.QnaReply, {
+      foreignKey: "replyId",
+      sourceKey: "id",
+    });
   }
 }
 
-module.exports = Chatting;
+module.exports = QnaReply;

@@ -17,5 +17,9 @@ router.get("/writing", (req, res) => {
   // res.render("index");
   res.render("writing");
 });
+router.get("/qna_list", (req, res) => {
+  // res.render("index");
+  res.render("qna_list");
+});
 
 module.exports = router;

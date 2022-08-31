@@ -15,6 +15,7 @@ const PointHistory = require("./point_history");
 const PointType = require("./point_type");
 const ConditionUser = require("./condition_user");
 const QnaBoard = require("./qna_board");
+const QnaReply = require("./qna_reply");
 
 const sequelize = new Sequelize(
   config.dev.database,
@@ -32,6 +33,9 @@ db.User = User;
 
 db.TipBoard = TipBoard;
 db.TipReply = TipReply;
+
+db.QnaBoard = QnaReply;
+db.QnaReply = QnaReply;
 
 db.Chatting = Chatting;
 
@@ -60,6 +64,7 @@ PointHistory.init(sequelize);
 PointType.init(sequelize);
 
 QnaBoard.init(sequelize);
+QnaReply.init(sequelize);
 
 // 테이블간의 관계 설정
 Authority.associate(db);
@@ -80,5 +85,6 @@ PointHistory.associate(db);
 PointType.associate(db);
 
 QnaBoard.associate(db);
+QnaReply.associate(db);
 
 module.exports = db;
