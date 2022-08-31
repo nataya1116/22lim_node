@@ -18,6 +18,10 @@ router.get("/signup", (req, res) => {
   res.render("signup");
 });
 
+// router.post("/emailCheck", (req, res) => {
+//   userController.emailSend(req, res);
+// });
+
 // 임시로 마이페이지 수정을 열었음 나중에 post방식으로 바꿀 것
 router.get("/mypage_edit", (req, res) => {
   userController.userMyPageEdit(req, res);

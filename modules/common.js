@@ -14,19 +14,20 @@ const path = require("path");
 
 const bcrypt = require("bcrypt");
 
+const mailer = require("nodemailer");
 
 function header() {
-    return fs.readFileSync()
+  return fs.readFileSync();
 }
 
-
-module.exports = { 
-            express, 
-            session, 
-            dot, 
-            fs, 
-            jwt,
-            ejs,
-            path,
-            bcrypt
-        };
+module.exports = {
+  express,
+  session,
+  dot,
+  fs,
+  jwt,
+  ejs,
+  path,
+  bcrypt,
+  mailer,
+};

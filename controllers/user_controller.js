@@ -1,6 +1,8 @@
 const UserService = require("../service/user_service");
 const TokenService = require("../service/token_service");
 const EncryptionService = require("../service/encryption_service");
+const { mailer } = require("../modules/common");
+const config = require("../config/config");
 
 module.exports.loginTmp = async (req, res) => {
   const id = req.body.user_id;
@@ -18,32 +20,79 @@ module.exports.loginTmp = async (req, res) => {
 };
 
 // 회원가입
-module.exports.signUp =
-  // 로그인
-  module.exports.login = async (req, res) => {
-    const id = req.body.user_id;
-    const pw = req.body.user_pw;
+// module.exports.signUp =
 
-    const resultPw = await UserService.login(id);
-
-    const isLogin = EncryptionService.isPwCheck(pw, resultPw);
-
-    if (resultPw && isLogin) {
-      const accessToken = TokenService.createAccessToken(id);
-      const refreshToken = TokenService.createRefreshToken(id);
-
-      req.session.access_Token = accessToken;
-      req.session.refresh_Token = refreshToken;
-
-      UserService.updateRefreshToken(id, refreshToken);
-
-      // console.log(req.session);
-
-      res.redirect("/");
-    } else {
-      res.redirect("/login");
-    }
+// 이메일 인증하기
+// module.exports.emailSend = {
+//   mailSend: function (tomail) {
+//     let transpoter = mailer.createTransport({
+//       service: "Naver",
+//       port: 587, // 25 587
+//       host: "smtp.naver.com",
+//       auth: {
+//         user: mail.mailer.user,
+//         pass: mail.mailer.pw,
+//       },
+//     });
+//     let mailoption = {
+//       from: mail.mailer.user,
+//       to: tomail.toEmail,
+//       subject: tomail.subject,
+//       html: tomail.text,
+//     };
+//     transpoter.sendMail(mailoption, (err, info) => {
+//       if (err) console.log(err);
+//       else console.log("send success", info.response);
+//     });
+//   },
+// };
+module.exports.emailSend = function mailSend(tomail) {
+  let transpoter = mailer.createTransport({
+    service: "Naver",
+    port: 587, // 25 587
+    host: "smtp.naver.com",
+    auth: {
+      user: config.mailer.user,
+      pass: config.mailer.pw,
+    },
+  });
+  let mailoption = {
+    from: config.mailer.user,
+    to: tomail.toEmail,
+    subject: tomail.subject,
+    html: tomail.text,
   };
+  transpoter.sendMail(mailoption, (err, info) => {
+    if (err) console.log(err);
+    else console.log("send success", info.response);
+  });
+};
+
+// 로그인
+module.exports.login = async (req, res) => {
+  const id = req.body.user_id;
+  const pw = req.body.user_pw;
+
+  const resultPw = await UserService.login(id);
+
+  const isLogin = EncryptionService.isPwCheck(pw, resultPw);
+
+  if (resultPw && isLogin) {
+    const accessToken = TokenService.createAccessToken(id);
+    const refreshToken = TokenService.createRefreshToken(id);
+
+    req.session.access_Token = accessToken;
+    req.session.refresh_Token = refreshToken;
+
+    UserService.updateRefreshToken(id, refreshToken);
+
+    // console.log(req.session);
+
+    res.redirect("/");
+  } else {
+    res.redirect("/login");
+  }
+};
 
 // 마이페이지(수정 페이지)------------------------------
 module.exports.userMyPageEdit = async (req, res) => {

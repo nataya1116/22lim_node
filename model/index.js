@@ -42,8 +42,6 @@ db.GameSkinWish = GameSkinWish;
 db.PointHistory = PointHistory;
 db.PointType = PointType;
 
-
-
 // 테이블 생성
 Authority.init(sequelize);
 ConditionUser.init(sequelize);
@@ -62,7 +60,6 @@ PointHistory.init(sequelize);
 PointType.init(sequelize);
 
 QnaBoard.init(sequelize);
-
 
 // 테이블간의 관계 설정
 Authority.associate(db);

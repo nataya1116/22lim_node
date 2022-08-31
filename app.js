@@ -7,10 +7,20 @@ const { sequelize } = require("./model");
 const userRouter = require("./routers/user_router");
 const indexRouter = require("./routers/index_router");
 const tipBoardRouter = require("./routers/tip_board_router");
-
+const randomNum = require("./service/random");
+const mailer = require("./controllers/user_controller");
+const mysql = require("mysql2");
 const app = express();
+const jwt = require("jsonwebtoken");
 
 const PORT = 4000;
+
+const sql = mysql.createConnection({
+  host: "localhost",
+  user: "22lim",
+  password: "dev1234",
+  database: "22lim_test2",
+});
 
 // 뷰 폴더 내의 html을 views 절대 경로로 호출할 수 있게 처리
 app.set("views", path.join(__dirname, "view"));
@@ -108,3 +118,31 @@ sequelize
 // res.send(count);
 // res.render("board_list");
 // });
+
+app.post("/emailCheck", (req, res) => {
+  let email = req.body.email;
+  req.session.email = email;
+  // console.log(email);
+  // result는 *전체 객체로 나오기 때문에 꼭!! 키에 접근을 해주어야한다.
+
+  sql.query("select * from users where email = ?", email, (err, result) => {
+    if (result[0] !== undefined) {
+      res.send("fail");
+    } else if (result[0] == undefined) {
+      let ranNum = randomNum();
+      req.session.randomNum = ranNum;
+      req.session.emailToken = jwt.sign({}, process.env.ET_SECRET_KEY, {
+        expiresIn: "3m",
+      });
+
+      let sendmail = {
+        // toEmail: email.email,
+        toEmail: email,
+        subject: `안녕하세요 22lim 인증번호입니다.`,
+        text: `${email}님 반갑습니다. 이메일 인증번호는 <h1>${ranNum}</h1> 입니다. 인증번호 칸에 입력 후 인증 확인 부탁드립니다.`,
+      };
+      mailer.emailSend(sendmail);
+      res.send("suc");
+    }
+  });
+});
