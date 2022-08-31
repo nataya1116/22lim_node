@@ -224,7 +224,12 @@ find_btn.addEventListener("click", () => {
   const form = document.createElement("form");
   
   form.method = "get";
-  form.action = `/tip_board/list/1/${limit}/${searchKey}/${searchWord}`;
+  if(!!searchWord){
+    form.action = `/tip_board/list/1/${limit}/${searchKey}/${searchWord}`;
+  } else {
+    form.action = `/tip_board/list/1/${limit}`;
+  }
+  
 
   document.body.appendChild(form);
 
