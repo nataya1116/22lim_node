@@ -1,8 +1,10 @@
 const TipBoardService = require("../service/tip_board_sevice");
 const TipReplyService = require("../service/tip_reply_sevice");
+const { AUTHORITY, BOARDS } = require("../config/config");
 
 module.exports.create = async (req, res) => {
     const { userId, title, content } = req.body;
+    console.log("c create() ", userId, title, content);
     await TipBoardService.create({ userId, title, content });
 
     res.redirect("/tip_board/list/1/10");
@@ -10,11 +12,10 @@ module.exports.create = async (req, res) => {
 
 module.exports.createView = (req, res) => {
     
-    res.render("tip_board_insert", {userId : 'temp', authorityId : '1', MANAGER : 1});
+    res.render("tip_board_insert", { userId : 'temp', authorityId : 1, AUTHORITY, board : BOARDS.TIP_BOARD, BOARDS });
 }
 
 module.exports.list = async (req, res) => {
-    console.log("c list()");
     const pageNum = Number(req.params.page || '1');
     const limit = Number(req.params.perPage || '10');
     let offset = 0;
@@ -34,7 +35,6 @@ module.exports.list = async (req, res) => {
 }
 
 module.exports.listSearch = async (req, res) => {
-    console.log("c listSearch()");
     const pageNum = Number(req.params.page || '1');
     const limit = Number(req.params.perPage || '10');
     const { searchKey, searchWord } = req.params;
@@ -75,7 +75,8 @@ module.exports.view = async (req, res) => {
     const offset  = Number(req.params.offset);
     const result = await TipBoardService.viewOffset(offset);
     
-    const post = result[0];
+    let post = result[0];
+    post.dataValues.view++;
     const id = post.dataValues.id;
 
     // console.log(post);

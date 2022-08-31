@@ -85,8 +85,8 @@
     <div class="site-container">
       <div class="section small-section wf-section">
         <div class="container">
-          <h1>게시판</h1>
-          <div class="subhead">Beep boop bop.</div>
+          <h1>Tip Boards</h1>
+          <div class="subhead"></div>
         </div>
       </div>
       <div
@@ -105,20 +105,24 @@
 
                 <div class="dropdown">
                   <select class="dropdown-btn" type="button" value="카테고리"aria-expanded="false">
-                    <option value="">자유게시판</option>
-                    <option value="">QnA게시판</option>
-                  <% if( authorityId ==  ) {%>
-                    <option value="">공략게시판</option>
-
+                    <option value="<%= BOARDS.FREE_BOARD %>" <%= BOARDS.FREE_BOARD == board ? "selected" : "" %> >Free Boards</option>
+                    <option value="<%= BOARDS.TIP_BOARD %>" <%= BOARDS.TIP_BOARD == board ? "selected" : "" %> >Tip Boards</option>
+                  <% if( AUTHORITY.MANAGER ==  authorityId ) {%>
+                    <option value="<%= BOARDS.QNA_BOARD %>" <%= BOARDS.QNA_BOARD == board ? "selected" : "" %> >QnA Boards</option>
+                  <% } %>
+                    
                   </select>
                 </div>
-                 <input id="Title_writ" type="text" placeholder="제목을 입력하세요" style="padding-left:15px ;">
-                  <div class="modal-body">
+                <form action="/tip_board/create" method="post">
+                 <input id="Title_writ" type="text" name="title" placeholder="제목을 입력하세요" style="padding-left:15px ;">
+                 <input type="hidden" name="userId" value="<%= userId %>" > 
+                 <div class="modal-body">
                     <div>
-                    <textarea id="in_writ"type="text" style="padding:20px ;"></textarea>
+                    <textarea id="in_writ"type="text" name="content" style="padding:20px ;"></textarea>
                     </div>
                   </div>
                   <button id="saveBtn">저장</button>
+                </form>
               </div>
 
               </div>

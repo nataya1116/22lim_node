@@ -10,13 +10,15 @@ module.exports.count = async () => {
 }
 
 module.exports.create = async ({userId, title, content}) => {
+    console.log("service create()");
     try {
         await User.findOne({
             where : { userId }
-        }).then((user) => {
+        }).then((users) => {
+            console.log(users.id);
             TipBoard.create(
                 {
-                    userId : user.id, 
+                    userId : users.id, 
                     title, 
                     content
                 });
@@ -268,20 +270,6 @@ module.exports.updateViewsCount = async (id) => {
                 where : { id }
             }
         ) // 누구보다 귀엽고 깜찍하고 사랑스러운 수진 언니 헤헤헤 우리 언니 항상 짱이다용 못 살아 언니 없인 못 살아 언니 항상 힘내요 언니는 늘 잘 하고 있지만 앞으로 더 잘 할 거고 승승장구 할 거에요 매력 덩어리 수진 언니 웃음 많은 갈매기를 품은 멋진 소녀이자 그 자체로 소중한 하나의 인격체이자 더할 나위 함께 하면 더욱 좋은 사람이자 내가 좋아하는 여자 사랑해요 히히히 울 언니 화이또 ♥
-    } catch (err) {
-        console.error(err);
-    }
-}
-
-
-module.exports.create = async ({userId, title, content}) => {
-    try {
-        await TipBoard.create(
-                {
-                    userId,
-	        title, 
-                    content
-                });
     } catch (err) {
         console.error(err);
     }
