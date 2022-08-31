@@ -1,6 +1,18 @@
 const TipBoardService = require("../service/tip_board_sevice");
 const TipReplyService = require("../service/tip_reply_sevice");
 
+module.exports.create = async (req, res) => {
+    const { userId, title, content } = req.body;
+    await TipBoardService.create({ userId, title, content });
+
+    res.redirect("/tip_board/list/1/10");
+}
+
+module.exports.createView = (req, res) => {
+    
+    res.render("tip_board_insert", {userId : 'temp', authorityId : '1', MANAGER : 1});
+}
+
 module.exports.list = async (req, res) => {
     console.log("c list()");
     const pageNum = Number(req.params.page || '1');
@@ -66,9 +78,12 @@ module.exports.view = async (req, res) => {
     const post = result[0];
     const id = post.dataValues.id;
 
-    console.log(post);
-    const postNum = await TipBoardService.count();
+    // console.log(post);
+    const postNum   = await TipBoardService.count();
+                      await TipBoardService.updateViewsCount(id);
+
     const replyList = await TipReplyService.list(id);
+    
 
     // res.render("tip_board_view", { post, postNum, replyList, offset });
 

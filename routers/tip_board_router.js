@@ -4,10 +4,14 @@ const router = express.Router();
 
 const TipBoardController = require("../controllers/tip_board_controller");
 
+
+router.post("/create", TipBoardController.create);
+
 router.post("/update", TipBoardController.update);
 
-router.get("/list/:page/:perPage/", TipBoardController.list);
+router.get("/create_view", TipBoardController.createView);
 
+router.get("/list/:page/:perPage/", TipBoardController.list);
 router.get("/list/:page/:perPage/:searchKey/:searchWord", TipBoardController.listSearch);
 
 router.get("/read/:offset", TipBoardController.view);
