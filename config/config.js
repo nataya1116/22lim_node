@@ -12,4 +12,14 @@ const config = {
     }
 }
 
-module.exports = config ;
+const AUTHORITY = {
+    MANAGER : 1,
+    USER : 2
+}
+
+const BOARDS = {
+    TIP_BOARD : "tipBoard",
+    QNA_BOARD : "qnaBoard",
+    FREE_BOARD : "freeBoard"
+}
+module.exports = { config, AUTHORITY, BOARDS };

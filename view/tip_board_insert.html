@@ -104,22 +104,25 @@
               <div class="in-box">
 
                 <div class="dropdown">
-                  Tip Board
+                  <select class="dropdown-btn" type="button" value="카테고리"aria-expanded="false">
+                    <option value="<%= BOARDS.FREE_BOARD %>" <%= BOARDS.FREE_BOARD == board ? "selected" : "" %> >Free Boards</option>
+                    <option value="<%= BOARDS.TIP_BOARD %>" <%= BOARDS.TIP_BOARD == board ? "selected" : "" %> >Tip Boards</option>
+                  <% if( AUTHORITY.MANAGER ==  authorityId ) {%>
+                    <option value="<%= BOARDS.QNA_BOARD %>" <%= BOARDS.QNA_BOARD == board ? "selected" : "" %> >QnA Boards</option>
+                  <% } %>
+                    
+                  </select>
                 </div>
-                <form action="/tip_board/update" method="post">
-                  <input type="hidden" name="id" value="<%= post.id %>" >
-                  <input type="hidden" name="offset" value="<%= offset %>" >
-
-                  <input id="Title_writ" type="text" name="title" style="padding-left:15px ;" value="<%= post.title %>">
-                  <div class="modal-body">
+                <form action="/tip_board/create" method="post">
+                 <input id="Title_writ" type="text" name="title" placeholder="제목을 입력하세요" style="padding-left:15px ;">
+                 <input type="hidden" name="userId" value="<%= userId %>" > 
+                 <div class="modal-body">
                     <div>
-                    <textarea id="in_writ" type="text" name="content" style="padding:20px ;"><%= post.content %></textarea>
+                    <textarea id="in_writ"type="text" name="content" style="padding:20px ;"></textarea>
                     </div>
                   </div>
-                <% if(userId == post.User.userId) { %>
-                  <button type="submit" id="saveBtn">수정</button>
-                <% } %>
-              </form>
+                  <button id="saveBtn">저장</button>
+                </form>
               </div>
 
               </div>
@@ -165,7 +168,7 @@
       src="https://assets.website-files.com/5e87e737ee7085b9ba02c101/js/webflow.be692164d.js"
       type="text/javascript"
     ></script>
-    <!-- <script src="/js/membership.js"></script> -->
+    <script src="./membership.js"></script>
     <!--[if lte IE 9
       ]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script
     ><![endif]-->
