@@ -12,8 +12,8 @@
     <meta content="Webflow" name="generator" />
 
     <!-- @@@@@@@@@ CSS 파일 START @@@@@@@@@-->
-    <link href="css/common.css" rel="stylesheet" type="text/css" />
-    <link href="css/shop.css" rel="stylesheet" type="text/css" />
+    <link href="/css/common.css" rel="stylesheet" type="text/css" />
+    <link href="/css/shop.css" rel="stylesheet" type="text/css" />
     <!-- @@@@@@@@@ CSS 파일 START @@@@@@@@@-->
 
     <link
@@ -54,7 +54,7 @@
         href="/"
         aria-current="page"
         class="logo-wrapper w-nav-brand w--current"
-        ><img src="img/22lim-logo.svg" alt="Mac Logo" class="logo"
+        ><img src="/img/22lim-logo.svg" alt="Mac Logo" class="logo"
       /></a>
 
       <nav role="navigation" class="nav-menu w-nav-menu">
@@ -104,40 +104,14 @@
         <div class="container">
           <div class="w-dyn-list">
             <div role="list" class="grid-halves w-dyn-items">
-              <div class="products">
-                <div
-                  data-w-id="17ac18b5-161b-07f2-842a-a33f4d0523d8"
-                  role="listitem"
-                  class="modal-wrapper w-dyn-item"
-                  >
-                  <div class="modal-header">
-                    <div class="button-circles-wrap">
-                      <div class="button-circle"></div>
-                      <div class="button-circle"></div>
-                    </div>
-                    <div class="flex-center">
-                      <!-- 아이템 상단 -->
-                    </div>
-                  </div>
-                  <div class="modal-body">
-                    <div class="product-img"></div>
-                    <div class="product-name"  style="background-position: -491px -7px;">
-                      <h3>Red Hair</h3>
-                      <span>빨간 머리의 여자 캐릭터 스킨</span>
-                    </div>
-                    <div class="modal-body-bottom">
-                      <button class="buy-btn">구매하기</button>                     
-                      <img src="/img/heart1.png" alt="찜하기 버튼" class="heart-btn">
-                    </div>
-                  </div>
-                </div>
-              </div>
-
+            
+          <% if(!!list) {%>
+            <% list.forEach((skin) => { %>
               <div class="products">
               <div
                 data-w-id="17ac18b5-161b-07f2-842a-a33f4d0523d8"
                 role="listitem"
-                class="modal-wrapper w-dyn-item"
+                class="skin-body w-dyn-item"
                 >
                 <div class="modal-header">
                   <div class="button-circles-wrap">
@@ -148,422 +122,21 @@
                     <!-- 아이템 상단 -->
                   </div>
                 </div>
-                <div class="modal-body">
-                  <div class="product-img" style="background-position: -120px -7px;"></div>
+                <div class="modal-body skin">
+                  <div class="product-img" style=" background-image: url('<%=skin.imgUrl%>'); background-position: <%=skin.positionX%>px <%=skin.positionY%>px;"></div>
                   <div class="product-name">
-                    <h3>Red Hair</h3>
-                    <span>빨간 머리의 여자 캐릭터 스킨</span>
+                    <h3><%= skin.name %></h3>
+                    <span><%= skin.info %></span>
                   </div>
                   <div class="modal-body-bottom">
-                    <button class="buy-btn">구매하기</button>                     
+                    <button class="buy-btn"><img src="/img/coin.png" alt="" style="width: 20px;"> <%= skin.point %> Buy</button>                     
                     <img src="/img/heart1.png" alt="찜하기 버튼" class="heart-btn">
                   </div>
                 </div>
               </div>
               </div>
-
-            <div class="products">
-            <div
-              data-w-id="17ac18b5-161b-07f2-842a-a33f4d0523d8"
-              role="listitem"
-              class="modal-wrapper w-dyn-item"
-              >
-              <div class="modal-header">
-                <div class="button-circles-wrap">
-                  <div class="button-circle"></div>
-                  <div class="button-circle"></div>
-                </div>
-                <div class="flex-center">
-                  <!-- 아이템 상단 -->
-                </div>
-              </div>
-              <div class="modal-body">
-                <div class="product-img" style="background-position: -860px -7px;"></div>
-                <div class="product-name">
-                  <h3>Red Hair</h3>
-                  <span>빨간 머리의 여자 캐릭터 스킨</span>
-                </div>
-                <div class="modal-body-bottom">
-                  <button class="buy-btn">구매하기</button>                     
-                  <img src="/img/heart1.png" alt="찜하기 버튼" class="heart-btn">
-                </div>
-              </div>
-            </div>
-            </div>
-
-            <div class="products">
-                <div
-                  data-w-id="17ac18b5-161b-07f2-842a-a33f4d0523d8"
-                  role="listitem"
-                  class="modal-wrapper w-dyn-item"
-                  >
-                  <div class="modal-header">
-                    <div class="button-circles-wrap">
-                      <div class="button-circle"></div>
-                      <div class="button-circle"></div>
-                    </div>
-                    <div class="flex-center">
-                      <!-- 아이템 상단 -->
-                    </div>
-                  </div>
-                  <div class="modal-body">
-                    <div class="product-img" style="background-position: -1230px -7px;"></div>
-                    <div class="product-name">
-                      <h3>Red Hair</h3>
-                      <span>빨간 머리의 여자 캐릭터 스킨</span>
-                    </div>
-                    <div class="modal-body-bottom">
-                      <button class="buy-btn">구매하기</button>                     
-                      <img src="/img/heart1.png" alt="찜하기 버튼" class="heart-btn">
-                    </div>
-                  </div>
-                </div>
-            </div>
-              <div class="products">
-                <div
-                  data-w-id="17ac18b5-161b-07f2-842a-a33f4d0523d8"
-                  role="listitem"
-                  class="modal-wrapper w-dyn-item"
-                  >
-                  <div class="modal-header">
-                    <div class="button-circles-wrap">
-                      <div class="button-circle"></div>
-                      <div class="button-circle"></div>
-                    </div>
-                    <div class="flex-center">
-                      <!-- 아이템 상단 -->
-                    </div>
-                  </div>
-                  <div class="modal-body">
-                    <div class="product-img" style="background-position: -120px -993px;"></div>
-                    <div class="product-name">
-                      <h3>Red Hair</h3>
-                      <span>빨간 머리의 여자 캐릭터 스킨</span>
-                    </div>
-                    <div class="modal-body-bottom">
-                      <button class="buy-btn">구매하기</button>                     
-                      <img src="/img/heart1.png" alt="찜하기 버튼" class="heart-btn">
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="products">
-              <div
-                data-w-id="17ac18b5-161b-07f2-842a-a33f4d0523d8"
-                role="listitem"
-                class="modal-wrapper w-dyn-item"
-                >
-                <div class="modal-header">
-                  <div class="button-circles-wrap">
-                    <div class="button-circle"></div>
-                    <div class="button-circle"></div>
-                  </div>
-                  <div class="flex-center">
-                    <!-- 아이템 상단 -->
-                  </div>
-                </div>
-                <div class="modal-body">
-                  <div class="product-img" style="background-position: -491px -993px;"></div>
-                  <div class="product-name">
-                    <h3>Red Hair</h3>
-                    <span>빨간 머리의 여자 캐릭터 스킨</span>
-                  </div>
-                  <div class="modal-body-bottom">
-                    <button class="buy-btn">구매하기</button>                     
-                    <img src="/img/heart1.png" alt="찜하기 버튼" class="heart-btn">
-                  </div>
-                </div>
-              </div>
-              </div>
-
-            <div class="products">
-            <div
-              data-w-id="17ac18b5-161b-07f2-842a-a33f4d0523d8"
-              role="listitem"
-              class="modal-wrapper w-dyn-item"
-              >
-              <div class="modal-header">
-                <div class="button-circles-wrap">
-                  <div class="button-circle"></div>
-                  <div class="button-circle"></div>
-                </div>
-                <div class="flex-center">
-                  <!-- 아이템 상단 -->
-                </div>
-              </div>
-              <div class="modal-body">
-                <div class="product-img" style="background-position: -860px -993px;"></div>
-                <div class="product-name">
-                  <h3>Red Hair</h3>
-                  <span>빨간 머리의 여자 캐릭터 스킨</span>
-                </div>
-                <div class="modal-body-bottom">
-                  <button class="buy-btn">구매하기</button>                     
-                  <img src="/img/heart1.png" alt="찜하기 버튼" class="heart-btn">
-                </div>
-              </div>
-            </div>
-            </div>
-
-            <div class="products">
-                <div
-                  data-w-id="17ac18b5-161b-07f2-842a-a33f4d0523d8"
-                  role="listitem"
-                  class="modal-wrapper w-dyn-item"
-                  >
-                  <div class="modal-header">
-                    <div class="button-circles-wrap">
-                      <div class="button-circle"></div>
-                      <div class="button-circle"></div>
-                    </div>
-                    <div class="flex-center">
-                      <!-- 아이템 상단 -->
-                    </div>
-                  </div>
-                  <div class="modal-body">
-                    <div class="product-img" style="background-position: -1230px -993px;"></div>
-                    <div class="product-name">
-                      <h3>Red Hair</h3>
-                      <span>빨간 머리의 여자 캐릭터 스킨</span>
-                    </div>
-                    <div class="modal-body-bottom">
-                      <button class="buy-btn">구매하기</button>                     
-                      <img src="/img/heart1.png" alt="찜하기 버튼" class="heart-btn">
-                    </div>
-                  </div>
-                </div>
-            </div>
-              <div class="products">
-                <div
-                  data-w-id="17ac18b5-161b-07f2-842a-a33f4d0523d8"
-                  role="listitem"
-                  class="modal-wrapper w-dyn-item"
-                  >
-                  <div class="modal-header">
-                    <div class="button-circles-wrap">
-                      <div class="button-circle"></div>
-                      <div class="button-circle"></div>
-                    </div>
-                    <div class="flex-center">
-                      <!-- 아이템 상단 -->
-                    </div>
-                  </div>
-                  <div class="modal-body">
-                    <div class="product-img"></div>
-                    <div class="product-name">
-                      <h3>Red Hair</h3>
-                      <span>빨간 머리의 여자 캐릭터 스킨</span>
-                    </div>
-                    <div class="modal-body-bottom">
-                      <button class="buy-btn">구매하기</button>                     
-                      <img src="/img/heart1.png" alt="찜하기 버튼" class="heart-btn">
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="products">
-              <div
-                data-w-id="17ac18b5-161b-07f2-842a-a33f4d0523d8"
-                role="listitem"
-                class="modal-wrapper w-dyn-item"
-                >
-                <div class="modal-header">
-                  <div class="button-circles-wrap">
-                    <div class="button-circle"></div>
-                    <div class="button-circle"></div>
-                  </div>
-                  <div class="flex-center">
-                    <!-- 아이템 상단 -->
-                  </div>
-                </div>
-                <div class="modal-body">
-                  <div class="product-img"></div>
-                  <div class="product-name">
-                    <h3>Red Hair</h3>
-                    <span>빨간 머리의 여자 캐릭터 스킨</span>
-                  </div>
-                  <div class="modal-body-bottom">
-                    <button class="buy-btn">구매하기</button>                     
-                    <img src="/img/heart1.png" alt="찜하기 버튼" class="heart-btn">
-                  </div>
-                </div>
-              </div>
-              </div>
-
-            <div class="products">
-            <div
-              data-w-id="17ac18b5-161b-07f2-842a-a33f4d0523d8"
-              role="listitem"
-              class="modal-wrapper w-dyn-item"
-              >
-              <div class="modal-header">
-                <div class="button-circles-wrap">
-                  <div class="button-circle"></div>
-                  <div class="button-circle"></div>
-                </div>
-                <div class="flex-center">
-                  <!-- 아이템 상단 -->
-                </div>
-              </div>
-              <div class="modal-body">
-                <div class="product-img"></div>
-                <div class="product-name">
-                  <h3>Red Hair</h3>
-                  <span>빨간 머리의 여자 캐릭터 스킨</span>
-                </div>
-                <div class="modal-body-bottom">
-                  <button class="buy-btn">구매하기</button>                     
-                  <img src="/img/heart1.png" alt="찜하기 버튼" class="heart-btn">
-                </div>
-              </div>
-            </div>
-            </div>
-
-            <div class="products">
-                <div
-                  data-w-id="17ac18b5-161b-07f2-842a-a33f4d0523d8"
-                  role="listitem"
-                  class="modal-wrapper w-dyn-item"
-                  >
-                  <div class="modal-header">
-                    <div class="button-circles-wrap">
-                      <div class="button-circle"></div>
-                      <div class="button-circle"></div>
-                    </div>
-                    <div class="flex-center">
-                      <!-- 아이템 상단 -->
-                    </div>
-                  </div>
-                  <div class="modal-body">
-                    <div class="product-img"></div>
-                    <div class="product-name">
-                      <h3>Red Hair</h3>
-                      <span>빨간 머리의 여자 캐릭터 스킨</span>
-                    </div>
-                    <div class="modal-body-bottom">
-                      <button class="buy-btn">구매하기</button>                     
-                      <img src="/img/heart1.png" alt="찜하기 버튼" class="heart-btn">
-                    </div>
-                  </div>
-                </div>
-            </div>
-              <div class="products">
-                <div
-                  data-w-id="17ac18b5-161b-07f2-842a-a33f4d0523d8"
-                  role="listitem"
-                  class="modal-wrapper w-dyn-item"
-                  >
-                  <div class="modal-header">
-                    <div class="button-circles-wrap">
-                      <div class="button-circle"></div>
-                      <div class="button-circle"></div>
-                    </div>
-                    <div class="flex-center">
-                      <!-- 아이템 상단 -->
-                    </div>
-                  </div>
-                  <div class="modal-body">
-                    <div class="product-img"></div>
-                    <div class="product-name">
-                      <h3>Red Hair</h3>
-                      <span>빨간 머리의 여자 캐릭터 스킨</span>
-                    </div>
-                    <div class="modal-body-bottom">
-                      <button class="buy-btn">구매하기</button>                     
-                      <img src="/img/heart1.png" alt="찜하기 버튼" class="heart-btn">
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="products">
-              <div
-                data-w-id="17ac18b5-161b-07f2-842a-a33f4d0523d8"
-                role="listitem"
-                class="modal-wrapper w-dyn-item"
-                >
-                <div class="modal-header">
-                  <div class="button-circles-wrap">
-                    <div class="button-circle"></div>
-                    <div class="button-circle"></div>
-                  </div>
-                  <div class="flex-center">
-                    <!-- 아이템 상단 -->
-                  </div>
-                </div>
-                <div class="modal-body">
-                  <div class="product-img"></div>
-                  <div class="product-name">
-                    <h3>Red Hair</h3>
-                    <span>빨간 머리의 여자 캐릭터 스킨</span>
-                  </div>
-                  <div class="modal-body-bottom">
-                    <button class="buy-btn">구매하기</button>                     
-                    <img src="/img/heart1.png" alt="찜하기 버튼" class="heart-btn">
-                  </div>
-                </div>
-              </div>
-              </div>
-
-            <div class="products">
-            <div
-              data-w-id="17ac18b5-161b-07f2-842a-a33f4d0523d8"
-              role="listitem"
-              class="modal-wrapper w-dyn-item"
-              >
-              <div class="modal-header">
-                <div class="button-circles-wrap">
-                  <div class="button-circle"></div>
-                  <div class="button-circle"></div>
-                </div>
-                <div class="flex-center">
-                  <!-- 아이템 상단 -->
-                </div>
-              </div>
-              <div class="modal-body">
-                <div class="product-img"></div>
-                <div class="product-name">
-                  <h3>Red Hair</h3>
-                  <span>빨간 머리의 여자 캐릭터 스킨</span>
-                </div>
-                <div class="modal-body-bottom">
-                  <button class="buy-btn">구매하기</button>                     
-                  <img src="/img/heart1.png" alt="찜하기 버튼" class="heart-btn">
-                </div>
-              </div>
-            </div>
-            </div>
-
-            <div class="products">
-                <div
-                  data-w-id="17ac18b5-161b-07f2-842a-a33f4d0523d8"
-                  role="listitem"
-                  class="modal-wrapper w-dyn-item"
-                  >
-                  <div class="modal-header">
-                    <div class="button-circles-wrap">
-                      <div class="button-circle"></div>
-                      <div class="button-circle"></div>
-                    </div>
-                    <div class="flex-center">
-                      <!-- 아이템 상단 -->
-                    </div>
-                  </div>
-                  <div class="modal-body">
-                    <div class="product-img"></div>
-                    <div class="product-name">
-                      <h3>Red Hair</h3>
-                      <span>빨간 머리의 여자 캐릭터 스킨</span>
-                    </div>
-                    <div class="modal-body-bottom">
-                      <button class="buy-btn">구매하기</button>                     
-                      <img src="/img/heart1.png" alt="찜하기 버튼" class="heart-btn">
-                    </div>
-                  </div>
-                </div>
-            </div>
+            <% }); %>
+          <% } %>
           </div>
               
                   

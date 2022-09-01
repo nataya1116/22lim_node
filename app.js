@@ -9,9 +9,6 @@ const { sequelize } = require("./model");
 const userRouter = require("./routers/user_router");
 const indexRouter = require("./routers/index_router");
 const tipBoardRouter = require("./routers/tip_board_router");
-
-const mysql = require("mysql2");
-
 const tipReplyRouter = require("./routers/tip_reply_router");
 const skinProductsRouter = require("./routers/game_skin_products_router");
 
