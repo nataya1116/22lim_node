@@ -21,6 +21,7 @@ module.exports.list = async (req, res) => {
     // EX) 10개라고 리미트를 정해주고 2페이지인 경우 1페이지에서 보여준 10개의 목록을 제외
     offset = limit * (pageNum - 1);
   }
+  // 팁 보드 리스트
   const result = await TipBoardService.list(offset, limit);
   console.log(result);
   const list = result.rows;

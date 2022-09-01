@@ -164,7 +164,7 @@
         href="/tip_board/list/<%= pageNum > 1 ? pageNum - 1 : 1 %>/<%= limit %><%= searchKey != '' ? '/'+searchKey : '' %><%= searchWord != '' ? '/'+searchWord : '' %>">
         <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAHCAQAAABqrk9lAAAAGElEQVR42mNgAIPi/8X/4QwwE5PBQJADAAKSG3cyVhtXAAAAAElFTkSuQmCC" alt="이전페이지 이동 아이콘">
       </a>
-
+      <!-- 페이지 네이션 부분 -->
       <% for( let i = 1; i <= totalPage; i++) {%>
       <a class="page-info"  href="/tip_board/list/<%= i %>/<%= limit %><%= searchKey != '' ? '/'+searchKey : '' %><%= searchWord != '' ? '/'+searchWord : '' %>" ><%= i %></a>
       <% } %>
