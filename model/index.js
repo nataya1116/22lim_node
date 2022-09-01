@@ -16,6 +16,8 @@ const PointType = require("./point_type");
 const ConditionUser = require("./condition_user");
 const QnaBoard = require("./qna_board");
 const QnaReply = require("./qna_reply");
+const FreeBoard = require("./free_board");
+const FreeReply = require("./free_reply");
 
 const sequelize = new Sequelize(
   config.dev.database,
@@ -37,6 +39,9 @@ db.TipReply = TipReply;
 db.QnaBoard = QnaReply;
 db.QnaReply = QnaReply;
 
+db.FreeBoard = FreeBoard;
+db.FreeReply = FreeReply;
+
 db.Chatting = Chatting;
 
 db.GameSkinProducts = GameSkinProducts;
@@ -53,6 +58,9 @@ User.init(sequelize);
 
 TipBoard.init(sequelize);
 TipReply.init(sequelize);
+
+FreeBoard.init(sequelize);
+FreeReply.init(sequelize);
 
 Chatting.init(sequelize);
 
@@ -74,6 +82,9 @@ User.associate(db);
 
 TipBoard.associate(db);
 TipReply.associate(db);
+
+FreeBoard.associate(db);
+FreeReply.associate(db);
 
 Chatting.associate(db);
 

@@ -23,14 +23,16 @@ function pwCheck(pw) {
   if (pwRegex.test(pw) == false) {
     pw_check.innerHTML =
       "(대문자, 특수문자(@$!%*#?&만 사용가능) 1개이상 포함(8~20자리))";
-  }
+  } else pw_check.innerHTML = "";
 }
 
 // 핸드폰 정규식
 function phoneCheck(phone) {
-  const phoneRegex = /^([010]{3})([0-9]{4})([0-9]{4})$/;
+  const phoneRegex = /^([010]{3})([0-9]{4})([0-9]{4})$/g;
   if (phoneRegex.test(phone) == false) {
     phone_check.innerHTML = "'-' 빼고 입력해주세요";
+  } else {
+    phone_check.innerHTML = "";
   }
 }
 
@@ -40,5 +42,8 @@ function emailCheck(email) {
     /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/g;
   if (emailRegex.test(email) == false) {
     email_check.innerHTML = "이메일을 확인해주세요";
-  }
+  } else email_check.innerHTML = "";
 }
+
+// 마지막에 완료버튼을 누르면 전체 체크하고 하나라도 false가 있으면 넘어갈 수 없게
+function allCheck() {}
