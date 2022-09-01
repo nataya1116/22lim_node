@@ -37,12 +37,13 @@ module.exports.list = async (req, res) => {
   }
   const result = await TipBoardService.list(offset, limit);
   console.log(result);
-  const list = result.rows;
-  const postNum = result.count;
+  const list = result?.rows;
+  const postNum = result?.count;
   const totalPage = Math.ceil(postNum / limit);
 
   const searchKey = "";
   const searchWord = "";
+    
   res.render( "tip_board_list", { list , totalPage , pageNum, limit, searchKey, searchWord });
 };
 
@@ -83,8 +84,8 @@ module.exports.listSearch = async (req, res) => {
       break;
   }
   console.log(result);
-  const list = result.rows;
-  const postNum = result.count;
+  const list = result?.rows;
+  const postNum = result?.count;
 
   const totalPage = Math.ceil(postNum / limit);
 
