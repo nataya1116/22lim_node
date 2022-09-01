@@ -62,3 +62,20 @@ module.exports.userMyPageEdit = async (userId) => {
     return null;
   }
 };
+
+// 이메일
+module.exports.useEmail = async (email) => {
+  // console.log(email);
+  // result는 *전체 객체로 나오기 때문에 꼭!! 키에 접근을 해주어야한다.
+  try {
+    return await User.findOne({
+      where: {
+        email,
+      },
+      // raw: true
+    });
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+};
