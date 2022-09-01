@@ -31,6 +31,7 @@ module.exports.list = async (req, res) => {
 
     const searchKey = '';
     const searchWord = '';
+    
     res.render( "tip_board_list", { list , totalPage , pageNum, limit, searchKey, searchWord });
 }
 
