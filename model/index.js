@@ -10,7 +10,7 @@ const Chatting = require("./chatting");
 const GameSkinProducts = require("./game_skin_products");
 const GameSkinUser = require("./game_skin_user");
 const GameSkinWish = require("./game_skin_wish");
-// const PointTotal = require("./point_total");
+const PointTotal = require("./point_total");
 const PointHistory = require("./point_history");
 const PointType = require("./point_type");
 const ConditionUser = require("./condition_user");
@@ -47,7 +47,7 @@ db.Chatting = Chatting;
 db.GameSkinProducts = GameSkinProducts;
 db.GameSkinUser = GameSkinUser;
 db.GameSkinWish = GameSkinWish;
-// db.PointTotal = PointTotal;
+db.PointTotal = PointTotal;
 db.PointHistory = PointHistory;
 db.PointType = PointType;
 
@@ -68,6 +68,7 @@ GameSkinProducts.init(sequelize);
 GameSkinUser.init(sequelize);
 GameSkinWish.init(sequelize);
 
+PointTotal.init(sequelize);
 PointHistory.init(sequelize);
 PointType.init(sequelize);
 
@@ -91,7 +92,7 @@ GameSkinProducts.associate(db);
 GameSkinUser.associate(db);
 GameSkinWish.associate(db);
 
-// PointTotal.associate(db);
+PointTotal.associate(db);
 PointHistory.associate(db);
 PointType.associate(db);
 
