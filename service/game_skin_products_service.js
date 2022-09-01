@@ -6,23 +6,25 @@ module.exports.list = async (offset, limit) => {
         attributes: ["id", "name", "info", "point", "imgUrl", "positionX", "positionY"],
         include: [
           {
+            attributes: ["isUse"],
             model: GameSkinUser,
             include: [
                 {
+                  attributes: ["userId"],
+                  model: User,
+                }
+              ]
+          },
+          {
+            attributes: ["id"],
+            model: GameSkinWish,
+            include: [
+                {
+                  attributes: ["userId"],
                   model: User,
                 }
               ]
           }
-        ],
-        include: [
-            {
-              model: GameSkinWish,
-              include: [
-                  {
-                    model: User,
-                  }
-                ]
-            }
         ],
         order: [["id", "ASC"]],
         offset,

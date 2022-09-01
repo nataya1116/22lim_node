@@ -11,6 +11,7 @@ const indexRouter = require("./routers/index_router");
 const tipBoardRouter = require("./routers/tip_board_router");
 const tipReplyRouter = require("./routers/tip_reply_router");
 const skinProductsRouter = require("./routers/game_skin_products_router");
+const skinWishRouter = require("./routers/game_skin_wish_router");
 
 const app = express();
 
@@ -48,6 +49,7 @@ app.use(indexRouter);
 app.use("/tip_board", tipBoardRouter);
 app.use("/tip_reply", tipReplyRouter);
 app.use("/skin_products", skinProductsRouter);
+app.use("/skin_wish", skinWishRouter);
 
 app.listen(PORT, () => {
   console.log(PORT, "번 포트 대기 중");

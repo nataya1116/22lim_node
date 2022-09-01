@@ -129,8 +129,24 @@
                     <span><%= skin.info %></span>
                   </div>
                   <div class="modal-body-bottom">
-                    <button class="buy-btn"><img src="/img/coin.png" alt="" style="width: 20px;"> <%= skin.point %> Buy</button>                     
-                    <img src="/img/heart1.png" alt="찜하기 버튼" class="heart-btn">
+
+                  <% const skinUser = skin?.GameSkinUsers[0] == null ? null : skin?.GameSkinUsers[0] %>
+                  <% if (skinUser?.User.userId == userId) {%>
+                    <% if (skinUser?.isUse) {%>
+                      <button class="buy-btn" disabled>in use</button>
+                    <% } else { %> 
+                      <button class="buy-btn" onclick="skinToUse(<%=skin.id%>, '<%=userId%>')">to use</button>
+                    <% } %>   
+                  <% } else { %>
+                    <button class="buy-btn" onclick="skinBuy(<%=skin.id%>, '<%=userId%>')" ><img src="/img/coin.png" alt="" style="width: 20px;" > <%= skin.point %> Buy</button>     
+                  <% } %>
+                  
+                  <% const skinWish = skin?.GameSkinWishes[0] == null ? null : skin?.GameSkinWishes[0] %>
+                  <% if (skinWish?.User.userId == userId) {%>
+                    <a href="/skin_wish/delete/<%= skinWish.id %>"><img src="/img/heart2.png" alt="찜 해제 버튼" class="heart-btn" id=""></a>
+                  <% } else { %>
+                    <a href="/skin_wish/create/<%= userId %>/<%= skin.id %>"><img src="/img/heart1.png" alt="찜하기 버튼" class="heart-btn"></a>
+                  <% } %> 
                   </div>
                 </div>
               </div>

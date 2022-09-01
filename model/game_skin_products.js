@@ -8,7 +8,6 @@ class GameSkinProducts extends Sequelize.Model {
         name: {
           type: Sequelize.STRING(50),
           allowNull: false,
-          unique: true,
         },
         info: {
           type: Sequelize.STRING,
