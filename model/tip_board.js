@@ -76,6 +76,7 @@ class TipBoard extends Sequelize.Model {
     });
 
     // N : 1
+
     db.TipBoard.belongsTo(db.User, { foreignKey: "userId", targetKey: "id" });
   }
 }
