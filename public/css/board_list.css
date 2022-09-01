@@ -212,3 +212,7 @@ left: 50%; */
 .page-info {
   cursor: pointer;
 }
+.a-decoration {
+  text-decoration: none;
+  font-weight: normal;
+}

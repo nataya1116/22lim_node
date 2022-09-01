@@ -240,3 +240,8 @@ html {
   margin-right: auto;
   margin-left: auto;
 }
+
+.board-word-break {
+  word-break: break-all;
+  white-space: pre-line;
+}

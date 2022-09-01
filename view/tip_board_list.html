@@ -104,7 +104,7 @@
         <div class="container">
           <div class="w-dyn-list list-box">
             <div class="text-div">
-              <button class="text-btn"><a href="/view/writing.html">글쓰기</a></button>
+              <button class="text-btn"><a href="/tip_board/create_view">글쓰기</a></button>
             </div>
             <div role="list" class="grid-column w-dyn-items articles">
              <!-- 여기 기점 부터 리스트 -->
@@ -115,13 +115,14 @@
                     <div class="button-circle"></div>
                     <div class="button-circle"></div>
                   </div> -->
-                  <td id="Divide1">번호</td>
-                  <td id="Divide2">제목</td>
-                  <td id="Divide3">작성자</td>
-                  <td id="Divide4">작성일</td>
-                  <td id="Divide5">조회</td>
+                  <td style="width: 7.5vw;">번호</td>
+                  <td style="width: 50vw;">제목</td>
+                  <td style="width: 15vw;">작성자</td>
+                  <td style="width: 20vw;">작성일</td>
+                  <td style="width: 7.5vw;">조회</td>
                 </tr>
 
+              <% if(!!list) { %>
                 <% for( let i = 0; i < list.length; i++) {%>
                       <% const post = list[i] %>
 
@@ -132,12 +133,13 @@
                       <% offset += i; %>  
                       <tr class="divideIn">
                         <td><%= post.id %></td>
-                        <td><a href="/tip_board/read/<%= offset %>"><%= post.title %></a> </td>
+                        <td><a href="/tip_board/read/<%= offset %>" class="a-decoration" ><%= post.title %></a> </td>
                         <td><%= post.User.userId %></td>
                         <td><%= post.createdAt %></td>
                         <td><%= post.view %></td>
                       </tr>
                 <% }  %>
+              <% }  %>
                </table>
         
 
@@ -155,30 +157,37 @@
       <button class="find-btn" id="find_btn" data-limit="<%= limit %>">찾기</button>
       
     </div>
+    <% if(!!list) { %>
     <div class="page-nav">
-      <a class="page-info" 
+      <a class="a-decoration" 
         href="/tip_board/list/1/<%= limit %><%= searchKey != '' ? '/'+searchKey : '' %><%= searchWord != '' ? '/'+searchWord : '' %>">
         <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAHCAQAAABwkq/rAAAAHUlEQVR42mNgAIPi/8X/kWkwA8SE0UQIMJAsCKMBBzk27fqtkcYAAAAASUVORK5CYII=" alt="처음페이지로 이동">
       </a>
-      <a class="page-info" 
+      <a class="a-decoration" 
         href="/tip_board/list/<%= pageNum > 1 ? pageNum - 1 : 1 %>/<%= limit %><%= searchKey != '' ? '/'+searchKey : '' %><%= searchWord != '' ? '/'+searchWord : '' %>">
         <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAHCAQAAABqrk9lAAAAGElEQVR42mNgAIPi/8X/4QwwE5PBQJADAAKSG3cyVhtXAAAAAElFTkSuQmCC" alt="이전페이지 이동 아이콘">
       </a>
-      <!-- 페이지 네이션 부분 -->
-      <% for( let i = 1; i <= totalPage; i++) {%>
-      <a class="page-info"  href="/tip_board/list/<%= i %>/<%= limit %><%= searchKey != '' ? '/'+searchKey : '' %><%= searchWord != '' ? '/'+searchWord : '' %>" ><%= i %></a>
+
+      <% for( let i = 1; i <= totalPage; i++) { %>
+
+        <% if( pageNum != i) { %> 
+          <a class='a-decoration' href="/tip_board/list/<%= i %>/<%= limit %><%= searchKey != '' ? '/'+searchKey : '' %><%= searchWord != '' ? '/'+searchWord : '' %>" ><%= i %></a>
+        <% } else { %>
+          <a href="/tip_board/list/<%= i %>/<%= limit %><%= searchKey != '' ? '/'+searchKey : '' %><%= searchWord != '' ? '/'+searchWord : '' %>" ><%= i %></a>
+        <% } %>
       <% } %>
 
-
-      <a class="page-info"
+      <a class="a-decoration"
       href="/tip_board/list/<%= pageNum < totalPage ? pageNum + 1 : totalPage %>/<%= limit %><%= searchKey != '' ? '/'+searchKey : '' %><%= searchWord != '' ? '/'+searchWord : '' %>">
       <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAHCAQAAABqrk9lAAAAGUlEQVR42mMo/l/8nwECQEwCHEwGhAlRBgA2mht3SwgzrwAAAABJRU5ErkJggg==" alt="다음페이지 이동">
       </a>
-      <a class="page-info"
+      <a class="a-decoration"
         href="/tip_board/list/<%= totalPage %>/<%= limit %><%= searchKey != '' ? '/'+searchKey : '' %><%= searchWord != '' ? '/'+searchWord : '' %>">
         <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAHCAQAAABwkq/rAAAAIElEQVR42mMo/l/8n4GBgQFGQ5kgDowmQZCwAMImhDkAb0k27Zcisn8AAAAASUVORK5CYII=" alt="마지막 페이지 이동">
       </a>
     </div>
+    <% }  %>
+    
     <div class="footer-section wf-section">
       <div class="container">
         <div class="footer">
