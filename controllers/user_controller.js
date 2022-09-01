@@ -1,8 +1,9 @@
 const UserService = require("../service/user_service");
 const TokenService = require("../service/token_service");
 const EncryptionService = require("../service/encryption_service");
-const { mailer } = require("../modules/common");
-const config = require("../config/config");
+const { mailer, jwt } = require("../modules/common");
+const { config } = require("../config/config");
+const randomNum = require("../service/random");
 
 module.exports.loginTmp = async (req, res) => {
   const id = req.body.user_id;
@@ -18,7 +19,6 @@ module.exports.loginTmp = async (req, res) => {
     res.redirect("/login");
   }
 };
-
 // 회원가입
 // module.exports.signUp =
 
@@ -46,25 +46,50 @@ module.exports.loginTmp = async (req, res) => {
 //     });
 //   },
 // };
-module.exports.emailSend = function mailSend(tomail) {
-  let transpoter = mailer.createTransport({
-    service: "Naver",
-    port: 587, // 25 587
-    host: "smtp.naver.com",
-    auth: {
-      user: config.mailer.user,
-      pass: config.mailer.pw,
-    },
-  });
-  let mailoption = {
-    from: config.mailer.user,
-    to: tomail.toEmail,
-    subject: tomail.subject,
-    html: tomail.text,
-  };
-  transpoter.sendMail(mailoption, (err, info) => {
-    if (err) console.log(err);
-    else console.log("send success", info.response);
+module.exports.emailSend = (req, res) => {
+  let email = req.body.email;
+  req.session.email = email;
+
+  UserService.useEmail(email).then((e) => {
+    if (e == null) {
+      let ranNum = randomNum();
+      req.session.randomNum = ranNum;
+      req.session.emailToken = jwt.sign({}, process.env.ET_SECRET_KEY, {
+        expiresIn: "3m",
+      });
+
+      let sendmail = {
+        // toEmail: email.email,
+        toEmail: email,
+        subject: `안녕하세요 22lim 인증번호입니다.`,
+        text: `${email}님 반갑습니다. 이메일 인증번호는 <h1>${ranNum}</h1> 입니다. 인증번호 칸에 입력 후 인증 확인 부탁드립니다.`,
+      };
+
+      let transpoter = mailer.createTransport({
+        service: "Naver",
+        port: 587, // 25 587
+        host: "smtp.naver.com",
+        auth: {
+          user: config.mailer.user,
+          pass: config.mailer.pw,
+        },
+      });
+
+      let mailoption = {
+        from: config.mailer.user,
+        to: sendmail.toEmail,
+        subject: sendmail.subject,
+        html: sendmail.text,
+      };
+
+      transpoter.sendMail(mailoption, (err, info) => {
+        if (err) console.log(err);
+        else console.log("send success", info.response);
+      });
+      res.send("suc");
+    } else {
+      res.send("fail");
+    }
   });
 };
 

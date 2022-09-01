@@ -16,8 +16,6 @@ const config = {
   },
 };
 
-module.exports = config;
-
 const AUTHORITY = {
   MANAGER: 1,
   USER: 2,
