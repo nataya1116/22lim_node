@@ -57,7 +57,6 @@
       role="banner"
       class="header w-nav"
     >
-    <% data.forEach(function(QnaBoard){ %>
       <a
         href="/"
         aria-current="page"
@@ -91,7 +90,27 @@
       <div class="section small-section wf-section">
         <div class="container">
           <h1>QnA List</h1>
-          <div class="subhead"></div>
+          <div class="subhead">
+        <!-- 여기 기점 부터 리스트 -->
+        <table class="list-table">
+          <tr class="Divide">
+            <td style="width: 7.5vw;">번호</td>
+            <td style="width: 50vw;">제목</td>
+            <td style="width: 15vw;">작성자</td>
+            <td style="width: 20vw;">작성일</td>
+            <td style="width: 7.5vw;">조회수</td>
+          </tr>
+          <% Post.forEach((QnaBoard)=>{ %>
+          <tr class="divideIn">
+            <td><%= QnaBoard.id %></td>
+            <td><%= QnaBoard.title %></td>
+            <td><%= QnaBoard.userId %></td>
+            <td><%= QnaBoard.updatedAt %></td>
+            <td><%= QnaBoard.view %></td>
+          </tr>
+          </table>
+        <% }); %>
+          </div>
         </div>
       </div>
       <div
@@ -101,52 +120,7 @@
         <div class="container">
           <div class="w-dyn-list list-box">
             <div id="articles" role="list" class="grid-column w-dyn-items">
-             <!-- 여기 기점 부터 리스트 -->
-               
-               <table class="list-table">
-                <tr class="Divide">
-                  <!-- <div class="button-circles-wrap">
-                    <div class="button-circle"></div>
-                    <div class="button-circle"></div>
-                  </div> -->
-                  <td id="Divide1">번호</td>
-                  <td id="Divide2">제목</td>
-                  <td id="Divide3">작성자</td>
-                  <td id="Divide4">작성일</td>
-                  <td id="Divide5">조회</td>
-                </tr>
-                <tr class="divideIn">
-                  <td><%= QnaBoard.number %></td>
-                  <td><%= QnaBoard.title %></td>
-                  <td><%= QnaBoard.userId %></td>
-                  <td><%= QnaBoard.createdAt %></td>
-                  <td><%= QnaBoard.view %></td>
-                </tr>
-                <tr class="divideIn">
-                    <td><%= QnaBoard.number %></td>
-                  <td><%= QnaBoard.title %></td>
-                  <td><%= QnaBoard.userId %></td>
-                  <td><%= QnaBoard.createdAt %></td>
-                  <td><%= QnaBoard.view %></td>
-                </tr>
-                <tr class="divideIn">
-                    <td><%= QnaBoard.number %></td>
-                    <td><%= QnaBoard.title %></td>
-                    <td><%= QnaBoard.userId %></td>
-                    <td><%= QnaBoard.createdAt %></td>
-                    <td><%= QnaBoard.view %></td>
-                </tr>
-                <tr class="divideIn">
-                    <td><%= QnaBoard.number %></td>
-                    <td><%= QnaBoard.title %></td>
-                    <td><%= QnaBoard.userId %></td>
-                    <td><%= QnaBoard.createdAt %></td>
-                    <td><%= QnaBoard.view %></td>
-                </tr>
-              
-               </table>
-        
-
+             
     </div>
     <div class="button-container">
       <div class="btn-div">
@@ -191,6 +165,7 @@
     <!--[if lte IE 9
       ]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script
     ><![endif]-->
-    <script src="./borad_list.js"></script>
+    <script>
+    </script>
   </body>
 </html>
