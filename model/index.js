@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 
-const config = require("../config/config");
+const { config } = require("../config/config");
 
 const User = require("./users");
 const Authority = require("./authority");

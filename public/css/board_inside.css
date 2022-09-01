@@ -231,3 +231,7 @@ html {
 .con-data a {
   margin-left: 5px;
 }
+
+.board-word-break {
+  word-break: break-all;
+}
