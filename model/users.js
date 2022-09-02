@@ -102,6 +102,9 @@ class User extends Sequelize.Model {
     db.User.hasMany(db.TipBoard, { foreignKey: "userId", sourceKey: "id" });
     db.User.hasMany(db.TipReply, { foreignKey: "userId", sourceKey: "id" });
 
+    db.User.hasMany(db.QnaBoard, { foreignKey: "userId", sourceKey: "id" });
+    db.User.hasMany(db.QnaReply, { foreignKey: "userId", sourceKey: "id" });
+
     db.User.hasMany(db.GameSkinUser, { foreignKey: "userId", sourceKey: "id" });
     db.User.hasMany(db.GameSkinWish, { foreignKey: "userId", sourceKey: "id" });
 
@@ -109,7 +112,6 @@ class User extends Sequelize.Model {
     db.User.hasMany(db.Chatting, { foreignKey: "userId2", sourceKey: "id" });
 
     db.User.hasMany(db.PointHistory, { foreignKey: "userId", sourceKey: "id" });
-    db.User.hasMany(db.QnaBoard, { foreignKey: "userId", sourceKey: "userId" });
 
     // 1 : 1
     db.User.hasOne(db.PointTotal, { foreignKey: "userId", sourceKey: "id" });

@@ -6,11 +6,14 @@ const { sequelize, QnaBoard } = require("./model");
 
 const userRouter = require("./routers/user_router");
 const indexRouter = require("./routers/index_router");
+
 const tipBoardRouter = require("./routers/tip_board_router");
+const qnaBoardRouter = require("./routers/qna_board_router");
 
 const mysql = require("mysql2");
 
 const tipReplyRouter = require("./routers/tip_reply_router");
+const qnaReplyRouter = require("./routers/qna_reply_router");
 
 const app = express();
 
@@ -48,6 +51,9 @@ app.use(indexRouter);
 app.use("/tip_board", tipBoardRouter);
 app.use("/tip_reply", tipReplyRouter);
 
+app.use("/qna_board", qnaBoardRouter);
+app.use("/qna_reply", qnaReplyRouter);
+
 app.listen(PORT, () => {
   console.log(PORT, "번 포트 대기 중");
 });
@@ -64,19 +70,22 @@ sequelize
 const TipBoardService = require("./service/tip_board_sevice");
 const TipReplyService = require("./service/tip_reply_sevice");
 
-app.get("/board/q&a", (req, res) => {
-  console.log("연결됨????");
-  QnaBoard.findAll({})
-    .then((data) => {
-      console.log(data);
-      res.render("qna_board_view", {
-        Post: data,
-      });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
+// const QnaBoardService = require("./service/qna_board_sevice");
+// const QnaReplyService = require("./service/qna_reply_sevice");
+
+// app.get("/board/q&a", (req, res) => {
+//   console.log("연결됨????");
+//   QnaBoard.findAll({})
+//     .then((data) => {
+//       console.log(data);
+//       res.render("qna_board_view", {
+//         Post: data,
+//       });
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// });
 
 app.get("/test", async (req, res) => {
   //   await TipBoardService.create({
