@@ -1,4 +1,4 @@
-const { User } = require("../model/index");
+const { User, PointTotal } = require("../model/index");
 
 // 서비스 단에는 req, res을 직접적으로 처리하지 않는다.
 module.exports.login = async (id) => {
@@ -47,6 +47,26 @@ module.exports.findPw = async (userId) => {
     return null;
   }
 };
+
+module.exports.findUser = async (userId) => {
+  try {
+    return await User.findOne({
+      attributes: ["userPw", "authorityId", "refreshToken"],
+      include : [
+        {
+          attributes : ["point"],
+          model : PointTotal
+        }
+      ],
+      where: {
+        userId,
+      }
+    });
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+}
 
 // 마이페이지 수정 DB 조회
 module.exports.userMyPageEdit = async (userId) => {
