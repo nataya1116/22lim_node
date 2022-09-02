@@ -27,11 +27,11 @@ function viewReplyNested(labelId) {
   }
 }
 
-function createReplyNested(offset, userId, boardId, replyId, content) {
+function createReplyNested(offset, userId, boardId, replyId, content, url) {
   // console.log(offset, userId, boardId, replyId, content);
   const form = document.createElement("form");
   form.method = "post";
-  form.action = `/tip_reply/create_nested`;
+  form.action = `/${url}/create_nested`;
   document.body.appendChild(form);
 
   const offsetInput = document.createElement("input");
@@ -67,11 +67,11 @@ function createReplyNested(offset, userId, boardId, replyId, content) {
   form.submit();
 }
 
-function createReply(offset, userId, boardId, content) {
+function createReply(offset, userId, boardId, content, url) {
   console.log(offset, userId, boardId, content);
   const form = document.createElement("form");
   form.method = "post";
-  form.action = `/tip_reply/create`;
+  form.action = `/${url}/create`;
   document.body.appendChild(form);
 
   const offsetInput = document.createElement("input");
@@ -109,10 +109,10 @@ function replyUpdate(updateBtn, content, saveBtn, updateInput ) {
   updateInput.focus();
 }
 
-function replySave(offset, id, content){
+function replySave(offset, id, content, url){
   const form = document.createElement("form");
   form.method = "post";
-  form.action = `/tip_reply/update`;
+  form.action = `/${url}/update`;
   document.body.appendChild(form);
 
   const offsetInput = document.createElement("input");

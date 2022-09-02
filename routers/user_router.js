@@ -20,6 +20,8 @@ router.get("/signup", (req, res) => {
   res.render("signup");
 });
 
+router.post("/signup", userController.signUp);
+
 // 이메일 인증번호 보내는 곳
 router.post("/emailCheck", (req, res) => {
   userController.emailSend(req, res);
@@ -33,6 +35,11 @@ router.get("/mypage_edit", (req, res) => {
 // 임시로 만든 라우터! 헤더랑 푸터 붙임
 router.get("/shop", (req, res) => {
   res.render("shop");
+});
+
+// 임시로 만든 라우터! 헤더랑 푸터 붙임
+router.get("/skin_list", (req, res) => {
+  res.render("skin_list");
 });
 
 // router.post("/login", userController.loginTmp);
