@@ -26,4 +26,12 @@ const BOARDS = {
   QNA_BOARD: "qnaBoard",
   FREE_BOARD: "freeBoard",
 };
-module.exports = { config, AUTHORITY, BOARDS };
+
+const POINT = {
+  JOIN: 1,
+  WRITE_POST: 2,
+  WRITE_REPLY: 3,
+  SKIN_BUY: 4
+}
+
+module.exports = { config, AUTHORITY, BOARDS, POINT };

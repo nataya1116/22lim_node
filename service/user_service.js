@@ -1,14 +1,52 @@
-const { User, PointTotal } = require("../model/index");
+const { User, PointHistory, PointTotal, PointType, sequelize } = require("../model/index");
+const { POINT } = require("../config/config");
 
+// GameSkinUser/PointHistory/PointTotal 추가
+module.exports.create = async ({userName, userId, userPw, phone, email, }) => {
 
-module.exports.create = async ({userName, userId, userPw, phone, email}) => {
-  return await User.create({
-                              userName, 
-                              userId, 
-                              userPw, 
-                              phone, 
-                              email
-                            });
+  try {
+    sequelize.transaction(async (t) => {
+      const user = await User.create({
+                                        userName, 
+                                        userId, 
+                                        userPw, 
+                                        phone, 
+                                        email
+                                      },
+                                      {
+                                        transaction: t
+                                      });
+      const userId = user.dataValues.id;
+
+      const pointType = await PointType.findOne({
+                                                  where : {
+                                                    id : POINT.JOIN
+                                                  }
+                                                });
+      const point = pointType.dataValues.point;
+      const typeId = POINT.JOIN;
+
+      await PointHistory.create({
+                                  userId,
+                                  typeId
+                                },
+                                {
+                                  transaction: t
+                                });
+      await PointTotal.create({
+                                userId,
+                                point
+                              },
+                              {
+                                transaction: t
+                              });
+
+    });
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
+   
 }
 
 module.exports.login = async (id) => {
