@@ -6,8 +6,18 @@ const { config } = require("../config/config");
 const randomNum = require("../service/random");
 
 module.exports.signUp = async (req, res) => {
+
   const {userName, userId, userPw, phone, email} = req.body;
-  const result = await UserService.create({userName, userId, userPw, phone, email});
+
+  const encryptedPw = EncryptionService.pwEncryption(userPw);
+  
+  const result = await UserService.create({
+                                            userName, 
+                                            userId, 
+                                            userPw : encryptedPw, 
+                                            phone, 
+                                            email
+                                          });
   console.log(result);
   res.send(result);
 }
@@ -105,9 +115,10 @@ module.exports.login = async (req, res) => {
   const userId = req.body.user_id;
   const userPw = req.body.user_pw;
 
-  const user = await UserService.findUser(userId);
-
-  const isLogin = EncryptionService.isPwCheck(userPw, user.userPw);
+  const result = await UserService.findUser(userId);
+  const user = result.dataValues;
+  const encryptedPw = user.userPw;
+  const isLogin = EncryptionService.isPwCheck(userPw, encryptedPw);
 
   if (user && isLogin) {
 
