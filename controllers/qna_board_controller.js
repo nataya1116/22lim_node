@@ -12,7 +12,7 @@ module.exports.create = async (req, res) => {
 
 module.exports.createView = (req, res) => {
   res.render("qna_board_insert", {
-    userId: "temp",
+    userId: "temp2",
     authorityId: 1,
     AUTHORITY,
     board: BOARDS.QNA_BOARD,
