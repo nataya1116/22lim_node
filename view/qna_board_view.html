@@ -150,7 +150,7 @@
                   id="text_box"
                   placeholder="댓글을 남겨주세요~/" />
                 <div id="text_btn">
-                  <button onclick="createReply(<%= offset %>, '<%= userId %>', <%= post.id %>, text_box.value )">저장</button>
+                  <button onclick="createReply(<%= offset %>, '<%= userId %>', <%= post.id %>, text_box.value,'qna_reply' )">저장</button>
                   <!-- <button>취소</button> -->
                 </div>
               </div>
@@ -166,7 +166,7 @@
                       <% if (userId == reply.User.userId) { %>
                       <div class="re-button" >
                         <button id="reply_update_btn<%= reply.id %>" onclick="replyUpdate(reply_update_btn<%= reply.id %>, reply_content<%= reply.id %>, reply_save_btn<%= reply.id %>, reply_update_input<%= reply.id %>)">수정</button>
-                        <button id="reply_save_btn<%= reply.id %>" style="display: none;" onclick="replySave(<%= offset %>, <%= reply.id %>, reply_update_input<%= reply.id %>.value)">저장</button>
+                        <button id="reply_save_btn<%= reply.id %>" style="display: none;" onclick="replySave(<%= offset %>, <%= reply.id %>, reply_update_input<%= reply.id %>.value,'qna_reply')">저장</button>
                         <button onclick="location.href='/qna_reply/delete/<%= reply.id %>/<%= offset %>';">삭제</button>
                       </div>
                       <% } %>
@@ -183,7 +183,7 @@
                         cols="30"
                         placeholder="답글을 달아주세요"></textarea>
 
-                      <button class="re-svaebtn" onclick="createReplyNested(<%= offset %>, '<%= userId %>', <%= post.id %>, <%= reply.id %>, reply_create_text<%= reply.id %>.value )" >저장</button>
+                      <button class="re-svaebtn" onclick="createReplyNested(<%= offset %>, '<%= userId %>', <%= post.id %>, <%= reply.id %>, reply_create_text<%= reply.id %>.value,'qna_reply' )" >저장</button>
                     </label>
                     <% for(let ni = 0; ni < replyList.length; ni++) { %>
                       <% const nestedReply = replyList[ni]; %>
@@ -200,7 +200,7 @@
                           <% if (userId == nestedReply.User.userId) { %>
                             <div class="re-button">
                               <button id="ne_reply_update_btn<%= nestedReply.id %>" onclick="replyUpdate(ne_reply_update_btn<%= nestedReply.id %>, ne_reply_content<%= nestedReply.id %>, ne_reply_save_btn<%= nestedReply.id %>, ne_reply_update_input<%= nestedReply.id %>)">수정</button>
-                              <button id="ne_reply_save_btn<%= nestedReply.id %>" style="display: none;" onclick="replySave(<%= offset %>, <%= nestedReply.id %>, ne_reply_update_input<%= nestedReply.id %>.value)">저장</button>
+                              <button id="ne_reply_save_btn<%= nestedReply.id %>" style="display: none;" onclick="replySave(<%= offset %>, <%= nestedReply.id %>, ne_reply_update_input<%= nestedReply.id %>.value,'qna_reply')">저장</button>
                               <button onclick="location.href='/qna_reply/delete/<%= nestedReply.id %>/<%= offset %>';">삭제</button>
                             </div>
                           <% } %> <!-- if (userId == nestedReply.User.userId) END -->
