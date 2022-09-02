@@ -115,7 +115,7 @@
                 </div>
                 <form action="/qna_board/create" method="post">
                  <input id="Title_writ" type="text" name="title" placeholder="제목을 입력하세요" style="padding-left:15px ;">
-                 <input type="text" name="userId" value="<%= userId %>" > 
+                 <input type="hidden" name="userId" value="<%= userId %>"  > 
                  <div class="modal-body">
                     <div>
                     <textarea id="in_writ"type="text" name="content" style="padding:20px ;"></textarea>

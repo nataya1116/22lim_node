@@ -3,7 +3,7 @@ const QnaReplyService = require("../service/qna_reply_service");
 const { AUTHORITY, BOARDS } = require("../config/config");
 
 module.exports.create = async (req, res) => {
-  const { userId, title, content } = req.body;
+  const { userId, title, content } = req.body;  
   console.log("c create() ", userId, title, content);
   await QnaBoardService.create({ userId, title, content });
 
@@ -12,7 +12,7 @@ module.exports.create = async (req, res) => {
 
 module.exports.createView = (req, res) => {
   res.render("qna_board_insert", {
-    userId: "temp2",
+    userId: "temp",
     authorityId: 1,
     AUTHORITY,
     board: BOARDS.QNA_BOARD,
