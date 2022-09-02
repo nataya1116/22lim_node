@@ -106,7 +106,7 @@
             <div role="list" class="grid-halves w-dyn-items">
             
           <% if(!!list) {%>
-            <% list.forEach((skin) => { %>
+            <% list.forEach((product) => { %>
               <div class="products">
               <div
                 data-w-id="17ac18b5-161b-07f2-842a-a33f4d0523d8"
@@ -123,29 +123,29 @@
                   </div>
                 </div>
                 <div class="modal-body skin">
-                  <div class="product-img" style=" background-image: url('<%=skin.imgUrl%>'); background-position: <%=skin.positionX%>px <%=skin.positionY%>px;"></div>
+                  <div class="product-img" style=" background-image: url('<%=product.imgUrl%>'); background-position: <%=product.positionX%>px <%=product.positionY%>px;"></div>
                   <div class="product-name">
-                    <h3><%= skin.name %></h3>
-                    <span><%= skin.info %></span>
+                    <h3><%= product.name %></h3>
+                    <span><%= product.info %></span>
                   </div>
                   <div class="modal-body-bottom">
 
-                  <% const skinUser = skin?.GameSkinUsers[0] == null ? null : skin?.GameSkinUsers[0] %>
+                  <% const skinUser = product?.GameSkinUsers[0] == null ? null : product?.GameSkinUsers[0] %>
                   <% if (skinUser?.User.userId == userId) {%>
                     <% if (skinUser?.isUse) {%>
                       <button class="buy-btn" disabled>in use</button>
                     <% } else { %> 
-                      <button class="buy-btn" onclick="skinToUse(<%=skin.id%>, '<%=userId%>')">to use</button>
+                      <button class="buy-btn" onclick="skinToUse(<%=product.id%>, '<%=userId%>')">to use</button>
                     <% } %>   
                   <% } else { %>
-                    <button class="buy-btn" onclick="skinBuy(<%=skin.id%>, '<%=userId%>')" ><img src="/img/coin.png" alt="" style="width: 20px;" > <%= skin.point %> Buy</button>     
+                    <button class="buy-btn" onclick="skinBuy(<%=product.id%>, '<%=userId%>')" ><img src="/img/coin.png" alt="" style="width: 20px;" > <%= product.point %> Buy</button>     
                   <% } %>
                   
-                  <% const skinWish = skin?.GameSkinWishes[0] == null ? null : skin?.GameSkinWishes[0] %>
+                  <% const skinWish = product?.GameSkinWishes[0] == null ? null : product?.GameSkinWishes[0] %>
                   <% if (skinWish?.User.userId == userId) {%>
-                    <a href="/skin_wish/delete/<%= skinWish.id %>"><img src="/img/heart2.png" alt="찜 해제 버튼" class="heart-btn" id=""></a>
+                    <a href="#" id="wish_a<%=product.id%>" onclick="skinWishCancel('<%= userId %>', <%= product.id %>, <%= skinWish.id %>, wish_a<%=product.id%>)"><img src="/img/heart2.png" alt="찜 해제 버튼" class="heart-btn" ></a>
                   <% } else { %>
-                    <a href="/skin_wish/create/<%= userId %>/<%= skin.id %>"><img src="/img/heart1.png" alt="찜하기 버튼" class="heart-btn"></a>
+                    <a href="#" id="wish_a<%=product.id%>" onclick="skinWish('<%= userId %>', <%= product.id %>, wish_a<%=product.id%>)" ><img src="/img/heart1.png" alt="찜하기 버튼" class="heart-btn"></a>
                   <% } %> 
                   </div>
                 </div>
@@ -207,6 +207,7 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"
 type="text/javascript"
 ></script>
 
+<script src="/js/shop.js"></script>
 
 </body>
 

@@ -1,10 +1,22 @@
 const SkinWishService = require("../service/game_skin_wish_service");
 
 module.exports.create = async (req, res) => {
-    const userId = req.params.userId;
-    const productId = Number(req.params.productId);
+    console.log("c skin_wish/create");
+    const userId = req.body.userId;
+    const productId = Number(req.body.productId);
     
-    await SkinWishService.create(userId, productId);
+    const result = await SkinWishService.create(userId, productId);
     
-    res.redirect("/skin_products/list");
+    console.log(result);
+    
+    res.send(result);
 };
+
+module.exports.delete = async (req, res) => {
+
+    const productWishId = Number(req.body.productWishId);
+
+    await SkinWishService.delete(productWishId);
+
+    res.send();
+}
