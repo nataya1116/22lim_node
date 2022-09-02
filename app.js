@@ -2,7 +2,9 @@ const { express, ejs, path, dot, session } = require("./modules/common");
 
 dot.config();
 
-const { sequelize, QnaBoard } = require("./model");
+// index.js에 정리한 객체들은 이렇게 폴더명만 써줘도 자동으로 index.js를 읽어온다.
+// 이름이 무조건 index여야만 한다!
+const { sequelize } = require("./model");
 
 const userRouter = require("./routers/user_router");
 const indexRouter = require("./routers/index_router");
@@ -54,7 +56,10 @@ app.use("/tip_board", tipBoardRouter);
 app.use("/tip_reply", tipReplyRouter);
 
 app.use("/qna_board", qnaBoardRouter);
-app.use("/qna_reply", qnaReplyRouter);
+app.use("/qna_reply", qnaReplyRouter); 
+
+app.use("/skin_products", skinProductsRouter);
+app.use("/skin_wish", skinWishRouter); 
 
 app.listen(PORT, () => {
   console.log(PORT, "번 포트 대기 중");
@@ -138,8 +143,8 @@ app.get("/test", async (req, res) => {
   //     content : "행복행복"
   // })
 
-  await TipReplyService.delete(2);
-  const count = await TipReplyService.list(1);
-  res.send(count);
+  //await TipReplyService.delete(2);
+  //const count = await TipReplyService.list(1);
+  //res.send(count);
   // res.render("board_list");
 });
