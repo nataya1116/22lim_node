@@ -5,6 +5,10 @@ const { mailer, jwt } = require("../modules/common");
 const { config } = require("../config/config");
 const randomNum = require("../service/random");
 
+module.exports.signUp = async (req, res) => {
+  
+}
+
 module.exports.loginTmp = async (req, res) => {
   const id = req.body.user_id;
   const pw = req.body.user_pw;

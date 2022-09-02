@@ -20,6 +20,8 @@ router.get("/signup", (req, res) => {
   res.render("signup");
 });
 
+router.post("/signup", userController.signUp);
+
 // 이메일 인증번호 보내는 곳
 router.post("/emailCheck", (req, res) => {
   userController.emailSend(req, res);

@@ -1,4 +1,3 @@
-const { jwt } = require("../modules/common");
 const UserService = require("../service/user_service");
 const TokenService = require("../service/token_service");
 
@@ -17,7 +16,8 @@ module.exports.validity = async (req, res, next) => {
     if (!decodeRe) res.redirect("/user/login");
 
     const userId = decodeRe.userId;
-    const user = await UserService.findUser(userId);
+    const result = await UserService.findUser(userId);
+    const user = result.dataValues;
 
     if (refreshToken != user.refreshToken) res.redirect("/user/login");
 

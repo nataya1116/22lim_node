@@ -1,6 +1,10 @@
 const { User, PointTotal } = require("../model/index");
 
-// 서비스 단에는 req, res을 직접적으로 처리하지 않는다.
+
+module.exports.create = async () => {
+  
+}
+
 module.exports.login = async (id) => {
   const result = await this.findPw(id);
 
