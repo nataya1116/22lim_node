@@ -49,7 +49,7 @@ app.use("/user", userRouter);
 app.use("/tip_board", tipBoardRouter);
 app.use("/tip_reply", tipReplyRouter);
 app.use("/skin_products", skinProductsRouter);
-app.use("/skin_wish", skinWishRouter);
+app.use("/skin_wish", skinWishRouter); 
 
 app.listen(PORT, () => {
   console.log(PORT, "번 포트 대기 중");
