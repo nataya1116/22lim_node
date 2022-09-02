@@ -6,7 +6,10 @@ const { config } = require("../config/config");
 const randomNum = require("../service/random");
 
 module.exports.signUp = async (req, res) => {
-  
+  const {userName, userId, userPw, phone, email} = req.body;
+  const result = await UserService.create({userName, userId, userPw, phone, email});
+  console.log(result);
+  res.send(result);
 }
 
 module.exports.loginTmp = async (req, res) => {
