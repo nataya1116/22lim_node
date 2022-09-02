@@ -1,8 +1,14 @@
 const { User, PointTotal } = require("../model/index");
 
 
-module.exports.create = async () => {
-  
+module.exports.create = async ({userName, userId, userPw, phone, email}) => {
+  return await User.create({
+                              userName, 
+                              userId, 
+                              userPw, 
+                              phone, 
+                              email
+                            });
 }
 
 module.exports.login = async (id) => {
