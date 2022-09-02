@@ -220,7 +220,7 @@
     function mailCheck() {
       // 요청
       $.ajax({
-        url: "/emailCheck",
+        url: "/user/emailCheck",
         type: "post",
         data: {
           email: user_email.value,
@@ -241,13 +241,12 @@
     // const userCheck = allCheck(user_name.value, user_id.value, user_pw.value, user_phone.value, user_email.value);
 
       $.ajax({
-        url : "/signup",
+        url : "/user/signup",
         type : "post",
         data : {
-          name : user_name.value,
-          id : user_id.value,
-          pw : user_pw.value,
-          pwCheck : user_pw_check.value,
+          userName : user_name.value,
+          userId : user_id.value,
+          userPw : user_pw.value,
           phone : user_phone.value,
           email : user_email.value,
           certifiedNum : random_num.value

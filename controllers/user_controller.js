@@ -5,6 +5,10 @@ const { mailer, jwt } = require("../modules/common");
 const { config } = require("../config/config");
 const randomNum = require("../service/random");
 
+module.exports.signUp = async (req, res) => {
+  
+}
+
 module.exports.loginTmp = async (req, res) => {
   const id = req.body.user_id;
   const pw = req.body.user_pw;
@@ -95,29 +99,35 @@ module.exports.emailSend = (req, res) => {
 
 // 로그인
 module.exports.login = async (req, res) => {
-  const id = req.body.user_id;
-  const pw = req.body.user_pw;
+  const userId = req.body.user_id;
+  const userPw = req.body.user_pw;
 
-  const resultPw = await UserService.login(id);
+  const user = await UserService.findUser(userId);
 
-  const isLogin = EncryptionService.isPwCheck(pw, resultPw);
+  const isLogin = EncryptionService.isPwCheck(userPw, user.userPw);
 
-  if (resultPw && isLogin) {
-    const accessToken = TokenService.createAccessToken(id);
-    const refreshToken = TokenService.createRefreshToken(id);
+  if (user && isLogin) {
+
+    const point = user.PointTotal.point;
+    const authorityId = user.authorityId;
+
+    const accessToken = TokenService.createAccessToken(userId, point, authorityId);
+    const refreshToken = TokenService.createRefreshToken(userId, point, authorityId);
 
     req.session.access_Token = accessToken;
     req.session.refresh_Token = refreshToken;
 
-    UserService.updateRefreshToken(id, refreshToken);
-
-    // console.log(req.session);
+    UserService.updateRefreshToken(userId, refreshToken);
 
     res.redirect("/");
   } else {
     res.redirect("/login");
   }
 };
+
+module.exports.loginView = (req, res) => {
+  res.ren
+}
 
 // 마이페이지(수정 페이지)------------------------------
 module.exports.userMyPageEdit = async (req, res) => {

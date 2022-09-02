@@ -14,6 +14,8 @@ const mysql = require("mysql2");
 
 const tipReplyRouter = require("./routers/tip_reply_router");
 const qnaReplyRouter = require("./routers/qna_reply_router");
+const skinProductsRouter = require("./routers/game_skin_products_router");
+const skinWishRouter = require("./routers/game_skin_wish_router");
 
 const app = express();
 
@@ -44,8 +46,8 @@ app.use(
 );
 
 // 라우터 사용 설정
-app.use(userRouter);
 app.use(indexRouter);
+app.use("/user", userRouter);
 // 경로를 지정해주어 사용함!
 // /tip_board라는 경로 내에 tipBoardRouter 요 안에 들어있는 get이나 post방식으로 접근한 모든 경로의 루트는 /tip_board로 설정해준것이다!
 app.use("/tip_board", tipBoardRouter);

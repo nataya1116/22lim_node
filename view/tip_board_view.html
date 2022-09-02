@@ -145,48 +145,62 @@
           <div class="modal-wrapper">
             <div class="comments_box">
               <div class="comment">
+                <!-- 댓글 내용 인풋 -->
                 <input
                   type="text"
                   id="text_box"
                   placeholder="댓글을 남겨주세요~/" />
                 <div id="text_btn">
-                  <button onclick="createReply(<%= offset %>, '<%= userId %>', <%= post.id %>, text_box.value )">저장</button>
+                  <!-- 댓글 저장 버튼 -->
+                  <button onclick="createReply(<%= offset %>, '<%= userId %>', <%= post.id %>, text_box.value, 'tip_reply')">저장</button> 
                   <!-- <button>취소</button> -->
                 </div>
               </div>
               <div class="cm-content">
+              <!-- 디비에서 가져온 리플 갯수 만큼 포문을 돌린다. -->
               <% for(let ri = 0; ri < replyList.length; ri++) { %>
                   <% const reply = replyList[ri]; %>
+                  <!-- 리플에 리플아이디가 없으면 댓글이다 댓글을 생성해준다. -->
                   <% if ( reply.replyId == null ) { %>
                     <div class="writer">
                       <div><%= reply.User.userId %></div>
 
                       <div class="write-day"><%= reply.createdAt %></div>
                       &nbsp;&nbsp;
+                      <!-- 댓글 작성자와 유저아이디(사이트)가 같을 경우에만 수정, 저장, 삭제 버튼을 생성한다. -->
                       <% if (userId == reply.User.userId) { %>
                       <div class="re-button" >
+                        <!-- 댓글 수정 버튼 -->
                         <button id="reply_update_btn<%= reply.id %>" onclick="replyUpdate(reply_update_btn<%= reply.id %>, reply_content<%= reply.id %>, reply_save_btn<%= reply.id %>, reply_update_input<%= reply.id %>)">수정</button>
-                        <button id="reply_save_btn<%= reply.id %>" style="display: none;" onclick="replySave(<%= offset %>, <%= reply.id %>, reply_update_input<%= reply.id %>.value)">저장</button>
+                        <!-- 수정한 댓글을 저장하는 버튼 -->
+                        <button id="reply_save_btn<%= reply.id %>" style="display: none;" onclick="replySave(<%= offset %>, <%= reply.id %>, reply_update_input<%= reply.id %>.value, 'tip_reply')">저장</button>
+                        <!-- 댓글 삭제 버튼 -->
                         <button onclick="location.href='/tip_reply/delete/<%= reply.id %>/<%= offset %>';">삭제</button>
                       </div>
                       <% } %>
                     </div>
                     <div class="wr-comment"> 
+                      <!-- 댓글 수정 인풋 -->
                       <input type="text" style="width: 100%; height: 80%; display: none;" id="reply_update_input<%= reply.id %>" value="<%= reply.content %>">
+                      <!-- 댓글 내용                                    댓글을 클릭하면 수정하는 부분이 나오도록 함수 만들어 놓음-->
                       <span id="reply_content<%= reply.id %>" onclick="viewReplyNested(reply_label<%= reply.id %>)"><%= reply.content.replaceAll('/n', '<br/>') %></span> 
                     </div>
                     <label class="retext-box" id="reply_label<%= reply.id %>" style="display: none;">
+                      <!-- 답글 작성 텍스트어리어 -->
                       <textarea
                         id="reply_create_text<%= reply.id %>"
                         class="retext"
                         rows="3"
                         cols="30"
                         placeholder="답글을 달아주세요"></textarea>
-
-                      <button class="re-svaebtn" onclick="createReplyNested(<%= offset %>, '<%= userId %>', <%= post.id %>, <%= reply.id %>, reply_create_text<%= reply.id %>.value )" >저장</button>
+                      <!-- 답글 저장 버튼 -->
+                      <button class="re-svaebtn" onclick="createReplyNested(<%= offset %>, '<%= userId %>', <%= post.id %>, <%= reply.id %>, reply_create_text<%= reply.id %>.value, 'tip_reply')" >저장</button>
                     </label>
+
+                    <!-- 답글 생성 부분 -->
                     <% for(let ni = 0; ni < replyList.length; ni++) { %>
                       <% const nestedReply = replyList[ni]; %>
+                      <!-- 댓글 id를 replyId로 가지고 있는(현재 댓글의 답글) 답글을 생성해준다. -->
                       <% if (reply.id == nestedReply.replyId) { %>
                         <div class="feedback-num">
                           <div class="user-day">
@@ -194,13 +208,18 @@
                             <span><%= nestedReply.createdAt %></span>
                           </div>
                           <div class="recomment">
+                            <!-- 답글 내용 -->
                             <div id="ne_reply_content<%= nestedReply.id %>"><%= nestedReply.content %></div>
                             <input type="text" style="width: 90%; height: 80%; display: none;" id="ne_reply_update_input<%= nestedReply.id %>" value="<%= nestedReply.content %>">
-                            
+                          
+                            <!-- 답글 작성자와 유저아이디(사이트)가 같을 경우에만 수정, 저장, 삭제 버튼을 생성한다. -->  
                           <% if (userId == nestedReply.User.userId) { %>
                             <div class="re-button">
+                              <!-- 답글 수정 버튼 -->
                               <button id="ne_reply_update_btn<%= nestedReply.id %>" onclick="replyUpdate(ne_reply_update_btn<%= nestedReply.id %>, ne_reply_content<%= nestedReply.id %>, ne_reply_save_btn<%= nestedReply.id %>, ne_reply_update_input<%= nestedReply.id %>)">수정</button>
-                              <button id="ne_reply_save_btn<%= nestedReply.id %>" style="display: none;" onclick="replySave(<%= offset %>, <%= nestedReply.id %>, ne_reply_update_input<%= nestedReply.id %>.value)">저장</button>
+                              <!-- 수정한 답글 저장 버튼 -->
+                              <button id="ne_reply_save_btn<%= nestedReply.id %>" style="display: none;" onclick="replySave(<%= offset %>, <%= nestedReply.id %>, ne_reply_update_input<%= nestedReply.id %>.value, 'tip_reply')">저장</button>
+                              <!-- 답글 삭제 버튼 -->
                               <button onclick="location.href='/tip_reply/delete/<%= nestedReply.id %>/<%= offset %>';">삭제</button>
                             </div>
                           <% } %> <!-- if (userId == nestedReply.User.userId) END -->

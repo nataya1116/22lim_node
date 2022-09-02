@@ -42,7 +42,12 @@ class GameSkinWish extends Sequelize.Model {
                 timestamps : true,
                 paranoid : true,
                 charset: "utf8",
-                collate: "utf8_general_ci"
+                collate: "utf8_general_ci",
+                uniqueKeys: {
+                    actions_unique: {
+                        fields: ['userId', 'productId']
+                    }
+                }
             }
         )
     }
