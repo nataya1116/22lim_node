@@ -119,12 +119,19 @@ module.exports.login = async (req, res) => {
   }
 };
 
-// 마이페이지(수정 페이지)------------------------------
-module.exports.userMyPageEdit = async (req, res) => {
+// 마이페이지------------------------------
+module.exports.userMyPage = async (req, res) => {
   // userMyPage의 매개변수로 아이디를 넣어주면 된다
   // 나중에 데이터에서 가져올 유저의 아이디 값을 주면 됨
-  UserService.userMyPageEdit("temp").then((e) => {
+  UserService.userMyPage("temp").then((e) => {
     // render의 두번째 매개변수로 받아올 데이터?...
-    res.render("mypage_edit", { data: e });
+    res.render("mypage", { data: e });
+  });
+};
+
+// 마이페이지에서 비밀번호 변경창
+module.exports.myPageUpdatePw = async (req, res) => {
+  UserService.myPageUpdatePw("temp").then((e) => {
+    res.render("update_pw", { data: e });
   });
 };
