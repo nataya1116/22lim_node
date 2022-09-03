@@ -18,7 +18,7 @@
     
 }
 #_start_page {
-    background-image: url("/public/img/game_image/background/startPage.png");
+    background-image: url("/img/game_image/background/startPage.png");
     background-repeat: no-repeat;
     background-size: cover;
     width: 1024;
@@ -107,7 +107,7 @@
 
 /* 게임오버 창 */
 #_game_over {
-    background-image: url("/public/img/game_image/background/ded\ image.png");
+    background-image: url("/img/game_image/background/ded\ image.png");
     background-repeat: no-repeat;
     background-size: cover;
     width: 1024;
@@ -517,7 +517,7 @@
 }
 
 .character {
-    background-image: url("/public/img/game_image/character/load/Dr\ Frankenstein\ Face.png");
+    background-image: url("/img/game_image/character/load/Dr\ Frankenstein\ Face.png");
     background-repeat: no-repeat;
     background-size: cover;
     margin-right: 30px;
@@ -697,7 +697,7 @@
   
   .prolSkip:hover {
     background-repeat: no-repeat;
-    background-image: url("/public/img/game_image/playImage/findIt.png");
+    background-image: url("/img/game_image/playImage/findIt.png");
     filter: none;
     color: rgba(0, 0, 0, 0);
     background-color: transparent;
@@ -719,7 +719,7 @@
   /* 검은 배경 화면 */
   #_stg_back {
     /* background-color: rgb(15, 15, 15); */
-    background-image: url(/public/img/game_image/playImage/ghost_1.jpeg);
+    background-image: url(/img/game_image/playImage/ghost_1.jpeg);
     /* background-image: url(/img/cat.jpg); */
     background-size: cover;
     width: 1024px;
