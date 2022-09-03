@@ -1,6 +1,8 @@
 const { TipReply, User, sequelize } = require("../model/index");
 const Op = require("sequelize").Op;
 
+
+// TODO 포인트 추가해줄것
 module.exports.create = async ({userId, boardId, content}) => {
     try {
         User.findOne({
@@ -18,6 +20,7 @@ module.exports.create = async ({userId, boardId, content}) => {
     }
 }
 
+// TODO 포인트 추가해줄것
 module.exports.createNested = async ({userId, boardId, replyId, content}) => {
     try {
         User.findOne({

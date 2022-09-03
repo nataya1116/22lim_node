@@ -7,11 +7,12 @@ class PointTotal extends Sequelize.Model {
             {
                 userId : {
                     type : Sequelize.INTEGER,
-                    allowNull : false
+                    allowNull : false,
+                    unique : true
                 },
                 point : {
                     type : Sequelize.INTEGER,
-                    defaultValue : 0
+                    allowNull : false
                 },
                 createdAt : {
                     type: Sequelize.DATE,

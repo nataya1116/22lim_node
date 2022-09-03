@@ -9,6 +9,7 @@ module.exports.count = async () => {
     }
 }
 
+// 포인트 추가해줄것
 module.exports.create = async ({userId, title, content}) => {
     console.log("service create()");
     try {

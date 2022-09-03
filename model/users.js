@@ -24,7 +24,6 @@ class User extends Sequelize.Model {
         phone: {
           type: Sequelize.STRING(11),
           allowNull: false,
-          unique: true,
         },
         email: {
           type: Sequelize.STRING(30),

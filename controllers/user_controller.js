@@ -4,12 +4,29 @@ const EncryptionService = require("../service/encryption_service");
 const { mailer, jwt } = require("../modules/common");
 const { config } = require("../config/config");
 const randomNum = require("../service/random");
+const { AUTHORITY, CONDITION } = require("../config/config");
 
 module.exports.signUp = async (req, res) => {
+
   const {userName, userId, userPw, phone, email} = req.body;
-  const result = await UserService.create({userName, userId, userPw, phone, email});
-  console.log(result);
-  res.send(result);
+
+  const authorityId = AUTHORITY.USER;
+
+  const conditionId = CONDITION.ACTIVITY;
+
+  const encryptedPw = EncryptionService.pwEncryption(userPw);
+  
+  const result = await UserService.create({
+                                            userName, 
+                                            userId, 
+                                            userPw : encryptedPw, 
+                                            phone, 
+                                            email,
+                                            authorityId,
+                                            conditionId
+                                          });
+  if(!result) res.send("fail");
+  else res.send("suc");
 }
 
 module.exports.loginTmp = async (req, res) => {
@@ -59,17 +76,17 @@ module.exports.emailSend = (req, res) => {
 
   UserService.useEmail(email).then((e) => {
     if (e == null) {
-      let ranNum = randomNum();
-      req.session.randomNum = ranNum;
-      req.session.emailToken = jwt.sign({}, process.env.ET_SECRET_KEY, {
-        expiresIn: "3m",
+        const randNum = randomNum();
+        // req.session.randomNum = ranNum;
+        req.session.email_token = jwt.sign({randNum}, process.env.ET_SECRET_KEY, {
+          expiresIn: "3m",
       });
 
       let sendmail = {
         // toEmail: email.email,
         toEmail: email,
         subject: `안녕하세요 22lim 인증번호입니다.`,
-        text: `${email}님 반갑습니다. 이메일 인증번호는 <h1>${ranNum}</h1> 입니다. 인증번호 칸에 입력 후 인증 확인 부탁드립니다.`,
+        text: `${email}님 반갑습니다. 이메일 인증번호는 <h1>${randNum}</h1> 입니다. 인증번호 칸에 입력 후 인증 확인 부탁드립니다.`,
       };
 
       let transpoter = mailer.createTransport({
@@ -90,7 +107,10 @@ module.exports.emailSend = (req, res) => {
       };
 
       transpoter.sendMail(mailoption, (err, info) => {
-        if (err) console.log(err);
+        if (err) {
+          console.log(err); 
+          res.send("err");
+        }
         else console.log("send success", info.response);
       });
       res.send("suc");
@@ -100,14 +120,33 @@ module.exports.emailSend = (req, res) => {
   });
 };
 
+// 이메일 인증번호 체크
+module.exports.emailNumCheck = (req, res) => {
+  const randNum = req.body.randNum;
+  const emailToken = req.session.email_token;
+  let decode;
+  try {
+    decode = jwt.verify(emailToken,  process.env.ET_SECRET_KEY);
+    if(randNum === decode.randNum){
+      res.send("suc");
+    }else {
+      res.send("wrong");
+    }
+  } catch (error) {
+    res.send("fail");
+  }
+  
+}
+
 // 로그인
 module.exports.login = async (req, res) => {
   const userId = req.body.user_id;
   const userPw = req.body.user_pw;
 
-  const user = await UserService.findUser(userId);
-
-  const isLogin = EncryptionService.isPwCheck(userPw, user.userPw);
+  const result = await UserService.findUser(userId);
+  const user = result.dataValues;
+  const encryptedPw = user.userPw;
+  const isLogin = EncryptionService.isPwCheck(userPw, encryptedPw);
 
   if (user && isLogin) {
 
@@ -129,7 +168,7 @@ module.exports.login = async (req, res) => {
 };
 
 module.exports.loginView = (req, res) => {
-  res.ren
+  res.render("login");
 }
 
 // 마이페이지(수정 페이지)------------------------------
@@ -141,3 +180,15 @@ module.exports.userMyPageEdit = async (req, res) => {
     res.render("mypage_edit", { data: e });
   });
 };
+
+module.exports.useIdOverlap = async (req, res) => {
+  const userId = req.body.userId; 
+  const result = await UserService.useIdOverlap(userId);
+  res.send(result);
+}
+
+module.exports.emailOverlap = async (req, res) => {
+  const email = req.body.email; 
+  const result = await UserService.emailOverlap(email);
+  res.send(result);
+}
