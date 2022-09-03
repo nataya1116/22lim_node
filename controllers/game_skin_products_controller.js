@@ -8,5 +8,5 @@ module.exports.list = async (req, res) => {
     const result = await SkinProductsService.list(0, 1000);
     const list = result?.rows;
 
-    res.render("skin_list", { list, userId });
+    res.render("skin_list", { userId, list });
 };
