@@ -113,14 +113,12 @@
                     </div>
                     <div class="info-box">
                       <label for="">pw</label>
-                      <button class="change-pw-btn" onclick="updatePwBtn()">
+                      <button
+                        class="change-pw-btn"
+                        onclick="location.href='/update_pw'"
+                      >
                         비밀번호 변경하기
                       </button>
-                      <input
-                        type="hidden"
-                        id="update_pw_btn"
-                        value="<%= data.userId %>"
-                      />
                       <label for="">email</label>
                       <div class="text-box"><%= data.email %></div>
                       <label for="">phone</label>
@@ -184,17 +182,5 @@
       ]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script
     ><![endif]-->
   </body>
-  <script>
-    function updatePwBtn() {
-      $.ajax({
-        url: "/update_pw",
-        type: "post",
-        data: {
-          userId: update_pw_btn.value,
-        },
-        success: (data) => {},
-      });
-    }
-  </script>
 </html>
 ㄴ

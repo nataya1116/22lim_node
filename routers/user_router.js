@@ -30,6 +30,10 @@ router.get("/mypage", (req, res) => {
   userController.userMyPage(req, res);
 });
 
+router.get("/update_pw", (req, res) => {
+  userController.myPageUpdatePw(req, res);
+});
+
 router.post("/update_pw", (req, res) => {
   userController.myPageUpdatePw(req, res);
 });
