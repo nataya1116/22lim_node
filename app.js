@@ -21,6 +21,8 @@ const skinWishRouter = require("./routers/game_skin_wish_router");
 
 const gameParanoia = require("./routers/game_paranoia_router")
 
+const findPw = require("./routers/find_pw_router")
+
 const app = express();
 
 const PORT = 4000;
@@ -64,6 +66,8 @@ app.use("/skin_products", skinProductsRouter);
 app.use("/skin_wish", skinWishRouter); 
 
 app.use("/game_paranoia", gameParanoia);
+
+app.use("/find_pw",findPw);
 
 app.listen(PORT, () => {
   console.log(PORT, "번 포트 대기 중");
