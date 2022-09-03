@@ -16,6 +16,27 @@ function idCheck(id) {
   } else id_check.innerHTML = "";
 }
 
+// 아이디 중복확인
+function idOverlap(idInput){
+
+  const idValue = idInput.value;
+  
+  if(idCheck(idValue)) return;
+  
+  const url = "/user/id_overlap";
+  const data = {idValue};
+
+  $.post(url, data, (ret) => {
+    if(ret) {
+      alert("사용가능한 아이디 입니다.");
+      idInput.readOnly = true;
+    } else {
+      id_check.innerHTML = "중복되는 아이디가 있습니다.";
+    }
+  });
+
+}
+
 // 비밀번호 정규식
 function pwCheck(pw) {
   const pwRegex =

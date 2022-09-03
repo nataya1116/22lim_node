@@ -23,7 +23,7 @@ module.exports.create = async ({userName, userId, userPw, phone, email, }) => {
                                                     id : POINT.JOIN
                                                   }
                                                 });
-      const point = pointType.dataValues.point;
+      const point = pointType?.dataValues.point;
       const typeId = POINT.JOIN;
 
       await PointHistory.create({
@@ -110,6 +110,25 @@ module.exports.findUser = async (userId) => {
         userId,
       }
     });
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+}
+
+module.exports.idOverlap = async (userId) => {
+  try {
+    const user = await User.findOne({
+      attributes: ["userId"],
+      where: {
+        userId,
+      }
+    });
+    console.log();
+    if (!!user) return true;
+
+    else return false;
+
   } catch (err) {
     console.error(err);
     return null;
