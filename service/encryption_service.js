@@ -9,3 +9,4 @@ module.exports.pwEncryption = (pw) => {
 module.exports.isPwCheck = (pw, encryptedPw) => {
   return bcrypt.compareSync(pw, encryptedPw);
 };
+

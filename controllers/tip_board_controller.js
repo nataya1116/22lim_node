@@ -3,14 +3,13 @@ const TipReplyService = require("../service/tip_reply_sevice");
 const TokenService = require("../service/token_service");
 const { AUTHORITY, BOARDS } = require("../config/config");
 
-
 module.exports.create = async (req, res) => {
-    const { userId, title, content } = req.body;
-    console.log("c create() ", userId, title, content);
-    await TipBoardService.create({ userId, title, content });
+  const { userId, title, content } = req.body;
+  console.log("c create() ", userId, title, content);
+  await TipBoardService.create({ userId, title, content });
 
-    res.redirect("/tip_board/list/1/10");
-}
+  res.redirect("/tip_board/list/1/10");
+};
 
 module.exports.createView = (req, res) => {
 

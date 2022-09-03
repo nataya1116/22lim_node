@@ -1,18 +1,23 @@
 const Sequelize = require("sequelize");
+const moment = require("moment");
 
 class QnaBoard extends Sequelize.Model {
   static init(sequelize) {
     return super.init(
       {
-        number: {
+        title: {
           // 데이터 타입 설정
           type: Sequelize.STRING(200),
           // 널 값 허용 여부
           allowNull: false,
         },
-        title: {
+        content: {
           type: Sequelize.TEXT,
           allowNull: false,
+        },
+        view: {
+          type: Sequelize.INTEGER,
+          defaultValue: 0,
         },
         userId: {
           type: Sequelize.INTEGER,
@@ -27,9 +32,22 @@ class QnaBoard extends Sequelize.Model {
             );
           },
         },
-        view: {
-          type: Sequelize.INTEGER,
-          defaultValue: 0,
+        updatedAt: {
+          type: Sequelize.DATE,
+          allowNull: false,
+          get() {
+            return moment(this.getDataValue("updatedAt")).format(
+              "YYYY/MM/DD hh:mm:ss"
+            );
+          },
+        },
+        deletedAt: {
+          type: Sequelize.DATE,
+          get() {
+            return moment(this.getDataValue("deletedAt")).format(
+              "YYYY/MM/DD hh:mm:ss"
+            );
+          },
         },
       },
       {
@@ -56,8 +74,10 @@ class QnaBoard extends Sequelize.Model {
       foreignKey: "boardId",
       sourceKey: "id",
     });
+
     // N : 1
-    db.QnaBoard.belongsTo(db.User, { foreignKey: "userId", sourceKey: "id" });
+
+    db.QnaBoard.belongsTo(db.User, { foreignKey: "userId", targetKey: "id" });
   }
 }
 
