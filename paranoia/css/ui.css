@@ -1,0 +1,733 @@
+@font-face {
+    font-family: 'NeoDunggeunmo';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.3/NeoDunggeunmo.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* ========================================================================================변경요소 */
+#container_box {
+    width: 1024;
+    height: 576;
+    position: relative;
+}
+
+/* box와 div사이에 그냥 띄어쓰기 하면 자손요소 > 들어가면 자식요소 */
+#container_box>div {
+    position: absolute;
+    
+}
+#_start_page {
+    background-image: url("/img/background/startPage.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 1024;
+    height: 576;
+    text-align: center;
+    /* z-index: 999; */
+    /* 배열로 만들기 */
+}
+
+/*====================================================================================== 변경요소 */
+
+
+/* 게임시작 창 */
+
+#_title {
+    font-family: 'NeoDunggeunmo';
+    color: rgb(255, 248, 220);
+    font-size: 150px;
+    height: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#_btn_list {
+    height: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#_start_page ul {
+    display: inline-flex;
+    flex-direction: column;
+}
+
+#_start_page button {
+    background-color: transparent;
+    border: transparent;
+    font-family: 'NeoDunggeunmo';
+    font-size: 20px;
+}
+
+#_start_page li {
+    display: inline-flex;
+    justify-content: center;
+    margin-bottom: 15px;
+    appearance: none;
+    background-color: #FCFCFD;
+    border-radius: 4px;
+    border-width: 0;
+    box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+    box-sizing: border-box;
+    color: #36395A;
+    cursor: pointer;
+    height: 48px;
+    line-height: 1;
+    list-style: none;
+    overflow: hidden;
+    padding-left: 16px;
+    padding-right: 16px;
+    position: relative;
+    transition: box-shadow .15s, transform .15s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    will-change: box-shadow, transform;
+}
+
+#_start_page li:focus {
+    box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+}
+
+#_start_page li:hover {
+    box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+    transform: translateY(-2px);
+}
+
+#_start_page li:active {
+    box-shadow: #D6D6E7 0 3px 7px inset;
+    transform: translateY(2px);
+}
+
+
+
+/* 게임오버 창 */
+#_game_over {
+    background-image: url("/img/background/ded\ image.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 1024;
+    height: 576;
+    font-family: 'NeoDunggeunmo';
+    font-size: 150px;
+    color: white;
+}
+#_game_over div{
+    margin-left: 50px;
+}
+
+
+
+
+/* 인벤토리_ 팝업 */
+#_inventory {
+
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 576;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#_tag_inventory {
+    width: 100%;
+}
+
+#_tag_i {
+    font-family: 'NeoDunggeunmo';
+    font-size: 19px;
+    background-color: white;
+    width: 100px;
+    height: 35px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    text-align: center;
+    padding-top: 12px;
+    margin-left: 100px;
+}
+
+#_item {
+    display: flex;
+    width: 900px;
+    height: 230px;
+    border: 5px solid white;
+    border-style: double;
+    border-radius: 20px;
+    /* 투명도를 배경 컬러에만 입히고 싶으면 rgba를 써야한다
+    마지막 숫자가 투명도 0~1까지 1이 100% */
+    background-color: rgba(0, 0, 0, 0.5);
+    margin-bottom: 30px;
+    margin-left: 62px;
+    margin-right: 62px;
+}
+
+/* 아이템 use 버튼 창 */
+#_item_use {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 170px;
+    width: 100%;
+}
+
+#_item_text {
+    width: 900px;
+    height: 80px;
+    border: 5px solid white;
+    border-style: double;
+    border-radius: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20 0 20;
+}
+
+#_item_use span {
+    font-family: 'NeoDunggeunmo';
+    font-size: 20px;
+    color: white;
+}
+
+#_item_use button {
+    font-family: 'NeoDunggeunmo';
+    font-size: 20px;
+    background-color: #f8f9fa;
+    border: 1px solid #f8f9fa;
+    border-radius: 50px;
+    color: #000000;
+    cursor: pointer;
+    height: 36px;
+    line-height: 27px;
+    min-width: 54px;
+    padding: 0 16px;
+    text-align: center;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: pre;
+}
+
+#_item_use button:hover {
+    border-color: #dadce0;
+    border-radius: 50px;
+    box-shadow: rgba(0, 0, 0, .2) 0 2px 2px;
+    color: #d90000;
+}
+
+#_item table {
+    display: flex;
+    align-items: center;
+    font-family: 'NeoDunggeunmo';
+    font-size: 20px;
+    color: white;
+    margin-left: 20px;
+    
+}
+
+#_item td {
+    width: 300px;
+    height: 60px;
+    padding: 20px 0px 20px 15px;
+    
+}
+
+#_item td.have:hover {
+    background-color: rgba(243, 243, 243, 0.3);
+    border-radius: 10px;
+    /* animation-fill-mode: forwards; */
+}
+
+#_item td.have.active {
+    background-color: rgba(243, 243, 243, 0.3);
+    border-radius: 10px;
+    /* animation-fill-mode: forwards; */
+}
+
+
+
+/* 여기여기여기! */
+
+
+/* 설정창_ 팝업 */
+#_setting_board {
+
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 1024;
+    height: 576;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#_tag_setting {
+    width: 100%;
+}
+
+#_tag_s {
+    font-family: 'NeoDunggeunmo';
+    font-size: 19px;
+    background-color: white;
+    width: 100px;
+    height: 35px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    text-align: center;
+    padding-top: 12px;
+    margin-left: 270px;
+}
+
+#_setting {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 550px;
+    height: 300px;
+    border: 5px solid white;
+    border-style: double;
+    border-radius: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    margin-left: 237px;
+    margin-right: 237px;
+}
+
+#_btn_setting {
+    display: flex;
+    flex-direction: column;
+}
+
+#_btn_setting button {
+    width: 112px;
+    height: 50px;
+    margin-bottom: 15px;
+    font-family: 'NeoDunggeunmo';
+    font-size: 18px;
+    background-color: #202020;
+    border-radius: 4px;
+    border: 0;
+    box-shadow: rgba(53, 53, 53, 0.5) 0 -1px 3px 0 inset, rgba(98, 98, 98, 0.1) 0 3px 6px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    line-height: 24px;
+    min-height: 40px;
+    min-width: 80px;
+    padding: 14gitpx 20px;
+    position: relative;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: baseline;
+    transition: all .2s cubic-bezier(.22, .61, .36, 1);
+}
+
+#_setting button:hover {
+    background-color: #000000;
+    transform: translateY(-2px);
+}
+
+#_sound_setting {
+    width: 100%;
+    text-align: center;
+}
+
+#_sound {
+    width: 540px;
+    height: 30px;
+    font-family: 'NeoDunggeunmo';
+    font-size: 20px;
+    color: #fff;
+    padding-bottom: 10px;
+}
+
+
+
+
+
+
+
+/* 저장슬롯 load_ 팝업 */
+#_load_filed {
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 1024;
+    height: 576;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#_tag_load_filed {
+    width: 100%;
+}
+
+#_tag_L {
+    font-family: 'NeoDunggeunmo';
+    font-size: 19px;
+    background-color: white;
+    width: 115px;
+    height: 35px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    text-align: center;
+    padding-top: 12px;
+    margin-left: 170px;
+}
+
+#_load_list {
+    font-family: 'NeoDunggeunmo';
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 750px;
+    height: 400px;
+    border: 5px solid white;
+    border-style: double;
+    border-radius: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    margin-left: 137px;
+    margin-right: 137px;
+}
+
+
+
+#_load_list li {
+    width: 600px;
+    height: 50px;
+    font-family: 'NeoDunggeunmo';
+    font-size: 20px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#_load_list li:nth-child(-n+4) {
+    margin-bottom: 15px;
+}
+
+
+#_load_list span {
+    width: 150px;
+}
+
+#_load_list button {
+    width: 56px;
+    height: 28px;
+    font-family: 'NeoDunggeunmo';
+    font-size: 18px;
+    background-color: #fff;
+    border: 0 solid #e2e8f0;
+    border-radius: 50px;
+    box-sizing: border-box;
+    color: #0d172a;
+    cursor: pointer;
+    display: inline-block;
+    line-height: 1;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none #0d172a solid;
+    transition: all .1s cubic-bezier(.4, 0, .2, 1);
+    box-shadow: 0px 1px 2px rgba(166, 175, 195, 0.25);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+#_load_list button:hover {
+    background-color: #0b0b0c;
+    color: #fff;
+}
+
+
+
+
+/* 저장슬롯 save_ 팝업 */
+#_save_filed {
+
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 1024;
+    height: 576;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#_tag_save_filed {
+    width: 100%;
+}
+
+#_tag_save {
+    font-family: 'NeoDunggeunmo';
+    font-size: 19px;
+    background-color: white;
+    width: 115px;
+    height: 35px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    text-align: center;
+    padding-top: 12px;
+    margin-left: 170px;
+}
+
+#_save_list {
+    font-family: 'NeoDunggeunmo';
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 750px;
+    height: 400px;
+    border: 5px solid white;
+    border-style: double;
+    border-radius: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    margin-left: 137px;
+    margin-right: 137px;
+}
+
+
+
+#_save_list li {
+    width: 600px;
+    height: 50px;
+    font-family: 'NeoDunggeunmo';
+    font-size: 20px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#_save_list li:nth-child(-n+4) {
+    margin-bottom: 15px;
+}
+
+.character {
+    background-image: url("/img/character/load/Dr\ Frankenstein\ Face.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-right: 30px;
+    width: 50px;
+    height: 50px;
+}
+
+
+#_save_list span {
+    width: 150px;
+}
+
+
+#_save_list button {
+    width: 56px;
+    height: 28px;
+    font-family: 'NeoDunggeunmo';
+    font-size: 18px;
+    background-color: #fff;
+    border: 0 solid #e2e8f0;
+    border-radius: 50px;
+    box-sizing: border-box;
+    color: #0d172a;
+    cursor: pointer;
+    display: inline-block;
+    line-height: 1;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none #0d172a solid;
+    text-decoration-thickness: auto;
+    transition: all .1s cubic-bezier(.4, 0, .2, 1);
+    box-shadow: 0px 1px 2px rgba(166, 175, 195, 0.25);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+#_save_list button:hover {
+    background-color: #0b0b0c;
+    color: #fff;
+}
+
+
+
+
+
+
+/* 기본 텍스트 박스_대화 */
+#_text_box {
+    z-index: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 576px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#_box_t {
+    display: flex;
+    width: 900px;
+    height: 230px;
+    border: 5px solid white;
+    border-style: double;
+    border-radius: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    margin-bottom: 30px;
+    padding: 20px;
+    margin-left: 62px;
+    margin-right: 62px;
+}
+
+#_text {
+    font-family: 'NeoDunggeunmo';
+    font-size: 20px;
+    color: white;
+}
+
+/* 퀴즈 정답 입력 박스 */
+#_quize_box {
+  
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 576px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#_answer_input {
+    font-family: 'NeoDunggeunmo';
+    font-size: 16px;
+    color: white;
+}
+
+#_box_q {
+    display: flex;
+    flex-direction: column;
+    width: 900px;
+    height: 230px;
+    border: 5px solid white;
+    border-style: double;
+    border-radius: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    margin-bottom: 30px;
+    padding: 20px;
+    margin-left: 62px;
+    margin-right: 62px;
+}
+
+#_answer, #_return_text {
+    font-family: 'NeoDunggeunmo';
+    font-size: 20px;
+    color: white;
+    padding-bottom: 15px;
+}
+
+
+#_answer_text input {
+    width: 200px;
+    height: 40px;
+    background-color: rgba(144, 144, 144, 0.5);
+    margin-bottom: 15px;
+}
+
+
+/* 프롤로그 텍스트 */
+#_prolog{
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 1024;
+    height: 576;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#_prolog_box{
+    font-family: 'NeoDunggeunmo';
+    color: #dadce0;
+    font-size: 23px;
+    line-height: 40px;
+}
+#_prolog_text{
+    width: 718px;
+    height: 350px;
+    filter: drop-shadow(0 0 2px #e4d808);
+    white-space: pre-line;
+    margin-left: 150px;
+    margin-right: 150px;
+}
+.prolSkip {
+    font-family: 'NeoDunggeunmo';
+    background-color: transparent;
+    border: transparent;
+    box-sizing: border-box;
+    color: #e0dbda;
+    filter: drop-shadow(0 0 2px #e4d808);
+    font-size: 27px;
+    line-height: 1.25rem;
+    text-decoration: none #D1D5DB solid;;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: 134px;
+    height: 39.59px;
+    margin-left: 740px;
+    margin-top: 50px;
+  }
+  
+  .prolSkip:hover {
+    background-repeat: no-repeat;
+    background-image: url("/img/playImage/findIt.png");
+    filter: none;
+    color: rgba(0, 0, 0, 0);
+    background-color: transparent;
+    background-size: cover;
+    border-color: transparent;
+  }
+  
+  
+  .prolSkip:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+  }
+  
+  .prolSkip:focus-visible {
+    box-shadow: none;
+  }
+
+
+  /* 검은 배경 화면 */
+  #_stg_back {
+    /* background-color: rgb(15, 15, 15); */
+    background-image: url(/img/playImage/ghost_1.jpeg);
+    /* background-image: url(/img/cat.jpg); */
+    background-size: cover;
+    width: 1024px;
+    height: 576px;
+  }
+  #_map_change {
+    background-color: #000000;
+    background-size: cover;
+    width: 1024px;
+    height: 576px;
+  }
