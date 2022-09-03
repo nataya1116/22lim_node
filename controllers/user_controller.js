@@ -4,10 +4,13 @@ const EncryptionService = require("../service/encryption_service");
 const { mailer, jwt } = require("../modules/common");
 const { config } = require("../config/config");
 const randomNum = require("../service/random");
+const { AUTHORITY } = require("../config/config");
 
 module.exports.signUp = async (req, res) => {
 
   const {userName, userId, userPw, phone, email} = req.body;
+
+  const authorityId = AUTHORITY.USER; // 기본 유저 
 
   const encryptedPw = EncryptionService.pwEncryption(userPw);
   

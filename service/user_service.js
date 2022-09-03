@@ -1,4 +1,4 @@
-const { User, PointHistory, PointTotal, PointType, sequelize } = require("../model/index");
+const { User, PointHistory, PointTotal, PointType, GameSkinUser, sequelize } = require("../model/index");
 const { POINT } = require("../config/config");
 
 // GameSkinUser/PointHistory/PointTotal 추가
@@ -6,17 +6,24 @@ module.exports.create = async ({userName, userId, userPw, phone, email, }) => {
 
   try {
     return sequelize.transaction(async (t) => {
-      const user = await User.create({
-                                        userName, 
-                                        userId, 
-                                        userPw, 
-                                        phone, 
-                                        email
-                                      },
-                                      {
-                                        transaction: t
-                                      });
-      const userId = user.dataValues.id;
+      await User.create({
+                          userName, 
+                          userId, 
+                          userPw, 
+                          phone, 
+                          email
+                        },
+                        {
+                          transaction: t
+                        });
+  
+      const result = await User.findOne({
+                                    where : {
+                                      userId
+                                    }
+                                  });
+
+      const user = result.dataValues;
 
       const pointType = await PointType.findOne({
                                                   where : {
@@ -27,19 +34,28 @@ module.exports.create = async ({userName, userId, userPw, phone, email, }) => {
       const typeId = POINT.JOIN;
 
       await PointHistory.create({
-                                  userId,
+                                  userId : user.id,
                                   typeId
                                 },
                                 {
                                   transaction: t
                                 });
       await PointTotal.create({
-                                userId,
+                                userId : user.id,
                                 point
                               },
                               {
                                 transaction: t
                               });
+
+      await GameSkinUser.create({
+                                  userId : user.id,
+                                  productId : 1, // 기본 사용 스킨
+                                  isUse : true 
+                                },
+                                {
+                                  transaction: t
+                                })
       return user;
 
     });
