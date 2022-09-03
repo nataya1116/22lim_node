@@ -16,6 +16,11 @@ const config = {
   },
 };
 
+const CONDITION = {
+  ACTIVITY: 1,
+  INACTIVITY: 2,
+};
+
 const AUTHORITY = {
   MANAGER: 1,
   USER: 2,
@@ -34,4 +39,4 @@ const POINT = {
   SKIN_BUY: 4
 }
 
-module.exports = { config, AUTHORITY, BOARDS, POINT };
+module.exports = { config, AUTHORITY, CONDITION, BOARDS, POINT };

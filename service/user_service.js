@@ -2,26 +2,22 @@ const { User, PointHistory, PointTotal, PointType, GameSkinUser, sequelize } = r
 const { POINT } = require("../config/config");
 
 // GameSkinUser/PointHistory/PointTotal 추가
-module.exports.create = async ({userName, userId, userPw, phone, email, }) => {
+module.exports.create = async ({userName, userId, userPw, phone, email, authorityId, conditionId }) => {
 
   try {
-    return sequelize.transaction(async (t) => {
-      await User.create({
+    await sequelize.transaction(async (t) => {
+      const result = await User.create({
                           userName, 
                           userId, 
                           userPw, 
                           phone, 
-                          email
+                          email,
+                          authorityId,
+                          conditionId
                         },
                         {
                           transaction: t
                         });
-  
-      const result = await User.findOne({
-                                    where : {
-                                      userId
-                                    }
-                                  });
 
       const user = result.dataValues;
 
@@ -56,9 +52,13 @@ module.exports.create = async ({userName, userId, userPw, phone, email, }) => {
                                 {
                                   transaction: t
                                 })
-      return user;
-
     });
+
+    return await User.findOne({
+                                where : {
+                                  userId
+                                }
+                              });
   } catch (err) {
     console.log(err);
     return false;

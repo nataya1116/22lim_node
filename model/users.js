@@ -23,8 +23,7 @@ class User extends Sequelize.Model {
                 },
                 phone : {
                     type : Sequelize.STRING(11),
-                    allowNull : false,
-                    unique : true
+                    allowNull : false
                 },
                 email : {
                     type : Sequelize.STRING(30),

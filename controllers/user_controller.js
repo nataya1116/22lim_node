@@ -4,13 +4,15 @@ const EncryptionService = require("../service/encryption_service");
 const { mailer, jwt } = require("../modules/common");
 const { config } = require("../config/config");
 const randomNum = require("../service/random");
-const { AUTHORITY } = require("../config/config");
+const { AUTHORITY, CONDITION } = require("../config/config");
 
 module.exports.signUp = async (req, res) => {
 
   const {userName, userId, userPw, phone, email} = req.body;
 
-  const authorityId = AUTHORITY.USER; // 기본 유저 
+  const authorityId = AUTHORITY.USER;
+
+  const conditionId = CONDITION.ACTIVITY;
 
   const encryptedPw = EncryptionService.pwEncryption(userPw);
   
@@ -19,10 +21,12 @@ module.exports.signUp = async (req, res) => {
                                             userId, 
                                             userPw : encryptedPw, 
                                             phone, 
-                                            email
+                                            email,
+                                            authorityId,
+                                            conditionId
                                           });
-  console.log(result);
-  res.send(result);
+  if(!result) res.send("fail");
+  else res.send("suc");
 }
 
 module.exports.loginTmp = async (req, res) => {

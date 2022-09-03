@@ -258,7 +258,12 @@
           email : user_email.value
         },
         success : (data)=>{
-
+          if(data == "suc"){
+            alert("회원가입에 성공하셨습니다. 로그인 화면으로 이동합니다.");
+            location.href = "/user/login";
+          }else{
+            alert("회원가입에 실패하였습니다.");
+          }
         }
       })
     }
