@@ -4,32 +4,30 @@ const { express } = require("../modules/common");
 // app.use(userRouter); 이런식으로 빼서 사용할 수 있음@!
 const router = express.Router();
 
-const userController = require("../controllers/user_controller");
+const UserController = require("../controllers/user_controller");
 
-router.get("/login2", (req, res) => {
-  res.render("login");
-});
-
-router.get("/login", (req, res) => {
-  res.render("login");
-});
+router.get("/login", UserController.loginView);
 
 // 회원가입창
 router.get("/signup", (req, res) => {
-  // console.log(req);
   res.render("signup");
 });
 
-router.post("/signup", userController.signUp);
+router.post("/signup", UserController.signUp);
+
+router.post("/id_overlap", UserController.useIdOverlap);
 
 // 이메일 인증번호 보내는 곳
-router.post("/emailCheck", (req, res) => {
-  userController.emailSend(req, res);
+router.post("/email_check", (req, res) => {
+  UserController.emailSend(req, res);
 });
+
+// 이메일 인증번호 확인
+router.post("/email_num_check", UserController.emailNumCheck);
 
 // 임시로 마이페이지 수정을 열었음 나중에 post방식으로 바꿀 것
 router.get("/mypage_edit", (req, res) => {
-  userController.userMyPageEdit(req, res);
+  UserController.userMyPageEdit(req, res);
 });
 
 // 임시로 만든 라우터! 헤더랑 푸터 붙임
@@ -42,7 +40,7 @@ router.get("/skin_list", (req, res) => {
   res.render("skin_list");
 });
 
-// router.post("/login", userController.loginTmp);
-router.post("/login", userController.login);
+// router.post("/login", UserController.loginTmp);
+router.post("/login", UserController.login);
 
 module.exports = router;

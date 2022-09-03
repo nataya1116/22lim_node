@@ -1,8 +1,69 @@
-const { User, PointTotal } = require("../model/index");
+const { User, PointHistory, PointTotal, PointType, GameSkinUser, sequelize } = require("../model/index");
+const { POINT } = require("../config/config");
 
+// GameSkinUser/PointHistory/PointTotal 추가
+module.exports.create = async ({userName, userId, userPw, phone, email, authorityId, conditionId }) => {
 
-module.exports.create = async () => {
-  
+  try {
+    await sequelize.transaction(async (t) => {
+      const result = await User.create({
+                          userName, 
+                          userId, 
+                          userPw, 
+                          phone, 
+                          email,
+                          authorityId,
+                          conditionId
+                        },
+                        {
+                          transaction: t
+                        });
+
+      const user = result.dataValues;
+
+      const pointType = await PointType.findOne({
+                                                  where : {
+                                                    id : POINT.JOIN
+                                                  }
+                                                });
+      const point = pointType?.dataValues.point;
+      const typeId = POINT.JOIN;
+
+      await PointHistory.create({
+                                  userId : user.id,
+                                  typeId
+                                },
+                                {
+                                  transaction: t
+                                });
+      await PointTotal.create({
+                                userId : user.id,
+                                point
+                              },
+                              {
+                                transaction: t
+                              });
+
+      await GameSkinUser.create({
+                                  userId : user.id,
+                                  productId : 1, // 기본 사용 스킨
+                                  isUse : true 
+                                },
+                                {
+                                  transaction: t
+                                })
+    });
+
+    return await User.findOne({
+                                where : {
+                                  userId
+                                }
+                              });
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
+   
 }
 
 module.exports.login = async (id) => {
@@ -71,6 +132,44 @@ module.exports.findUser = async (userId) => {
     return null;
   }
 }
+
+module.exports.useIdOverlap = async (userId) => {
+  try {
+    const user = await User.findOne({
+      attributes: ["userId"],
+      where: {
+        userId,
+      }
+    });
+
+    if (!user) return false;
+
+    else return true;
+
+  } catch (err) {
+    console.error(err);
+    return "err";
+  }
+}
+
+// module.exports.emailOverlap = async (email) => {
+//   try {
+//     const user = await User.findOne({
+//       attributes: ["email"],
+//       where: {
+//         email,
+//       }
+//     });
+
+//     if (!user) return false;
+
+//     else return true;
+
+//   } catch (err) {
+//     console.error(err);
+//     return "err";
+//   }
+// }
 
 // 마이페이지 수정 DB 조회
 module.exports.userMyPageEdit = async (userId) => {

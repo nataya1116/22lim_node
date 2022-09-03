@@ -1,5 +1,6 @@
 const TipBoardService = require("../service/tip_board_sevice");
 const TipReplyService = require("../service/tip_reply_sevice");
+const TokenService = require("../service/token_service");
 const { AUTHORITY, BOARDS } = require("../config/config");
 
 module.exports.create = async (req, res) => {
@@ -11,17 +12,23 @@ module.exports.create = async (req, res) => {
 };
 
 module.exports.createView = (req, res) => {
-  res.render("tip_board_insert", {
-    userId: "temp",
-    authorityId: 1,
-    AUTHORITY,
-    board: BOARDS.TIP_BOARD,
-    BOARDS,
-  });
-};
+
+    const accessToken = req.session?.access_token;
+    const User = TokenService.verifyAccessToken(accessToken);
+    const userId = User?.userId;
+    const authorityId = User?.authorityId;
+
+    res.render("tip_board_insert", { userId, authorityId, AUTHORITY, BOARDS, board : BOARDS.TIP_BOARD });
+}
 
 // 게시판 목록 페이지 네이션을 동작하게 하는 부분(검색어가 없을 때)
 module.exports.list = async (req, res) => {
+
+  const accessToken = req.session?.access_token;
+  const User = TokenService.verifyAccessToken(accessToken);
+  const userId = User?.userId;
+  const authorityId = User?.authorityId;
+
   // get방식으로 가져올 때는 req.parmas
   // post방식으로 가져올땐 req.body
   // parmas는 문자열로만 인식을 함! 그래서 타입캐스팅을 Number로 해준다
@@ -41,25 +48,24 @@ module.exports.list = async (req, res) => {
   }
   // 팁 보드 리스트
   const result = await TipBoardService.list(offset, limit);
-  console.log(result);
+  // console.log(result);
   const list = result?.rows;
   const postNum = result?.count;
   const totalPage = Math.ceil(postNum / limit);
 
   const searchKey = "";
   const searchWord = "";
-
-  res.render("tip_board_list", {
-    list,
-    totalPage,
-    pageNum,
-    limit,
-    searchKey,
-    searchWord,
-  });
+    
+  res.render( "tip_board_list", { userId, authorityId, list , totalPage , pageNum, limit, searchKey, searchWord });
 };
 
 module.exports.listSearch = async (req, res) => {
+
+  const accessToken = req.session?.access_token;
+  const User = TokenService.verifyAccessToken(accessToken);
+  const userId = User?.userId;
+  const authorityId = User?.authorityId;
+
   const pageNum = Number(req.params.page || "1");
   const limit = Number(req.params.perPage || "10");
   const { searchKey, searchWord } = req.params;
@@ -85,76 +91,80 @@ module.exports.listSearch = async (req, res) => {
       break;
     case "content":
       result = await TipBoardService.listSearchContent(
-        offset,
-        limit,
-        searchWord
-      );
+                                                        offset,
+                                                        limit,
+                                                        searchWord
+                                                      );
       break;
     default:
       result = await TipBoardService.list(offset, limit);
       break;
   }
-  console.log(result);
+  // console.log(result);
   const list = result?.rows;
   const postNum = result?.count;
 
   const totalPage = Math.ceil(postNum / limit);
 
-  res.render("tip_board_list", {
-    list,
-    totalPage,
-    pageNum,
-    limit,
-    searchKey,
-    searchWord,
-  });
-};
+  res.render("tip_board_list", {  
+                                  userId,
+                                  authorityId,
+                                  list,
+                                  totalPage,
+                                  pageNum,
+                                  limit,
+                                  searchKey,
+                                  searchWord,
+                                });
+                              };
 
 module.exports.view = async (req, res) => {
-  const offset = Number(req.params.offset);
-  const result = await TipBoardService.viewOffset(offset);
 
-  let post = result[0];
-  post.dataValues.view++;
-  const id = post.dataValues.id;
+    const accessToken = req.session?.access_token;
+    const User = TokenService.verifyAccessToken(accessToken);
+    const userId = User?.userId;
+    const authorityId = User?.authorityId;
 
-  // console.log(post);
-  const postNum = await TipBoardService.count();
-  await TipBoardService.updateViewsCount(id);
+    const offset  = Number(req.params.offset);
+    const result = await TipBoardService.viewOffset(offset);
+    
+    let post = result[0];
+    post.dataValues.view++;
+    const id = post.dataValues.id;
 
-  const replyList = await TipReplyService.list(id);
+    // console.log(post);
+    const postNum   = await TipBoardService.count();
+                      await TipBoardService.updateViewsCount(id);
 
-  // res.render("tip_board_view", { post, postNum, replyList, offset });
+    const replyList = await TipReplyService.list(id);
 
-  //                                                           임시로 아이디 값 삽입
-  res.render("tip_board_view", {
-    offset,
-    post,
-    postNum,
-    replyList,
-    offset,
-    userId: "temp",
-  });
-};
+    res.render("tip_board_view", { userId, authorityId, offset, post, postNum, replyList, offset });
+}
 
 module.exports.update = async (req, res) => {
   const id = Number(req.body.id);
   const offset = Number(req.body.offset);
   const { title, content } = req.body;
 
-  await TipBoardService.update({ id, title, content });
-
+  const result = await TipBoardService.update({ id, title, content });
+  console.log(result);
   res.redirect("/tip_board/read/" + offset);
 };
 
 module.exports.updatePrint = async (req, res) => {
+  
+  const accessToken = req.session?.access_token;
+  const User = TokenService.verifyAccessToken(accessToken);
+  const userId = User?.userId;
+  const authorityId = User?.authorityId;
+
   const id = Number(req.params.id);
   const offset = Number(req.params.offset);
   // console.log(id, offset);
   const post = await TipBoardService.viewId(id);
   // const post = result[0];
   // console.log(result);
-  res.render("tip_board_update", { offset, post, userId: "temp" });
+  res.render("tip_board_update", { userId, authorityId, offset, post });
 };
 
 module.exports.delete = async (req, res) => {

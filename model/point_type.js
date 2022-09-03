@@ -4,12 +4,17 @@ class PointType extends Sequelize.Model {
     static init(sequelize) {
         return super.init(
             {
-                name : {
-                    type : Sequelize.STRING(30),
+                point : {
+                    type : Sequelize.INTEGER,
+                    allowNull : false
+                },
+                reason : {
+                    type : Sequelize.STRING,
                     allowNull : false
                 },
                 isPayment : {
-                    type : Sequelize.BOOLEAN
+                    type : Sequelize.BOOLEAN,
+                    allowNull : false,
                 }
             },
             {

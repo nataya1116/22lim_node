@@ -9,6 +9,7 @@ module.exports.count = async () => {
     }
 }
 
+// 포인트 추가해줄것
 module.exports.create = async ({userId, title, content}) => {
     console.log("service create()");
     try {
@@ -192,7 +193,7 @@ module.exports.listSearchContent = async (offset, limit, searchWord) => {
 
 module.exports.update = async ({ id, title, content }) => {
   try {
-    await TipBoard.update(
+    return await TipBoard.update(
       {
         title,
         content,
@@ -205,6 +206,7 @@ module.exports.update = async ({ id, title, content }) => {
     );
   } catch (err) {
     console.error(err);
+    return false;
   }
 };
 

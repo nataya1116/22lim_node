@@ -1,22 +1,3 @@
-<!-- @@@@@@@@@ HEADER 부분 START @@@@@@@@@-->
-
-<!DOCTYPE html>
-<!-- This site was created in Webflow. https://www.webflow.com --><!-- Last Published: Sun Jun 07 2020 16:12:30 GMT+0000 (Coordinated Universal Time) -->
-<html
-  data-wf-page="5e8a723dc663ab416e6bfe24"
-  data-wf-site="5e87e737ee7085b9ba02c101"
->
-  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-  <head>
-    <meta charset="utf-8" />
-    <title>22Lim Games</title>
-    <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <meta content="Webflow" name="generator" />
-
-    <!-- @@@@@@@@@ CSS 파일 START @@@@@@@@@-->
-    <link href="css/common.css" rel="stylesheet" type="text/css" />
-    <link href="css/index.css" rel="stylesheet" type="text/css" />
-    <!-- @@@@@@@@@ CSS 파일 START @@@@@@@@@-->
 
     <link
       href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-round.css"
@@ -35,7 +16,7 @@
       });
     </script>
     <!-- 사이트 아이콘 부분! -->
-    <link href="img/22lim-logo.svg" rel="shortcut icon" type="image/x-icon" />
+    <link href="/img/22lim-logo.svg" rel="shortcut icon" type="image/x-icon" />
   </head>
   <body>
     <div
@@ -66,11 +47,11 @@
             <div>Boards</div>
           </div>
           <nav class="nav-dropdown-list w-dropdown-list">
-            <a href="/board/tip" class="nav-dropdown-link w-dropdown-link"
+            <a href="/tip_board/list/1/10" class="nav-dropdown-link w-dropdown-link"
               >Tip</a
-            ><a href="/board/free" class="nav-dropdown-link w-dropdown-link"
+            ><a href="/free_board/list/1/10" class="nav-dropdown-link w-dropdown-link"
               >Free</a
-            ><a href="/board/q&a" class="nav-dropdown-link w-dropdown-link"
+            ><a href="/qna_board/list/1/10" class="nav-dropdown-link w-dropdown-link"
               >Q&A</a
             >
           </nav>
@@ -79,7 +60,11 @@
 
       <div class="my_menu">
         <!-- 세션에 값이 없을 경우 "Login"(연결 : 로그인), 있을 경우 "닉네임"(연결 : 마이페이지) -->
-        <a href="/login" class="nav-link w-nav-link">Login </a>
+        <% if(userId) {%>
+          <a href="/user/mypage" class="nav-link w-nav-link"><%= userId %></a>
+        <% } else { %>
+          <a href="/user/login" class="nav-link w-nav-link">Login</a>
+        <% } %>
       </div>
     </div>
 

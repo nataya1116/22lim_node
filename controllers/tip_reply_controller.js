@@ -2,7 +2,7 @@ const TipReplyService = require("../service/tip_reply_sevice");
 
 module.exports.create = async (req, res) => {
     const { offset, userId, boardId, content } = req.body;
-    // console.log("create()", offset, userId, boardId, content);
+    console.log("create()", offset, userId, boardId, content);
     await TipReplyService.create({ userId, boardId, content });
 
     res.redirect("/tip_board/read/"+offset);
