@@ -19,6 +19,8 @@ const qnaReplyRouter = require("./routers/qna_reply_router");
 const skinProductsRouter = require("./routers/game_skin_products_router");
 const skinWishRouter = require("./routers/game_skin_wish_router");
 
+const gameParanoia = require("./routers/game_paranoia_router")
+
 const app = express();
 
 const PORT = 4000;
@@ -60,6 +62,8 @@ app.use("/qna_reply", qnaReplyRouter);
 
 app.use("/skin_products", skinProductsRouter);
 app.use("/skin_wish", skinWishRouter); 
+
+app.use("/game_paranoia", gameParanoia);
 
 app.listen(PORT, () => {
   console.log(PORT, "번 포트 대기 중");

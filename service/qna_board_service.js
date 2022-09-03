@@ -16,7 +16,7 @@ module.exports.create = async ({ userId, title, content }) => {
       where: { userId },
     }).then((users) => {
       QnaBoard.create({
-        userId: users.userId,
+        userId: users.id,
         title,
         content,
       });

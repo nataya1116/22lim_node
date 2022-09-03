@@ -2,19 +2,23 @@ const TipBoardService = require("../service/tip_board_sevice");
 const TipReplyService = require("../service/tip_reply_sevice");
 const { AUTHORITY, BOARDS } = require("../config/config");
 
-
 module.exports.create = async (req, res) => {
-    const { userId, title, content } = req.body;
-    console.log("c create() ", userId, title, content);
-    await TipBoardService.create({ userId, title, content });
+  const { userId, title, content } = req.body;
+  console.log("c create() ", userId, title, content);
+  await TipBoardService.create({ userId, title, content });
 
-    res.redirect("/tip_board/list/1/10");
-}
+  res.redirect("/tip_board/list/1/10");
+};
 
 module.exports.createView = (req, res) => {
-    
-    res.render("tip_board_insert", { userId : 'temp', authorityId : 1, AUTHORITY, board : BOARDS.TIP_BOARD, BOARDS });
-}
+  res.render("tip_board_insert", {
+    userId: "temp",
+    authorityId: 1,
+    AUTHORITY,
+    board: BOARDS.TIP_BOARD,
+    BOARDS,
+  });
+};
 
 // 게시판 목록 페이지 네이션을 동작하게 하는 부분(검색어가 없을 때)
 module.exports.list = async (req, res) => {
@@ -44,12 +48,18 @@ module.exports.list = async (req, res) => {
 
   const searchKey = "";
   const searchWord = "";
-    
-  res.render( "tip_board_list", { list , totalPage , pageNum, limit, searchKey, searchWord });
+
+  res.render("tip_board_list", {
+    list,
+    totalPage,
+    pageNum,
+    limit,
+    searchKey,
+    searchWord,
+  });
 };
 
 module.exports.listSearch = async (req, res) => {
-
   const pageNum = Number(req.params.page || "1");
   const limit = Number(req.params.perPage || "10");
   const { searchKey, searchWord } = req.params;
@@ -101,25 +111,31 @@ module.exports.listSearch = async (req, res) => {
 };
 
 module.exports.view = async (req, res) => {
-    const offset  = Number(req.params.offset);
-    const result = await TipBoardService.viewOffset(offset);
-    
-    let post = result[0];
-    post.dataValues.view++;
-    const id = post.dataValues.id;
+  const offset = Number(req.params.offset);
+  const result = await TipBoardService.viewOffset(offset);
 
-    // console.log(post);
-    const postNum   = await TipBoardService.count();
-                      await TipBoardService.updateViewsCount(id);
+  let post = result[0];
+  post.dataValues.view++;
+  const id = post.dataValues.id;
 
-    const replyList = await TipReplyService.list(id);
-    
+  // console.log(post);
+  const postNum = await TipBoardService.count();
+  await TipBoardService.updateViewsCount(id);
 
-    // res.render("tip_board_view", { post, postNum, replyList, offset });
+  const replyList = await TipReplyService.list(id);
 
-    //                                                           임시로 아이디 값 삽입
-    res.render("tip_board_view", { offset, post, postNum, replyList, offset, userId : "temp" });
-}
+  // res.render("tip_board_view", { post, postNum, replyList, offset });
+
+  //                                                           임시로 아이디 값 삽입
+  res.render("tip_board_view", {
+    offset,
+    post,
+    postNum,
+    replyList,
+    offset,
+    userId: "temp",
+  });
+};
 
 module.exports.update = async (req, res) => {
   const id = Number(req.body.id);

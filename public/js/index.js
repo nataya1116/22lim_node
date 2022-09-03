@@ -1,3 +1,5 @@
+startBtn = document.querySelector(".w-button")
+
 !(function (o, c) {
   console.log("o",o);
   console.log("c",c);
@@ -20,3 +22,6 @@ $(".click-to-top").click(function () {
   $(this).css("z-index", topZ + 1);
 });
 
+startBtn.onclick = function(){
+  window.open('http://localhost:4000/game_paranoia',"game_parnoia","width=1200,height=800")
+}
