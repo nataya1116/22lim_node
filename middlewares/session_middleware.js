@@ -6,8 +6,8 @@ module.exports.validity = async (req, res, next) => {
     const refreshToken = await req.session?.refresh_token;
 
     if(!accessToken || !refreshToken) {
-        res.redirect("/user/login");
-    }
+        return  res.redirect("/user/login");
+    }   
     const decodeAcc = TokenService.verifyAccessToken(accessToken);
     
     if(decodeAcc){
@@ -41,8 +41,9 @@ module.exports.pass = async (req, res, next) => {
     const accessToken = await req.session?.access_token;
     const refreshToken = await req.session?.refresh_token;
 
-    if(!accessToken || !refreshToken) res.redirect("/user/login");
-
+    if(!accessToken || !refreshToken) {
+        return  next();
+    }
     const decodeAcc = TokenService.verifyAccessToken(accessToken);
     
     if(decodeAcc){

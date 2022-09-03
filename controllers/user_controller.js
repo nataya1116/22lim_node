@@ -168,7 +168,8 @@ module.exports.login = async (req, res) => {
 };
 
 module.exports.loginView = (req, res) => {
-  res.render("login");
+  const userId = null;
+  res.render("login", { userId });
 }
 
 // 마이페이지(수정 페이지)------------------------------

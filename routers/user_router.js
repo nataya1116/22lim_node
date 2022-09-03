@@ -6,17 +6,10 @@ const router = express.Router();
 
 const UserController = require("../controllers/user_controller");
 
-router.get("/login2", (req, res) => {
-  res.render("login");
-});
-
-router.get("/login", (req, res) => {
-  res.render("login");
-});
+router.get("/login", UserController.loginView);
 
 // 회원가입창
 router.get("/signup", (req, res) => {
-  // console.log(req);
   res.render("signup");
 });
 

@@ -1,9 +1,10 @@
 const { express } = require("../modules/common");
 const indexController = require("../controllers/index_controller");
+const SessionMiddleware = require("../middlewares/session_middleware");
 
 const router = express.Router();
 
-router.get("/", indexController.index);
+router.get("/", SessionMiddleware.pass, indexController.index);
 
 router.get("/board_list", (req, res) => {
   // res.render("index");
