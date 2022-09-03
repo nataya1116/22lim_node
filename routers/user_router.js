@@ -27,15 +27,15 @@ router.post("/email_num_check", UserController.emailNumCheck);
 
 // 임시로 마이페이지 수정을 열었음 나중에 post방식으로 바꿀 것
 router.get("/mypage", (req, res) => {
-  userController.userMyPage(req, res);
+  UserController.userMyPage(req, res);
 });
 
 router.get("/update_pw", (req, res) => {
-  userController.myPageUpdatePw(req, res);
+  UserController.myPageUpdatePw(req, res);
 });
 
 router.post("/update_pw", (req, res) => {
-  userController.myPageUpdatePw(req, res);
+  UserController.myPageUpdatePw(req, res);
 });
 
 // 임시로 만든 라우터! 헤더랑 푸터 붙임

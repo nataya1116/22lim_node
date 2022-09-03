@@ -206,16 +206,19 @@ module.exports.userMyPage = async (userId) => {
 };
 
 // 마이페이지 내에서 비밀번호 변경
-module.exports.myPageUpdatePw = async (userId) => {
+module.exports.myPageUpdatePw = async (userId, userPw) => {
   try {
-    return await User.findOne({
-      where: {
-        userId,
+    await User.update(
+      {
+        userPw,
       },
-    });
-  } catch (err) {
+      {
+        where: { userId },
+      }
+    );
+  } catch (error) {
     console.error(err);
-    return null;
+    return err;
   }
 };
 

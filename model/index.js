@@ -59,8 +59,8 @@ User.init(sequelize);
 TipBoard.init(sequelize);
 TipReply.init(sequelize);
 
-FreeBoard.init(sequelize);
-FreeReply.init(sequelize);
+// FreeBoard.init(sequelize);
+// FreeReply.init(sequelize);
 
 Chatting.init(sequelize);
 
@@ -83,8 +83,8 @@ User.associate(db);
 TipBoard.associate(db);
 TipReply.associate(db);
 
-FreeBoard.associate(db);
-FreeReply.associate(db);
+// FreeBoard.associate(db);
+// FreeReply.associate(db);
 
 Chatting.associate(db);
 
