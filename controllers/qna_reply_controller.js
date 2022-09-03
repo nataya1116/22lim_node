@@ -2,7 +2,7 @@ const QnaReplyService = require("../service/qna_reply_service");
 
 module.exports.create = async (req, res) => {
   const { offset, userId, boardId, content } = req.body;
-  // console.log("create()", offset, userId, boardId, content);
+  console.log("create()", offset, userId, boardId, content);
   await QnaReplyService.create({ userId, boardId, content });
 
   res.redirect("/qna_board/read/" + offset);
