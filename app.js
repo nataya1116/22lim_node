@@ -9,8 +9,7 @@ const { sequelize } = require("./model");
 const userRouter = require("./routers/user_router");
 const indexRouter = require("./routers/index_router");
 const tipBoardRouter = require("./routers/tip_board_router");
-
-const mysql = require("mysql2");
+// const freeBoardRouter = require("./routers/free_board_router");
 
 const tipReplyRouter = require("./routers/tip_reply_router");
 
@@ -49,6 +48,8 @@ app.use(indexRouter);
 // /tip_board라는 경로 내에 tipBoardRouter 요 안에 들어있는 get이나 post방식으로 접근한 모든 경로의 루트는 /tip_board로 설정해준것이다!
 app.use("/tip_board", tipBoardRouter);
 app.use("/tip_reply", tipReplyRouter);
+// app.use("/free_board", freeBoardRouter);
+// app.use("/free_reply", freeReplyRouter);
 
 app.listen(PORT, () => {
   console.log(PORT, "번 포트 대기 중");
@@ -121,32 +122,4 @@ sequelize
 // // console.log(count[0].updatedAt.getTime())
 // res.send(count);
 // res.render("board_list");
-// });
-
-// app.post("/emailCheck", (req, res) => {
-//   let email = req.body.email;
-//   req.session.email = email;
-//   // console.log(email);
-//   // result는 *전체 객체로 나오기 때문에 꼭!! 키에 접근을 해주어야한다.
-
-//   sql.query("select * from users where email = ?", email, (err, result) => {
-//     if (result[0] !== undefined) {
-//       res.send("fail");
-//     } else if (result[0] == undefined) {
-//       let ranNum = randomNum();
-//       req.session.randomNum = ranNum;
-//       req.session.emailToken = jwt.sign({}, process.env.ET_SECRET_KEY, {
-//         expiresIn: "3m",
-//       });
-
-//       let sendmail = {
-//         // toEmail: email.email,
-//         toEmail: email,
-//         subject: `안녕하세요 22lim 인증번호입니다.`,
-//         text: `${email}님 반갑습니다. 이메일 인증번호는 <h1>${ranNum}</h1> 입니다. 인증번호 칸에 입력 후 인증 확인 부탁드립니다.`,
-//       };
-//       mailer.emailSend(sendmail);
-//       res.send("suc");
-//     }
-//   });
 // });
