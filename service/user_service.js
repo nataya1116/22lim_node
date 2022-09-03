@@ -5,7 +5,7 @@ const { POINT } = require("../config/config");
 module.exports.create = async ({userName, userId, userPw, phone, email, }) => {
 
   try {
-    sequelize.transaction(async (t) => {
+    return sequelize.transaction(async (t) => {
       const user = await User.create({
                                         userName, 
                                         userId, 
@@ -40,6 +40,7 @@ module.exports.create = async ({userName, userId, userPw, phone, email, }) => {
                               {
                                 transaction: t
                               });
+      return user;
 
     });
   } catch (err) {
@@ -116,7 +117,7 @@ module.exports.findUser = async (userId) => {
   }
 }
 
-module.exports.idOverlap = async (userId) => {
+module.exports.useIdOverlap = async (userId) => {
   try {
     const user = await User.findOne({
       attributes: ["userId"],
@@ -124,16 +125,35 @@ module.exports.idOverlap = async (userId) => {
         userId,
       }
     });
-    console.log();
-    if (!!user) return true;
 
-    else return false;
+    if (!user) return false;
+
+    else return true;
 
   } catch (err) {
     console.error(err);
-    return null;
+    return "err";
   }
 }
+
+// module.exports.emailOverlap = async (email) => {
+//   try {
+//     const user = await User.findOne({
+//       attributes: ["email"],
+//       where: {
+//         email,
+//       }
+//     });
+
+//     if (!user) return false;
+
+//     else return true;
+
+//   } catch (err) {
+//     console.error(err);
+//     return "err";
+//   }
+// }
 
 // 마이페이지 수정 DB 조회
 module.exports.userMyPageEdit = async (userId) => {

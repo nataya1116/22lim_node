@@ -69,17 +69,17 @@ module.exports.emailSend = (req, res) => {
 
   UserService.useEmail(email).then((e) => {
     if (e == null) {
-      let ranNum = randomNum();
-      req.session.randomNum = ranNum;
-      req.session.emailToken = jwt.sign({}, process.env.ET_SECRET_KEY, {
-        expiresIn: "3m",
+        const randNum = randomNum();
+        // req.session.randomNum = ranNum;
+        req.session.email_token = jwt.sign({randNum}, process.env.ET_SECRET_KEY, {
+          expiresIn: "3m",
       });
 
       let sendmail = {
         // toEmail: email.email,
         toEmail: email,
         subject: `안녕하세요 22lim 인증번호입니다.`,
-        text: `${email}님 반갑습니다. 이메일 인증번호는 <h1>${ranNum}</h1> 입니다. 인증번호 칸에 입력 후 인증 확인 부탁드립니다.`,
+        text: `${email}님 반갑습니다. 이메일 인증번호는 <h1>${randNum}</h1> 입니다. 인증번호 칸에 입력 후 인증 확인 부탁드립니다.`,
       };
 
       let transpoter = mailer.createTransport({
@@ -100,7 +100,10 @@ module.exports.emailSend = (req, res) => {
       };
 
       transpoter.sendMail(mailoption, (err, info) => {
-        if (err) console.log(err);
+        if (err) {
+          console.log(err); 
+          res.send("err");
+        }
         else console.log("send success", info.response);
       });
       res.send("suc");
@@ -109,6 +112,24 @@ module.exports.emailSend = (req, res) => {
     }
   });
 };
+
+// 이메일 인증번호 체크
+module.exports.emailNumCheck = (req, res) => {
+  const randNum = req.body.randNum;
+  const emailToken = req.session.email_token;
+  let decode;
+  try {
+    decode = jwt.verify(emailToken,  process.env.ET_SECRET_KEY);
+    if(randNum === decode.randNum){
+      res.send("suc");
+    }else {
+      res.send("wrong");
+    }
+  } catch (error) {
+    res.send("fail");
+  }
+  
+}
 
 // 로그인
 module.exports.login = async (req, res) => {
@@ -140,7 +161,7 @@ module.exports.login = async (req, res) => {
 };
 
 module.exports.loginView = (req, res) => {
-  res.ren
+  res.render("login");
 }
 
 // 마이페이지(수정 페이지)------------------------------
@@ -153,6 +174,14 @@ module.exports.userMyPageEdit = async (req, res) => {
   });
 };
 
-module.exports.idOverlap = async (req, res) => {
-  
+module.exports.useIdOverlap = async (req, res) => {
+  const userId = req.body.userId; 
+  const result = await UserService.useIdOverlap(userId);
+  res.send(result);
+}
+
+module.exports.emailOverlap = async (req, res) => {
+  const email = req.body.email; 
+  const result = await UserService.emailOverlap(email);
+  res.send(result);
 }

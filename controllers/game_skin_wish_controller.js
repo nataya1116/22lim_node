@@ -1,7 +1,7 @@
 const SkinWishService = require("../service/game_skin_wish_service");
 
 module.exports.create = async (req, res) => {
-    console.log("c skin_wish/create");
+    
     const userId = req.body.userId;
     const productId = Number(req.body.productId);
     
