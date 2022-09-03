@@ -156,8 +156,8 @@ module.exports.login = async (req, res) => {
     const accessToken = TokenService.createAccessToken(userId, point, authorityId);
     const refreshToken = TokenService.createRefreshToken(userId, point, authorityId);
 
-    req.session.access_Token = accessToken;
-    req.session.refresh_Token = refreshToken;
+    req.session.access_token = accessToken;
+    req.session.refresh_token = refreshToken;
 
     UserService.updateRefreshToken(userId, refreshToken);
 
@@ -173,9 +173,13 @@ module.exports.loginView = (req, res) => {
 
 // 마이페이지(수정 페이지)------------------------------
 module.exports.userMyPageEdit = async (req, res) => {
+  const accessToken = req.session?.access_token;
+  const User = TokenService.verifyAccessToken(accessToken);
+  const userId = User?.userId;
+
   // userMyPage의 매개변수로 아이디를 넣어주면 된다
   // 나중에 데이터에서 가져올 유저의 아이디 값을 주면 됨
-  UserService.userMyPageEdit("temp").then((e) => {
+  UserService.userMyPageEdit(userId).then((e) => {
     // render의 두번째 매개변수로 받아올 데이터?...
     res.render("mypage_edit", { data: e });
   });
