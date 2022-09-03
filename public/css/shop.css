@@ -59,18 +59,26 @@ html {
   }
 }
 
+.skin {
+  width: 300px;
+  height: 450px;
+}
+
 .product-img {
   width: 121px;
   height: 250px;
   display: block;
-  background-image: url("/img/HC_Humans3B.png");
   background-repeat: no-repeat;
-  background-position: -491px -7px;
   background-size: 1482px;
 }
 
+.product-name {
+  width: 100%;
+  text-align: start;
+}
+
 .product-name span {
-  font-family: "TmoneyRoundWind-Regular";
+  font-family: "NanumSquareRound-B";
   font-size: 18px;
 }
 
@@ -118,4 +126,15 @@ html {
   height: 35px;
   margin-top: 15px;
   margin-right: 40px;
+}
+
+.skin-body {
+  -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    border: 4px solid #000;
+    background-color: #fff;
+    box-shadow: 8px 8px 0 0 #000;
 }

@@ -36,7 +36,7 @@ db.User = User;
 db.TipBoard = TipBoard;
 db.TipReply = TipReply;
 
-db.QnaBoard = QnaReply;
+db.QnaBoard = QnaBoard;
 db.QnaReply = QnaReply;
 
 db.FreeBoard = FreeBoard;

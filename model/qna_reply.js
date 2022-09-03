@@ -79,7 +79,7 @@ class QnaReply extends Sequelize.Model {
     });
 
     // 1 : N
-    db.TipReply.hasMany(db.QnaReply, {
+    db.QnaReply.hasMany(db.QnaReply, {
       foreignKey: "replyId",
       sourceKey: "id",
     });

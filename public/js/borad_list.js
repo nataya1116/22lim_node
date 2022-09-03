@@ -220,14 +220,15 @@ find_btn.addEventListener("click", () => {
   const searchKey = search_key.value;
   const searchWord = find_input.value;
   const limit = find_btn.dataset.limit;
+  const url = board_url.value;
 
   const form = document.createElement("form");
   
   form.method = "get";
   if(!!searchWord){
-    form.action = `/tip_board/list/1/${limit}/${searchKey}/${searchWord}`;
+    form.action = `/${url}/list/1/${limit}/${searchKey}/${searchWord}`;
   } else {
-    form.action = `/tip_board/list/1/${limit}`;
+    form.action = `/${url}/list/1/${limit}`;
   }
   
 

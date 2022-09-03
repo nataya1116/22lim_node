@@ -4,15 +4,15 @@ const router = express.Router();
 
 const TipReplyController = require("../controllers/tip_reply_controller");
 
-router.post("/create",TipReplyController.create);
+const SessionMiddleware = require("../middlewares/session_middleware");
 
-router.post("/create_nested",TipReplyController.createNested);
+router.post("/create", SessionMiddleware.validity, TipReplyController.create);
 
-router.post("/update", TipReplyController.update);
+router.post("/create_nested", SessionMiddleware.validity,TipReplyController.createNested);
 
-// router.get("/update/:id/:offset", TipReplyController.updatePrint);
+router.post("/update", SessionMiddleware.validity, TipReplyController.update);
 
-router.get("/delete/:id/:offset", TipReplyController.delete)
+router.get("/delete/:id/:offset", SessionMiddleware.validity, TipReplyController.delete)
 
 
 

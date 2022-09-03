@@ -16,6 +16,11 @@ const config = {
   },
 };
 
+const CONDITION = {
+  ACTIVITY: 1,
+  INACTIVITY: 2,
+};
+
 const AUTHORITY = {
   MANAGER: 1,
   USER: 2,
@@ -26,4 +31,12 @@ const BOARDS = {
   QNA_BOARD: "qnaBoard",
   FREE_BOARD: "freeBoard",
 };
-module.exports = { config, AUTHORITY, BOARDS };
+
+const POINT = {
+  JOIN: 1,
+  WRITE_POST: 2,
+  WRITE_REPLY: 3,
+  SKIN_BUY: 4
+}
+
+module.exports = { config, AUTHORITY, CONDITION, BOARDS, POINT };

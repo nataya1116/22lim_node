@@ -8,16 +8,26 @@ class GameSkinProducts extends Sequelize.Model {
         name: {
           type: Sequelize.STRING(50),
           allowNull: false,
-          unique: true,
+        },
+        info: {
+          type: Sequelize.STRING,
+          allowNull: false,
+        },
+        point: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
         },
         imgUrl: {
           type: Sequelize.STRING,
           allowNull: false,
-          unique: true,
         },
-        price: {
-          type: Sequelize.INTEGER,
-          allowNull: false,
+        positionX: {
+          type: Sequelize.SMALLINT,
+          allowNull: false
+        },
+        positionY: {
+          type: Sequelize.SMALLINT,
+          allowNull: false
         },
         createdAt: {
           type: Sequelize.DATE,
@@ -37,14 +47,6 @@ class GameSkinProducts extends Sequelize.Model {
             );
           },
         },
-        deletedAt: {
-          type: Sequelize.DATE,
-          get() {
-            return moment(this.getDataValue("deletedAt")).format(
-              "YYYY/MM/DD hh:mm:ss"
-            );
-          },
-        },
       },
       {
         sequelize,
@@ -52,7 +54,6 @@ class GameSkinProducts extends Sequelize.Model {
         modelName: "GameSkinProducts",
         tableName: "game_skin_products",
         timestamps: true,
-        paranoid: true,
         charset: "utf8",
         collate: "utf8_general_ci",
       }
