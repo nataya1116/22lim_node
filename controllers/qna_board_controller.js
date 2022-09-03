@@ -1,5 +1,6 @@
 const QnaBoardService = require("../service/qna_board_service");
 const QnaReplyService = require("../service/qna_reply_service");
+const TokenService = require("../service/token_service");
 const { AUTHORITY, BOARDS } = require("../config/config");
 
 module.exports.create = async (req, res) => {
@@ -59,6 +60,8 @@ module.exports.list = async (req, res) => {
   const searchWord = "";
 
   res.render("qna_board_list", {
+    userId, 
+    authorityId,
     list,
     totalPage,
     pageNum,
