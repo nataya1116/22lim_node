@@ -1,4 +1,4 @@
-const { GameSkinUser, User, PointHistory, PointTotal, PointType, sequelize }= require("../model/index");
+const { GameSkinUser, User, PointHistory, PointTotal, PointType, sequelize, GameSkinProducts }= require("../model/index");
 const { POINT } = require("../config/config");
 
 module.exports.create = async (userId, productId) => {
@@ -59,6 +59,29 @@ module.exports.create = async (userId, productId) => {
     } catch (err) {
         console.error(err);
         return false;
+    }
+}
+
+module.exports.findOne = async (userId) => {
+    try {
+        const user = await User.findOne({
+            where : { userId }
+        });
+
+        return await GameSkinUser.findOne({   
+                                            include : {
+                                                attributes : ["name", "info", "imgUrl", "positionX", "positionY"],
+                                                model: GameSkinProducts,
+                                            },
+                                            attributes : ["productId"],
+                                            where : { 
+                                                userId : user.id,
+                                                isUse : true 
+                                            }
+                                        });
+
+    } catch (err) {
+        console.error(err);
     }
 }
 
