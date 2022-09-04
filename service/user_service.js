@@ -137,7 +137,7 @@ module.exports.findPw = async (userId) => {
 module.exports.findUser = async (userId) => {
   try {
     return await User.findOne({
-      attributes: ["userPw", "authorityId", "refreshToken"],
+      attributes: ["userId", "userPw", "authorityId", "refreshToken"],
       include: [
         {
           attributes: ["point"],

@@ -119,39 +119,44 @@ module.exports.login = async (req, res) => {
   const userPw = req.body.user_pw;
 
   const result = await UserService.findUser(userId);
-  const user = result.dataValues;
+  const user = result?.dataValues;
+
+  if (!user) {
+    return res.send("fail");
+  }
+
   const encryptedPw = user.userPw;
   const isLogin = EncryptionService.isPwCheck(userPw, encryptedPw);
 
-  if (user && isLogin) {
-    const point = user.PointTotal.point;
-    const authorityId = user.authorityId;
-
-    const accessToken = TokenService.createAccessToken(
-      userId,
-      point,
-      authorityId
-    );
-    const refreshToken = TokenService.createRefreshToken(
-      userId,
-      point,
-      authorityId
-    );
-
-    req.session.access_token = accessToken;
-    req.session.refresh_token = refreshToken;
-
-    UserService.updateRefreshToken(userId, refreshToken);
-
-    res.redirect("/");
-  } else {
-    res.redirect("/login");
+  if (!isLogin) {
+    return res.send("fail");
   }
+
+  const point = user.PointTotal.point;
+  const authorityId = user.authorityId;
+
+  const accessToken = TokenService.createAccessToken(
+    userId,
+    point,
+    authorityId
+  );
+  const refreshToken = TokenService.createRefreshToken(
+    userId,
+    point,
+    authorityId
+  );
+
+  req.session.access_token = accessToken;
+  req.session.refresh_token = refreshToken;
+
+  UserService.updateRefreshToken(userId, refreshToken);
+
+  return res.send("suc");
 };
 
 module.exports.loginView = (req, res) => {
-  const userId = null;
-  res.render("login", { userId });
+  const User = null;
+  res.render("login", { User });
 };
 
 // 마이페이지------------------------------

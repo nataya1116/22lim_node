@@ -4,14 +4,14 @@ const router = express.Router();
 
 const QnaReplyController = require("../controllers/qna_reply_controller");
 
-router.post("/create", QnaReplyController.create);
+const SessionMiddleware = require("../middlewares/session_middleware");
 
-router.post("/create_nested", QnaReplyController.createNested);
+router.post("/create",SessionMiddleware.validity, QnaReplyController.create);
 
-router.post("/update", QnaReplyController.update);
+router.post("/create_nested", SessionMiddleware.validity,QnaReplyController.createNested);
 
-// router.get("/update/:id/:offset", QnaReplyController.updatePrint);
+router.post("/update",SessionMiddleware.validity, QnaReplyController.update);
 
-router.get("/delete/:id/:offset", QnaReplyController.delete);
+router.get("/delete/:id/:offset",SessionMiddleware.validity, QnaReplyController.delete);
 
 module.exports = router;

@@ -34,13 +34,14 @@
         class="logo-wrapper w-nav-brand w--current"
       >
         <!-- 홈페이지 로고 부분 -->
-        <img src="img/22lim-logo.svg" alt="Mac Logo" class="logo"
+        <img src="/img/22lim-logo.svg" alt="Mac Logo" class="logo"
       /></a>
 
       <nav role="navigation" class="nav-menu w-nav-menu">
-        <a class="nav-link w-nav-link">Game </a>
+        <!-- <a href="/game_paranoia" target="_blank" class="nav-link w-nav-link">Game </a> -->
+        <a target="_blank" class="nav-link w-nav-link start_btn" style="cursor:pointer ;">Game </a>
 
-        <a class="nav-link w-nav-link">Products </a>
+        <a href="/skin_products/list/1/12/" class="nav-link w-nav-link">Products </a>
 
         <div data-hover="true" data-delay="0" class="w-dropdown">
           <div class="dropdown-toggle w-dropdown-toggle">
@@ -48,24 +49,24 @@
           </div>
           <nav class="nav-dropdown-list w-dropdown-list">
             <a href="/tip_board/list/1/10" class="nav-dropdown-link w-dropdown-link"
-              >Tip</a
-            ><a href="/free_board/list/1/10" class="nav-dropdown-link w-dropdown-link"
-              >Free</a
-            ><a href="/qna_board/list/1/10" class="nav-dropdown-link w-dropdown-link"
-              >Q&A</a
-            >
+              >Tip</a>
+            <!-- <a href="/free_board/list/1/10" class="nav-dropdown-link w-dropdown-link"
+              >Free</a> -->
+            <a href="/qna_board/list/1/10" class="nav-dropdown-link w-dropdown-link"
+              >Q&A</a>
           </nav>
         </div>
       </nav>
 
       <div class="my_menu">
         <!-- 세션에 값이 없을 경우 "Login"(연결 : 로그인), 있을 경우 "닉네임"(연결 : 마이페이지) -->
-        <% if(userId) {%>
-          <a href="/user/mypage" class="nav-link w-nav-link"><%= userId %></a>
+        <% if(User?.userId) {%>
+          <a href="/user/mypage" class="nav-link w-nav-link"><%=User?.userId%></a>
         <% } else { %>
           <a href="/user/login" class="nav-link w-nav-link">Login</a>
         <% } %>
       </div>
     </div>
-
+<script src="/js/logo.js"></script>
+<script src="/js/index.js"></script>
     <!-- @@@@@@@@@ HEADER 부분 END @@@@@@@@@-->

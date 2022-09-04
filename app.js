@@ -17,8 +17,11 @@ const tipReplyRouter = require("./routers/tip_reply_router");
 const qnaReplyRouter = require("./routers/qna_reply_router");
 const skinProductsRouter = require("./routers/game_skin_products_router");
 const skinWishRouter = require("./routers/game_skin_wish_router");
+const skinUserRouter = require("./routers/game_skin_user_router");
 
 const gameParanoia = require("./routers/game_paranoia_router");
+
+const findPw = require("./routers/find_pw_router");
 
 const app = express();
 
@@ -63,8 +66,11 @@ app.use("/qna_reply", qnaReplyRouter);
 
 app.use("/skin_products", skinProductsRouter);
 app.use("/skin_wish", skinWishRouter);
+app.use("/skin_user", skinUserRouter);
 
 app.use("/game_paranoia", gameParanoia);
+
+app.use("/find_pw", findPw);
 
 app.listen(PORT, () => {
   console.log(PORT, "번 포트 대기 중");

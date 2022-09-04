@@ -1,10 +1,7 @@
 checkPw = document.querySelector('.check-pw')
 
 checkPw.onclick = function(){
-    window.open('/find_pw.html',"findPw","width=700,height=800")
+    window.open('http://localhost:4000/find_pw',"findPw","width=850,height=750")
 }
-findBtn = document.querySelector(".find-btn")
 
-findBtn.onclick = function(){
-    
-}
+
