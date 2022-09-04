@@ -12,13 +12,14 @@ module.exports.create = async (req, res) => {
     // 최신 토탈 포인트 값을 가져오기 위해서 데이터 데이스에서 다시 값을 가져온다.
     if(!User) return "fail";
 
-    User = await UserService.findUser(User.userId);
+    const user = await UserService.findUser(User.userId);
+    User.point = user.dataValues.PointTotal.point
     
     const userId = req.body.userId;
     const productId = Number(req.body.productId);
     const point = await SkinProductsService.findPoint(productId);
 
-    if(User.dataValues.point < point) return "lack";
+    if(User.point < point) return "lack";
     
     const result = await SkinUserService.create(userId, productId);
     if(!result) return res.send({ result : "fail" });
