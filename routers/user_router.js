@@ -9,48 +9,27 @@ const UserController = require("../controllers/user_controller");
 
 router.get("/login", UserController.loginView);
 
+router.post("/login", UserController.login);
+
 // 회원가입창
-router.get("/signup", (req, res) => {
-  res.render("signup");
-});
+router.get("/signup", UserController.signUpView);
 
 router.post("/signup", UserController.signUp);
 
 router.post("/id_overlap", UserController.useIdOverlap);
 
 // 이메일 인증번호 보내는 곳
-router.post("/email_check", (req, res) => {
-  UserController.emailSend(req, res);
-});
+router.post("/email_check", UserController.emailSend);
 
 // 이메일 인증번호 확인
 router.post("/email_num_check", UserController.emailNumCheck);
 
 // 임시로 마이페이지 수정을 열었음 나중에 post방식으로 바꿀 것
-router.get("/mypage", SessionMiddleware.validity, (req, res) => {
-  UserController.userMyPage(req, res);
-});
+router.get("/mypage", SessionMiddleware.validity, UserController.userMyPage);
 
 // 마이페이지에서 비밀번호 변경
-router.get("/update_pw", SessionMiddleware.validity, (req, res) => {
-  UserController.myPageUpdatePwView(req, res);
-});
+router.get("/update_pw", SessionMiddleware.validity, UserController.myPageUpdatePwView);
 
-router.post("/update_pw", SessionMiddleware.validity, (req, res) => {
-  UserController.myPageUpdatePw(req, res);
-});
-
-// 임시로 만든 라우터! 헤더랑 푸터 붙임
-router.get("/shop", (req, res) => {
-  res.render("shop");
-});
-
-// 임시로 만든 라우터! 헤더랑 푸터 붙임
-router.get("/skin_list", (req, res) => {
-  res.render("skin_list");
-});
-
-// router.post("/login", UserController.loginTmp);
-router.post("/login", UserController.login);
+router.post("/update_pw", SessionMiddleware.validity, UserController.myPageUpdatePw);
 
 module.exports = router;

@@ -157,7 +157,7 @@ module.exports.update = async (req, res) => {
   const { title, content } = req.body;
 
   const result = await QnaBoardService.update({ id, title, content });
-  console.log(result);
+
   res.redirect("/qna_board/read/" + offset);
 };
 

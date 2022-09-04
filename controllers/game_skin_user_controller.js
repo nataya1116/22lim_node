@@ -24,7 +24,6 @@ module.exports.create = async (req, res) => {
     if(!result) return res.send({ result : "fail" });
     
     const totalPoint = await PointTotalService.findPoint(userId);
-    console.log(totalPoint);
 
     return res.send({ result : "suc", point : totalPoint.dataValues.point});
 };
