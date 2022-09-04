@@ -152,7 +152,8 @@ html {
 
 .button-login {
   width: 100%;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
+  margin-top: 50px;
 }
 /* LOGIN 추가 CSS END*/
 .check-pw {
@@ -165,3 +166,8 @@ html {
   background: black;
   color: white;
 }
+.find_id{
+  width: 100%;
+  margin-bottom: 15px;
+}
+

@@ -18,7 +18,7 @@ const QnaBoard = require("./qna_board");
 const QnaReply = require("./qna_reply");
 const FreeBoard = require("./free_board");
 const FreeReply = require("./free_reply");
-const Findpw = require("./find_pw")
+
 
 const sequelize = new Sequelize(
   config.dev.database,
@@ -51,12 +51,12 @@ db.GameSkinWish = GameSkinWish;
 db.PointTotal = PointTotal;
 db.PointHistory = PointHistory;
 db.PointType = PointType;
-db.Findpw = Findpw ;
+
 // 테이블 생성
 Authority.init(sequelize);
 ConditionUser.init(sequelize);
 User.init(sequelize);
-Findpw.init(sequelize);
+
 TipBoard.init(sequelize);
 TipReply.init(sequelize);
 
@@ -100,6 +100,6 @@ PointType.associate(db);
 QnaBoard.associate(db);
 QnaReply.associate(db);
 
-Findpw.associate(db);
+
 
 module.exports = db;

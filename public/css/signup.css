@@ -165,9 +165,10 @@ html {
   height: 25px;
   margin-right: 5px;
 }
-.check-email-btn {
+.check-email {
   font-family: "NanumSquareRound-B";
-  font-size: 12px;
+  font-weight: 600;
+  font-size: 13px;
   height: 25px;
   margin-right: 5px;
 }
@@ -175,7 +176,7 @@ html {
   background-color: #000000;
   color: #ffffff;
 }
-.check-email-btn:hover {
+.check-email:hover {
   background-color: #000000;
   color: #ffffff;
 }

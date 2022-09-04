@@ -112,6 +112,20 @@ module.exports.findPw = async (userId) => {
     return null;
   }
 };
+module.exports.findId = async (userId) => {
+  try {
+    return await User.findOne({
+      attributes: ["userId"],
+      where: {
+        userId,
+      },
+      // raw: true
+    });
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+};
 
 module.exports.findUser = async (userId) => {
   try {
