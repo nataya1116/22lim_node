@@ -20,7 +20,7 @@ router.get("/list/:page/:perPage/:searchKey/:searchWord", SessionMiddleware.pass
 
 router.get("/read/:offset", SessionMiddleware.pass, TipBoardController.view);
 
-router.get("/update/:id/:offset", SessionMiddleware.pass, TipBoardController.updatePrint);
+router.get("/update/:id/:offset", SessionMiddleware.validity, TipBoardController.updatePrint);
 
 router.get("/delete/:id/", SessionMiddleware.validity, TipBoardController.delete);
 

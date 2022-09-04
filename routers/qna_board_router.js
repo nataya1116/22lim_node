@@ -22,7 +22,7 @@ router.get(
 
 router.get("/read/:offset",SessionMiddleware.pass, QnaBoardController.view);
 
-router.get("/update/:id/:offset",SessionMiddleware.pass, QnaBoardController.updatePrint);
+router.get("/update/:id/:offset",SessionMiddleware.validity, QnaBoardController.updatePrint);
 
 router.get("/delete/:id/", SessionMiddleware.validity,QnaBoardController.delete);
 
