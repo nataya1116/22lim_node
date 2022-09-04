@@ -1,4 +1,6 @@
 const SkinProductsService = require("../service/game_skin_products_service");
+const SkinWishService = require("../service/game_skin_wish_service");
+const SkinUserService = require("../service/game_skin_user_service");
 const UserService = require("../service/user_service");
 const TokenService = require("../service/token_service");
 
@@ -11,7 +13,7 @@ module.exports.list = async (req, res) => {
     }
 
     const pageNum = Number(req.params.page || "1");
-    const limit = Number(req.params.perPage || "10");
+    const limit = Number(req.params.perPage || "12");
 
     let offset = 0;
   
@@ -21,7 +23,8 @@ module.exports.list = async (req, res) => {
 
     const result = await SkinProductsService.list(offset, limit);
     const list = result?.rows;
-    const productNum = result?.count;
+    const productNum = await SkinProductsService.count();
+
     const totalPage = Math.ceil(productNum / limit);
     const url = "/skin_products/list";
     
@@ -37,7 +40,7 @@ module.exports.listWish = async (req, res) => {
     }
 
     const pageNum = Number(req.params.page || "1");
-    const limit = Number(req.params.perPage || "10");
+    const limit = Number(req.params.perPage || "12");
 
     let offset = 0;
   
@@ -45,11 +48,10 @@ module.exports.listWish = async (req, res) => {
       offset = limit * (pageNum - 1);
     }
 
-    const result = await SkinProductsService.listWish(User.userId, 0, 1000);
+    const result = await SkinProductsService.listWish(User.userId, offset, limit);
     const list = result?.rows;
-    const productNum = result?.count;
-    console.log("productNum",productNum);
-    console.log(list);
+    const productNum = await SkinWishService.count(User.userId);
+
     const totalPage = Math.ceil(productNum / limit);
     const url = "/skin_products/list_wish";
 
@@ -65,14 +67,14 @@ module.exports.listUse = async (req, res) => {
     }
 
     const pageNum = Number(req.params.page || "1");
-    const limit = Number(req.params.perPage || "10");
+    const limit = Number(req.params.perPage || "12");
 
     let offset = 0;
 
-    const result = await SkinProductsService.listUse(User.userId, 0, 1000);
+    const result = await SkinProductsService.listUse(User.userId, offset, limit);
     const list = result?.rows;
-    const productNum = result?.count;
-    console.log("productNum",productNum);
+    const productNum = await SkinUserService.count(User.userId);
+
     const totalPage = Math.ceil(productNum / limit);
     const url = "/skin_products/list_use";
 

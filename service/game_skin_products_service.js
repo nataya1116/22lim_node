@@ -113,3 +113,24 @@ module.exports.listUse = async (userId, offset, limit) => {
     console.log(err);
   }
 };
+
+module.exports.findPoint = async (productId) => {
+  try {
+    return await GameSkinProducts.findOne({
+                                            attributes: ["point"],
+                                            where : { productId }
+                                          });
+  } catch (err) {
+    console.error(err);
+    return false;
+  }
+}
+
+module.exports.count = async () => {
+  try {
+    return await GameSkinProducts.count();
+  } catch (err) {
+    console.error(err);
+    return false;
+  }
+}

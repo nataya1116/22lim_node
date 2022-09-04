@@ -69,13 +69,12 @@
                   <div class="modal-body-bottom">
                   
 
-                  <% if (!User || !product?.GameSkinUsers) {%>
-                    <button class="buy-btn" id="buy_btn<%=product?.id%>" id="" onclick="skinBuy('<%=User?.userId%>', <%=product?.id%>, <%=product?.point%>, buy_btn<%=product?.id%>)" ><img src="/img/coin.png" alt="" style="width: 20px;" > <%= product?.point %> Buy</button>   
-                  <% } %>
 
-                  <% product?.GameSkinUsers?.forEach(skinUser) { %> 
-                    <% if (skinUser?.User.userId == User?.userId) {%>
-
+                  
+                  <% let skinUserCheck = false; %>
+                  <% product?.GameSkinUsers?.forEach((skinUser) => { %> 
+                    <% if (!!User && skinUser?.User.userId == User?.userId) {%>
+                        <% skinUserCheck = true; %>
                         <% if (skinUser?.isUse) {%>
                           <button class="buy-btn" id="buy_btn<%=product?.id%>" disabled style="background-color: black; color: white;">in use</button>
                             <% return; %>
@@ -85,18 +84,26 @@
                         <% } %>   
                           
                     <% } %>
+                  <% }); %>
+
+                  <% if (!User || !skinUserCheck) { %>
+                    <button class="buy-btn" id="buy_btn<%=product?.id%>" id="" onclick="skinBuy('<%=User?.userId%>', <%=product?.id%>, <%=product?.point%>, buy_btn<%=product?.id%>)" ><img src="/img/coin.png" alt="" style="width: 20px;" > <%= product?.point %> Buy</button>   
                   <% } %>
 
-                  <% if (!User || !product?.GameSkinWishes) {%>
-                      <a href="#" id="wish_a<%=product?.id%>" onclick="skinWish('<%=User?.userId%>', <%= product?.id %>, wish_a<%=product?.id%>)" ><img src="/img/heart1.png" alt="찜하기 버튼" class="heart-btn"></a>
-                  <% } %>
-                  
-                  <% product?.GameSkinWishes?.forEach(skinWish) { %> 
+
+                  <% let skinWishCheck = false; %>
+                  <% product?.GameSkinWishes?.forEach((skinWish) => { %> 
                       <% if (!!User && skinWish?.User.userId == User?.userId) {%>
+                        <% skinWishCheck = true; %>
                         <a href="#" id="wish_a<%=product?.id%>" onclick="skinWishCancel('<%=User?.userId%>', <%= product?.id %>, <%= skinWish?.id %>, wish_a<%=product?.id%>)"><img src="/img/heart2.png" alt="찜 해제 버튼" class="heart-btn" ></a>
                         <% return; %>
                       <% } %> 
+                  <% }); %>
+                        
+                  <% if (!User || !skinWishCheck) { %>
+                    <a href="#" id="wish_a<%=product?.id%>" onclick="skinWish('<%=User?.userId%>', <%= product?.id %>, wish_a<%=product?.id%>)" ><img src="/img/heart1.png" alt="찜하기 버튼" class="heart-btn"></a>
                   <% } %>
+
                   </div>
                 </div>
               </div>

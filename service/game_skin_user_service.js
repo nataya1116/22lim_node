@@ -114,3 +114,17 @@ module.exports.use = async (userId, productId, isUse) => {
     }
 
 }
+
+module.exports.count = async (userId) => {
+    try {
+      const user = await User.findOne({
+                                        where : { userId }
+                                    });
+      return await GameSkinUser.count({
+                                        where : { userId : user.id }
+                                    });
+    } catch (err) {
+      console.error(err);
+      return false;
+    }
+}

@@ -42,3 +42,17 @@ module.exports.delete = async (id) => {
                             }
                         });
 }
+
+module.exports.count = async (userId) => {
+    try {
+      const user = await User.findOne({
+                                        where : { userId }
+                                    });
+      return await GameSkinWish.count({
+                                        where : { userId : user.id }
+                                    });
+    } catch (err) {
+      console.error(err);
+      return false;
+    }
+}
