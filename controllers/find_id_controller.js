@@ -1,16 +1,21 @@
 const UserService = require("../service/user_service");
+const { mailer, jwt } = require("../modules/common");
+const { config } = require("../config/config");
+const TokenService = require("../service/token_service");
 
-module.exports.emailSend = (req, res) => {
-    let email = req.body.email;
-    req.session.email = email;
-  
-    UserService.useEmail(email).then((e) => {
-      if (e == null) {
+
+module.exports.idEmailSend = (req, res) => {
+    let userEmail = req.body.userEmail;
+    const accessToken = req.session?.access_token;
+    const User = TokenService.verifyAccessToken(accessToken);
+    const userId = User?.userId;
+
+    UserService.findId(userEmail).then((e) => {
+      if (e !== null) {
         let sendmail = {
-          // toEmail: email.email,
-          toEmail: email,
-          subject: `22lim 아이디`,
-          text: `${email}님의 아이디는.  <h1>${req.user.Id}</h1> 입니다.`,
+          toEmail: userEmail,
+          subject: `안녕하세요 22lim 아이디 조회 결과입니다.`,
+          text: `${userEmail}님의 아이디는, <h1>${userId}</h1> 입니다.`,
         };
   
         let transpoter = mailer.createTransport({
@@ -42,4 +47,9 @@ module.exports.emailSend = (req, res) => {
         res.send("fail");
       }
     });
+  };
+  module.exports.findIdView = (req, res) => {
+    const accessToken = req.session?.access_token;
+    const User = TokenService.verifyAccessToken(accessToken);
+    res.render("find_id", { User });
   };

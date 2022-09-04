@@ -194,3 +194,8 @@ function allCheck() {
   }
   return true;
 }
+
+function findIdEmailCheck(){
+  if(!emailCheck(user_email.value)) return false;
+  return true;
+}

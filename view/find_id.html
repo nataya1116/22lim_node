@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <!-- This site was created in Webflow. http://www.webflow.com --><!-- Last Published: Sun Jun 07 2020 16:12:30 GMT+0000 (Coordinated Universal Time) -->
 <html
-  data-wf-domain="mac-template.webflow.io"
   data-wf-page="5e96271775cfea35cf33d77b"
   data-wf-site="5e87e737ee7085b9ba02c101">
   <head>
@@ -98,17 +97,16 @@
             </div>
             <div class="modal-body">
               <div class="container-width-medium">
-                <!-- sdsadas -->
-                <div class="center-box">
-                    
+                <div class="center-box">                   
                     <div class="join-main">
                       <!-- 이따 여기 메인 -->
                       <h3 style="font-family:NanumSquareRound-B; margin-bottom: 15px;" >아이디를 찾기 위한 이메일을 입력 해주세요</h3>
                     <div class="email-div">
-                      <input type="text" placeholder="e-mail" onkeyup="emailCheck(this.value)" />
-                      <button class="check-email" onkeyup="emailSend(this.value)">메일 보내기</button>
+                      <input type="text" placeholder="e-mail" id="user_email" onkeyup="emailCheck(this.value)" />
+                      <input type="hidden" id="is_email_check" >
+                      <button class="check-email" onclick="findIdEmailSend()">메일 보내기</button>
                     </div>
-
+                    <span id="email_check" class="check"></span>
                   </div>
                 </div>
               </div>
@@ -130,6 +128,8 @@
     </div>
     <script src="/js/check_password.js"></script>
     <script src="/js/chat_ui.js"></script>
+    <script src="/js/validity.js"></script>
+    
     <script
       src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.4.1.min.220afd743d.js?site=5e87e737ee7085b9ba02c101"
       type="text/javascript"
@@ -142,4 +142,24 @@
       ]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script
     ><![endif]-->
   </body>
+  <script>
+    function findIdEmailSend(){
+      // if(!findIdEmailCheck()) return;
+      $.ajax({
+        url: "/user/find_id",
+        type: "post",
+        data : {
+          userEmail : user_email.value,
+        },
+        success : (data)=>{
+          if(data == "suc"){
+            alert("이메일이 발송 되었습니다.");
+            location.href = "/user/login";
+          }else if(data == "fail"){
+            alert("가입하지 않은 이메일 입니다.");
+          }else alert("알 수 없는 오류");
+        }
+      })
+    }
+  </script>
 </html>

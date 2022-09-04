@@ -5,7 +5,7 @@ const { express } = require("../modules/common");
 const router = express.Router();
 
 const UserController = require("../controllers/user_controller");
-
+const findIdController = require("../controllers/find_id_controller");
 router.get("/login", UserController.loginView);
 
 // 회원가입창
@@ -38,6 +38,16 @@ router.get("/shop", (req, res) => {
 // 임시로 만든 라우터! 헤더랑 푸터 붙임
 router.get("/skin_list", (req, res) => {
   res.render("skin_list");
+});
+
+// 로그인 창에서 아이디 찾기
+router.get("/find_id",(req,res)=>{
+  // res.render("find_id")
+  findIdController.findIdView(req, res);
+});
+
+router.post("/find_id",(req,res)=>{
+  findIdController.idEmailSend(req, res);
 });
 
 // router.post("/login", UserController.loginTmp);
