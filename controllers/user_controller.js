@@ -28,6 +28,12 @@ module.exports.signUp = async (req, res) => {
   else res.send("suc");
 };
 
+module.exports.signUpView = async (req, res) => {
+  const User = null;
+
+  res.render("signup", { User });
+}
+
 module.exports.loginTmp = async (req, res) => {
   const id = req.body.user_id;
   const pw = req.body.user_pw;
