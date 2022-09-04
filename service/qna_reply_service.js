@@ -1,17 +1,45 @@
-const { QnaReply, User, sequelize } = require("../model/index");
+const { QnaReply, User, PointTotal, PointHistory, PointType, sequelize } = require("../model/index");
 const Op = require("sequelize").Op;
+const { POINT } = require("../config/config");
 
 module.exports.create = async ({ userId, boardId, content }) => {
   try {
-    User.findOne({
-      where: { userId },
-    }).then((user) => {
-      QnaReply.create({
-        userId: user.id,
-        boardId,
-        content,
+    await sequelize.transaction( async (t) => {
+      await User.findOne({
+                              where : { userId }
+      }).then( async (user) => {
+          await QnaReply.create({
+                                      userId : user.id,
+                                      boardId, 
+                                      content
+                                  },
+                                  {
+                                      transaction: t
+                                  });
+          const pointType = await PointType.findOne({
+                                                      where : {
+                                                          id : POINT.WRITE_REPLY
+                                                      }
+                                                      });
+          await PointHistory.create({
+                                      userId : user.id,
+                                      typeId : POINT.WRITE_REPLY
+                                  },
+                                  {
+                                      transaction: t
+                                  });
+          await PointTotal.increment({
+                                          point : pointType.point
+                                      },
+                                      {
+                                          where : { userId : user.id }
+                                      },
+                                      {
+                                          transaction: t
+                                      });
       });
-    });
+  });
+
   } catch (err) {
     console.error(err);
   }
@@ -19,16 +47,42 @@ module.exports.create = async ({ userId, boardId, content }) => {
 
 module.exports.createNested = async ({ userId, boardId, replyId, content }) => {
   try {
-    User.findOne({
-      where: { userId },
-    }).then((user) => {
-      QnaReply.create({
-        userId: user.id,
-        boardId,
-        replyId,
-        content,
+    await sequelize.transaction( async (t) => {
+      await User.findOne({
+                              where : { userId }
+      }).then( async (user) => {
+          await QnaReply.create({
+                                      userId : user.id,
+                                      boardId, 
+                                      replyId,
+                                      content
+                                  },
+                                  {
+                                      transaction: t
+                                  });
+          const pointType = await PointType.findOne({
+                                                      where : {
+                                                          id : POINT.WRITE_REPLY
+                                                      }
+                                                      });
+          await PointHistory.create({
+                                      userId : user.id,
+                                      typeId : POINT.WRITE_REPLY
+                                  },
+                                  {
+                                      transaction: t
+                                  });
+          await PointTotal.increment({
+                                          point : pointType.point
+                                      },
+                                      {
+                                          where : { userId : user.id }
+                                      },
+                                      {
+                                          transaction: t
+                                      });
       });
-    });
+  });
   } catch (err) {
     console.error(err);
   }

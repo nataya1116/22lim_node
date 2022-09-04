@@ -19,7 +19,7 @@
           <h1>SHOP</h1>
           <div class="subhead">나만의 캐릭터를 구매해보세요!</div><br>
           <% if(!!User) {%>
-            보유 포인트 <img src="/img/coin.png" alt="" style="width: 20px;" > <%= User?.point %>
+            보유 포인트 <img src="/img/coin.png" alt="" style="width: 20px;" > <%= User?.PointTotal.point %>
           <% } %>
         </div>
       </div>
@@ -29,9 +29,12 @@
       class="section pattern wf-section shop-section">
       <!-- 여기서부터 내용 ------------------------------------------------------------------------------------------------------------ -->
       <div class="shop-container">
-        <div class="all-heart-btn">
-          <button>찜 모아보기</button>
-        </div>
+        <% if(!!User) {%>
+          <div class="all-heart-btn">
+            <button>wish</button>
+            <button>in use</button>
+          </div>
+        <% } %>
         <div class="container">
           <div class="w-dyn-list">
             <div role="list" class="grid-halves w-dyn-items">

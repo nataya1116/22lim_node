@@ -1,5 +1,6 @@
-const { TipBoard, TipReply, User, PointTotal, PointHistory, sequelize } = require("../model/index");
+const { TipBoard, TipReply, User, PointTotal, PointHistory, PointType, sequelize } = require("../model/index");
 const Op = require("sequelize").Op;
+const { POINT } = require("../config/config");
 
 module.exports.count = async () => {
     try {
@@ -13,17 +14,43 @@ module.exports.count = async () => {
 module.exports.create = async ({userId, title, content}) => {
 
     try {
-        await User.findOne({
-            where : { userId }
-        }).then((users) => {
-            console.log(users.id);
-            TipBoard.create(
-                {
-                    userId : users.id, 
-                    title, 
-                    content
-                });
+          await sequelize.transaction( async (t)=> {
+          await User.findOne({
+                                where : { userId }
+          })
+          .then(async (user) => {
+              await TipBoard.create({
+                                      userId : user.id, 
+                                      title, 
+                                      content
+                                    },
+                                    {
+                                      transaction: t
+                                    });
+              const pointType = await PointType.findOne({
+                                                          where : {
+                                                            id : POINT.WRITE_POST
+                                                          }
+                                                        });
+              await PointHistory.create({
+                                          userId : user.id,
+                                          typeId : POINT.WRITE_POST
+                                        },
+                                        {
+                                          transaction: t
+                                        });
+              await PointTotal.increment({
+                                            point : pointType.point
+                                          },
+                                          {
+                                            where : { userId : user.id }
+                                          },
+                                          {
+                                            transaction: t
+                                          });
+          });
         });
+
     } catch (err) {
         console.error(err);
     }
