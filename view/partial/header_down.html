@@ -59,8 +59,8 @@
 
       <div class="my_menu">
         <!-- 세션에 값이 없을 경우 "Login"(연결 : 로그인), 있을 경우 "닉네임"(연결 : 마이페이지) -->
-        <% if(userId) {%>
-          <a href="/user/mypage" class="nav-link w-nav-link"><%= userId %></a>
+        <% if(User?.userId) {%>
+          <a href="/user/mypage" class="nav-link w-nav-link"><%=User?.userId%></a>
         <% } else { %>
           <a href="/user/login" class="nav-link w-nav-link">Login</a>
         <% } %>

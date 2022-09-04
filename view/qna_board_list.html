@@ -19,7 +19,7 @@
         <div class="container">
           <div class="w-dyn-list list-box">
             <div class="text-div">
-              <% if (userId && authorityId == 1) {%>
+              <% if (User?.userId && User?.authorityId == 1) {%>
                 <button class="text-btn"><a href="/qna_board/create_view">글쓰기</a></button>
               <% } %>
             </div>

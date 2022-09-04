@@ -36,7 +36,7 @@ module.exports.create = async (userId, productId) => {
 }
 
 module.exports.delete = async (id) => {
-    await GameSkinWish.destroy({
+    return await GameSkinWish.destroy({
                             where : {
                                 id
                             }

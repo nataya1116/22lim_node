@@ -7,7 +7,7 @@ module.exports.create = async (req, res) => {
     
     const result = await SkinWishService.create(userId, productId);
     
-    console.log(result);
+    // console.log(result);
     
     res.send(result);
 };
@@ -16,7 +16,7 @@ module.exports.delete = async (req, res) => {
 
     const productWishId = Number(req.body.productWishId);
 
-    await SkinWishService.delete(productWishId);
+    const result = await SkinWishService.delete(productWishId);
 
-    res.send();
+    res.send(result);
 }

@@ -1,4 +1,4 @@
-const { TipBoard, TipReply, User, sequelize } = require("../model/index");
+const { TipBoard, TipReply, User, PointTotal, PointHistory, sequelize } = require("../model/index");
 const Op = require("sequelize").Op;
 
 module.exports.count = async () => {
@@ -9,9 +9,9 @@ module.exports.count = async () => {
     }
 }
 
-// 포인트 추가해줄것
+// 포인트 토탈, 포인트 히스토리 추가해줄것
 module.exports.create = async ({userId, title, content}) => {
-    console.log("service create()");
+
     try {
         await User.findOne({
             where : { userId }

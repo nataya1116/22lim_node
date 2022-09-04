@@ -41,7 +41,7 @@
                     <textarea id="in_writ" type="text" name="content" style="padding:20px ;"><%= post.content %></textarea>
                     </div>
                   </div>
-                <% if(userId == post.User.userId) { %>
+                <% if(User?.userId == post.User.userId) { %>
                   <button type="submit" id="saveBtn">수정</button>
                 <% } %>
               </form>

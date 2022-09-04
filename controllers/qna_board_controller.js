@@ -14,12 +14,9 @@ module.exports.create = async (req, res) => {
 module.exports.createView = (req, res) => {
   const accessToken = req.session?.access_token;
     const User = TokenService.verifyAccessToken(accessToken);
-    const userId = User?.userId;
-    const authorityId = User?.authorityId;
   
   res.render("qna_board_insert", {
-    userId,
-    authorityId,
+    User,
     AUTHORITY,
     BOARDS,
     board: BOARDS.QNA_BOARD,
@@ -28,10 +25,10 @@ module.exports.createView = (req, res) => {
 
 // 게시판 목록 페이지 네이션을 동작하게 하는 부분(검색어가 없을 때)
 module.exports.list = async (req, res) => {
+  
   const accessToken = req.session?.access_token;
   const User = TokenService.verifyAccessToken(accessToken);
-  const userId = User?.userId;
-  const authorityId = User?.authorityId;
+
   // get방식으로 가져올 때는 req.parmas
   // post방식으로 가져올땐 req.body
   // parmas는 문자열로만 인식을 함! 그래서 타입캐스팅을 Number로 해준다
@@ -60,8 +57,7 @@ module.exports.list = async (req, res) => {
   const searchWord = "";
 
   res.render("qna_board_list", {
-    userId, 
-    authorityId,
+    User,
     list,
     totalPage,
     pageNum,
@@ -74,8 +70,7 @@ module.exports.list = async (req, res) => {
 module.exports.listSearch = async (req, res) => {
   const accessToken = req.session?.access_token;
   const User = TokenService.verifyAccessToken(accessToken);
-  const userId = User?.userId;
-  const authorityId = User?.authorityId;
+
   const pageNum = Number(req.params.page || "1");
   const limit = Number(req.params.perPage || "10");
   const { searchKey, searchWord } = req.params;
@@ -117,8 +112,7 @@ module.exports.listSearch = async (req, res) => {
   const totalPage = Math.ceil(postNum / limit);
 
   res.render("qna_board_list", {
-    userId,
-    authorityId,
+    User,
     list,
     totalPage,
     pageNum,
@@ -129,10 +123,9 @@ module.exports.listSearch = async (req, res) => {
 };
 
 module.exports.view = async (req, res) => {
+
   const accessToken = req.session?.access_token;
   const User = TokenService.verifyAccessToken(accessToken);
-  const userId = User?.userId;
-  const authorityId = User?.authorityId;
 
   const offset = Number(req.params.offset);
   const result = await QnaBoardService.viewOffset(offset);
@@ -149,8 +142,7 @@ module.exports.view = async (req, res) => {
 
   //                                                           임시로 아이디 값 삽입
   res.render("qna_board_view", {
-    userId,
-    authorityId,
+    User,
     offset,
     post,
     postNum,
@@ -173,15 +165,14 @@ module.exports.updatePrint = async (req, res) => {
 
   const accessToken = req.session?.access_token;
   const User = TokenService.verifyAccessToken(accessToken);
-  const userId = User?.userId;
-  const authorityId = User?.authorityId;
+  
   const id = Number(req.params.id);
   const offset = Number(req.params.offset);
   // console.log(id, offset);
   const post = await QnaBoardService.viewId(id);
   // const post = result[0];
   // console.log(result);
-  res.render("qna_board_update", { userId, authorityId, offset, post });
+  res.render("qna_board_update", { User, offset, post });
 };
 
 module.exports.delete = async (req, res) => {
