@@ -19,7 +19,7 @@
           <h1>SHOP</h1>
           <div class="subhead">나만의 캐릭터를 구매해보세요!</div><br>
           <% if(!!User) {%>
-            보유 포인트 <img src="/img/coin.png" alt="" style="width: 20px;" > <%= User?.PointTotal.point %>
+            Point <img src="/img/coin.png" alt="" style="width: 20px;" > <span id="user_point"><%= User?.PointTotal.point %></span>
           <% } %>
         </div>
       </div>
@@ -67,12 +67,12 @@
                   <% const skinUser = product?.GameSkinUsers[0] %>
                   <% if (!!User && skinUser?.User.userId == User?.userId) {%>
                     <% if (skinUser?.isUse) {%>
-                      <button class="buy-btn" disabled>in use</button>
+                      <button class="buy-btn" id="buy_btn<%=product?.id%>" disabled>in use</button>
                     <% } else { %> 
-                      <button class="buy-btn" onclick="skinToUse('<%=User?.userId%>', <%=product?.id%>)">to use</button>
+                      <button class="buy-btn" id="buy_btn<%=product?.id%>" onclick="skinToUse('<%=User?.userId%>', <%=product?.id%>, buy_btn<%=product?.id%>)">to use</button>
                     <% } %>   
                   <% } else { %>
-                    <button class="buy-btn" onclick="skinBuy('<%=User?.userId%>', <%=product?.id%>, <%=product?.point%>, <%=User?.point%>)" ><img src="/img/coin.png" alt="" style="width: 20px;" > <%= product?.point %> Buy</button>     
+                    <button class="buy-btn" id="buy_btn<%=product?.id%>" id="" onclick="skinBuy('<%=User?.userId%>', <%=product?.id%>, <%=product?.point%>, <%=User?.point%>, buy_btn<%=product?.id%>)" ><img src="/img/coin.png" alt="" style="width: 20px;" > <%= product?.point %> Buy</button>     
                   <% } %>
                   
                   <% const skinWish = product?.GameSkinWishes[0] %>
