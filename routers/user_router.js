@@ -11,6 +11,8 @@ router.get("/login", UserController.loginView);
 
 router.post("/login", UserController.login);
 
+router.get("/logout", SessionMiddleware.pass, UserController.logout);
+
 // 회원가입창
 router.get("/signup", UserController.signUpView);
 
