@@ -164,12 +164,11 @@ module.exports.userMyPage = async (req, res) => {
   const accessToken = req.session?.access_token;
   const User = TokenService.verifyAccessToken(accessToken);
   const userId = User?.userId;
-  console.log(accessToken);
+
   // userMyPage의 매개변수로 아이디를 넣어주면 된다
   // 나중에 데이터에서 가져올 유저의 아이디 값을 주면 됨
   await UserService.userMyPage(userId).then((e) => {
     // render의 두번째 매개변수로 받아올 데이터?...
-    console.log(e);
     res.render("mypage", { data: e, User });
   });
 };
@@ -185,7 +184,6 @@ module.exports.myPageUpdatePw = async (req, res) => {
     const User = TokenService.verifyAccessToken(accessToken);
     const userId = User?.userId;
     await UserService.myPageUpdatePw(userId, encryptedPw).then((e) => {
-      console.log(e);
       res.send("suc");
     });
   } else res.send("fail");

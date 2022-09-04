@@ -68,7 +68,6 @@ function createReplyNested(offset, userId, boardId, replyId, content, url) {
 }
 
 function createReply(offset, userId, boardId, content, url) {
-  console.log(offset, userId, boardId, content);
   const form = document.createElement("form");
   form.method = "post";
   form.action = `/${url}/create`;

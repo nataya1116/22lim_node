@@ -138,7 +138,6 @@ module.exports.update = async (req, res) => {
   const { title, content } = req.body;
 
   const result = await TipBoardService.update({ id, title, content });
-  console.log(result);
   res.redirect("/tip_board/read/" + offset);
 };
 
