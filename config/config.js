@@ -29,14 +29,14 @@ const AUTHORITY = {
 const BOARDS = {
   TIP_BOARD: "tipBoard",
   QNA_BOARD: "qnaBoard",
-  FREE_BOARD: "freeBoard",
+  // FREE_BOARD: "freeBoard",
 };
 
 const POINT = {
   JOIN: 1,
   WRITE_POST: 2,
   WRITE_REPLY: 3,
-  SKIN_BUY: 4
-}
+  SKIN_BUY: 4,
+};
 
 module.exports = { config, AUTHORITY, CONDITION, BOARDS, POINT };

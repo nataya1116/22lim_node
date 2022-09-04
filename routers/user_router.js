@@ -1,4 +1,5 @@
 const { express } = require("../modules/common");
+const SessionMiddleware = require("../middlewares/session_middleware");
 
 // 익스프레스 안에있는 요청 url을 전달할 수 있는 라우터 객체를 만듬
 // app.use(userRouter); 이런식으로 빼서 사용할 수 있음@!
@@ -26,8 +27,17 @@ router.post("/email_check", (req, res) => {
 router.post("/email_num_check", UserController.emailNumCheck);
 
 // 임시로 마이페이지 수정을 열었음 나중에 post방식으로 바꿀 것
-router.get("/mypage_edit", (req, res) => {
-  UserController.userMyPageEdit(req, res);
+router.get("/mypage", SessionMiddleware.validity, (req, res) => {
+  UserController.userMyPage(req, res);
+});
+
+// 마이페이지에서 비밀번호 변경
+router.get("/update_pw", SessionMiddleware.validity, (req, res) => {
+  UserController.myPageUpdatePwView(req, res);
+});
+
+router.post("/update_pw", SessionMiddleware.validity, (req, res) => {
+  UserController.myPageUpdatePw(req, res);
 });
 
 // 임시로 만든 라우터! 헤더랑 푸터 붙임

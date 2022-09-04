@@ -11,8 +11,7 @@ const indexRouter = require("./routers/index_router");
 
 const tipBoardRouter = require("./routers/tip_board_router");
 const qnaBoardRouter = require("./routers/qna_board_router");
-
-const mysql = require("mysql2");
+// const freeBoardRouter = require("./routers/free_board_router");
 
 const tipReplyRouter = require("./routers/tip_reply_router");
 const qnaReplyRouter = require("./routers/qna_reply_router");
@@ -20,9 +19,9 @@ const skinProductsRouter = require("./routers/game_skin_products_router");
 const skinWishRouter = require("./routers/game_skin_wish_router");
 const skinUserRouter = require("./routers/game_skin_user_router");
 
-const gameParanoia = require("./routers/game_paranoia_router")
+const gameParanoia = require("./routers/game_paranoia_router");
 
-const findPw = require("./routers/find_pw_router")
+const findPw = require("./routers/find_pw_router");
 
 const app = express();
 
@@ -59,17 +58,19 @@ app.use("/user", userRouter);
 // /tip_board라는 경로 내에 tipBoardRouter 요 안에 들어있는 get이나 post방식으로 접근한 모든 경로의 루트는 /tip_board로 설정해준것이다!
 app.use("/tip_board", tipBoardRouter);
 app.use("/tip_reply", tipReplyRouter);
+// app.use("/free_board", freeBoardRouter);
+// app.use("/free_reply", freeReplyRouter);
 
 app.use("/qna_board", qnaBoardRouter);
-app.use("/qna_reply", qnaReplyRouter); 
+app.use("/qna_reply", qnaReplyRouter);
 
 app.use("/skin_products", skinProductsRouter);
-app.use("/skin_wish", skinWishRouter); 
+app.use("/skin_wish", skinWishRouter);
 app.use("/skin_user", skinUserRouter);
 
 app.use("/game_paranoia", gameParanoia);
 
-app.use("/find_pw",findPw);
+app.use("/find_pw", findPw);
 
 app.listen(PORT, () => {
   console.log(PORT, "번 포트 대기 중");
@@ -132,16 +133,13 @@ app.get("/test", async (req, res) => {
   // })
   // await TipBoardService.delete(2);
   // const count = await TipBoardService.list(0, 10);
-
   // res.send(count);
-
   //   TipReplyService.create({
   //       userId : "gg",
   //       boardId : 1,
   //       replyId : null,
   //       content : "ㅅㄷㄳㅂㄷㅅㅄtqtqtqtertqter"
   //   }) ;
-
   //   TipReplyService.create({
   //     userId : "gg",
   //     boardId : 1,
@@ -152,7 +150,6 @@ app.get("/test", async (req, res) => {
   //     id : 1,
   //     content : "행복행복"
   // })
-
   //await TipReplyService.delete(2);
   //const count = await TipReplyService.list(1);
   //res.send(count);

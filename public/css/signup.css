@@ -170,6 +170,7 @@ html {
   font-size: 12px;
   height: 25px;
   margin-right: 5px;
+  background-color: #efefef;
 }
 .check-id-btn:hover {
   background-color: #000000;
@@ -233,4 +234,19 @@ html {
   height: 25px;
   color: red;
   font-size: 15px;
+}
+
+.new-pw {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+
+.new-pw input {
+  min-width: 430px;
+  padding: 8px;
+  font-size: 16px;
+  font-family: "NanumSquareRound-R";
+  margin-top: 10px;
+  border: 4px solid #000000;
 }

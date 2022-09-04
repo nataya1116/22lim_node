@@ -7,27 +7,26 @@ const randomNum = require("../service/random");
 const { AUTHORITY, CONDITION } = require("../config/config");
 
 module.exports.signUp = async (req, res) => {
-
-  const {userName, userId, userPw, phone, email} = req.body;
+  const { userName, userId, userPw, phone, email } = req.body;
 
   const authorityId = AUTHORITY.USER;
 
   const conditionId = CONDITION.ACTIVITY;
 
   const encryptedPw = EncryptionService.pwEncryption(userPw);
-  
+
   const result = await UserService.create({
-                                            userName, 
-                                            userId, 
-                                            userPw : encryptedPw, 
-                                            phone, 
-                                            email,
-                                            authorityId,
-                                            conditionId
-                                          });
-  if(!result) res.send("fail");
+    userName,
+    userId,
+    userPw: encryptedPw,
+    phone,
+    email,
+    authorityId,
+    conditionId,
+  });
+  if (!result) res.send("fail");
   else res.send("suc");
-}
+};
 
 module.exports.loginTmp = async (req, res) => {
   const id = req.body.user_id;
@@ -43,44 +42,22 @@ module.exports.loginTmp = async (req, res) => {
     res.redirect("/login");
   }
 };
-// 회원가입
-// module.exports.signUp =
 
-// 이메일 인증하기
-// module.exports.emailSend = {
-//   mailSend: function (tomail) {
-//     let transpoter = mailer.createTransport({
-//       service: "Naver",
-//       port: 587, // 25 587
-//       host: "smtp.naver.com",
-//       auth: {
-//         user: mail.mailer.user,
-//         pass: mail.mailer.pw,
-//       },
-//     });
-//     let mailoption = {
-//       from: mail.mailer.user,
-//       to: tomail.toEmail,
-//       subject: tomail.subject,
-//       html: tomail.text,
-//     };
-//     transpoter.sendMail(mailoption, (err, info) => {
-//       if (err) console.log(err);
-//       else console.log("send success", info.response);
-//     });
-//   },
-// };
 module.exports.emailSend = (req, res) => {
   let email = req.body.email;
   req.session.email = email;
 
   UserService.useEmail(email).then((e) => {
     if (e == null) {
-        const randNum = randomNum();
-        // req.session.randomNum = ranNum;
-        req.session.email_token = jwt.sign({randNum}, process.env.ET_SECRET_KEY, {
+      const randNum = randomNum();
+      // req.session.randomNum = ranNum;
+      req.session.email_token = jwt.sign(
+        { randNum },
+        process.env.ET_SECRET_KEY,
+        {
           expiresIn: "3m",
-      });
+        }
+      );
 
       let sendmail = {
         // toEmail: email.email,
@@ -108,10 +85,9 @@ module.exports.emailSend = (req, res) => {
 
       transpoter.sendMail(mailoption, (err, info) => {
         if (err) {
-          console.log(err); 
+          console.log(err);
           res.send("err");
-        }
-        else console.log("send success", info.response);
+        } else console.log("send success", info.response);
       });
       res.send("suc");
     } else {
@@ -126,17 +102,16 @@ module.exports.emailNumCheck = (req, res) => {
   const emailToken = req.session.email_token;
   let decode;
   try {
-    decode = jwt.verify(emailToken,  process.env.ET_SECRET_KEY);
-    if(randNum === decode.randNum){
+    decode = jwt.verify(emailToken, process.env.ET_SECRET_KEY);
+    if (randNum === decode.randNum) {
       res.send("suc");
-    }else {
+    } else {
       res.send("wrong");
     }
   } catch (error) {
     res.send("fail");
   }
-  
-}
+};
 
 // 로그인
 module.exports.login = async (req, res) => {
@@ -146,22 +121,30 @@ module.exports.login = async (req, res) => {
   const result = await UserService.findUser(userId);
   const user = result?.dataValues;
 
-  if(!user) {
+  if (!user) {
     return res.send("fail");
   }
-  
+
   const encryptedPw = user.userPw;
   const isLogin = EncryptionService.isPwCheck(userPw, encryptedPw);
 
-  if(!isLogin) {
+  if (!isLogin) {
     return res.send("fail");
   }
 
   const point = user.PointTotal.point;
   const authorityId = user.authorityId;
 
-  const accessToken = TokenService.createAccessToken(userId, point, authorityId);
-  const refreshToken = TokenService.createRefreshToken(userId, point, authorityId);
+  const accessToken = TokenService.createAccessToken(
+    userId,
+    point,
+    authorityId
+  );
+  const refreshToken = TokenService.createRefreshToken(
+    userId,
+    point,
+    authorityId
+  );
 
   req.session.access_token = accessToken;
   req.session.refresh_token = refreshToken;
@@ -169,36 +152,59 @@ module.exports.login = async (req, res) => {
   UserService.updateRefreshToken(userId, refreshToken);
 
   return res.send("suc");
-
 };
 
 module.exports.loginView = (req, res) => {
   const User = null;
   res.render("login", { User });
-}
+};
 
-// 마이페이지(수정 페이지)------------------------------
-module.exports.userMyPageEdit = async (req, res) => {
+// 마이페이지------------------------------
+module.exports.userMyPage = async (req, res) => {
   const accessToken = req.session?.access_token;
   const User = TokenService.verifyAccessToken(accessToken);
   const userId = User?.userId;
-
+  console.log(accessToken);
   // userMyPage의 매개변수로 아이디를 넣어주면 된다
   // 나중에 데이터에서 가져올 유저의 아이디 값을 주면 됨
-  UserService.userMyPageEdit(userId).then((e) => {
+  await UserService.userMyPage(userId).then((e) => {
     // render의 두번째 매개변수로 받아올 데이터?...
-    res.render("mypage_edit", { data: e });
+    console.log(e);
+    res.render("mypage", { data: e, User });
   });
 };
 
+// 마이페이지에서 비밀번호 변경창
+module.exports.myPageUpdatePw = async (req, res) => {
+  // 새로운 비밀번호를 담아준다.
+  const { newPw, newPwCheck } = req.body;
+  if (newPw == newPwCheck) {
+    // 새로운 비밀번호 암호화
+    const encryptedPw = EncryptionService.pwEncryption(newPw);
+    const accessToken = req.session?.access_token;
+    const User = TokenService.verifyAccessToken(accessToken);
+    const userId = User?.userId;
+    await UserService.myPageUpdatePw(userId, encryptedPw).then((e) => {
+      console.log(e);
+      res.send("suc");
+    });
+  } else res.send("fail");
+};
+
+module.exports.myPageUpdatePwView = (req, res) => {
+  const accessToken = req.session?.access_token;
+  const User = TokenService.verifyAccessToken(accessToken);
+  res.render("update_pw", { User });
+};
+
 module.exports.useIdOverlap = async (req, res) => {
-  const userId = req.body.userId; 
+  const userId = req.body.userId;
   const result = await UserService.useIdOverlap(userId);
   res.send(result);
-}
+};
 
 module.exports.emailOverlap = async (req, res) => {
-  const email = req.body.email; 
+  const email = req.body.email;
   const result = await UserService.emailOverlap(email);
   res.send(result);
-}
+};
