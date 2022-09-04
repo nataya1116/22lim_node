@@ -34,21 +34,6 @@ module.exports.signUpView = async (req, res) => {
   res.render("signup", { User });
 }
 
-module.exports.loginTmp = async (req, res) => {
-  const id = req.body.user_id;
-  const pw = req.body.user_pw;
-  // const result = await UserService.Login(id, pw, req.session);
-  const result = await UserService.loginTmp(id, pw);
-
-  if (result) {
-    req.session.userId = id;
-
-    res.redirect("/");
-  } else {
-    res.redirect("/login");
-  }
-};
-
 module.exports.emailSend = (req, res) => {
   let email = req.body.email;
   req.session.email = email;
@@ -164,6 +149,22 @@ module.exports.loginView = (req, res) => {
   const User = null;
   res.render("login", { User });
 };
+
+module.exports.logout = async (req, res) => {
+  const accessToken = req.session.access_token;
+  const refreshToken = req.session.refresh_token;
+
+  if(!accessToken && !refreshToken){
+    return res.redirect("/");
+  }
+
+  req.session.destroy((err)=> {
+    if(err){
+      console.error(err);
+    }
+    return res.redirect("/");
+  })
+}
 
 // 마이페이지------------------------------
 module.exports.userMyPage = async (req, res) => {
