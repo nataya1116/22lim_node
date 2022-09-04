@@ -18,10 +18,10 @@ function idCheck(id) {
 
   const idRegex = /^[a-zA-Z0-9]{4,20}$/g;
   if (!idRegex.test(id)) {
-    if(!user_id.readOnly) id_check.innerHTML = "아이디를 다시 확인해주세요.";
+    if (!user_id.readOnly) id_check.innerHTML = "아이디를 다시 확인해주세요.";
     return false;
   } else {
-    if(is_id_check.value){
+    if (is_id_check.value) {
       id_check.innerHTML = "";
       return true;
     } else {
@@ -32,22 +32,20 @@ function idCheck(id) {
 }
 
 // 아이디 중복확인
-async function idOverlap(){
-
+async function idOverlap() {
   const userId = user_id.value;
-  
-  if(id_check.innerHTML != "아이디 중복 체크를 해주세요.") return;
-  
+
+  if (id_check.innerHTML != "아이디 중복 체크를 해주세요.") return;
+
   const url = "/user/id_overlap";
-  const data = {userId};
+  const data = { userId };
 
   let result;
   await $.post(url, data, (ret) => {
-    if(ret == "err") {
+    if (ret == "err") {
       alert("오류가 발생하였습니다. 다시 실행하여 주세요");
       result = false;
-    }
-    else if(ret == false) {
+    } else if (ret == false) {
       alert("사용가능한 아이디 입니다.");
       id_check.innerHTML = "";
       user_id.readOnly = true;
@@ -64,11 +62,10 @@ async function idOverlap(){
 
 // 비밀번호 정규식
 function pwCheck(pw, check) {
-  const pwRegex =
-    /^(?=.*?[A-Z])(?=.*\d)(?=.*?[@$!%*#?&])[A-z\d@$!%*#?&]{8,20}$/g;
+  const pwRegex = /^(?=.*?[A-Z])(?=.*?[@$!%*#?&])[A-z\d@$!%*#?&]{8,20}$/g;
   if (pwRegex.test(pw) == false) {
     check.innerHTML =
-      "대문자, 숫자, 특수문자(@$!%*#?&만 사용가능) 1개이상 포함(8~20자리)";
+      "대문자, 특수문자(@$!%*#?&만 사용가능) 1개이상 포함(8~20자리)";
     return false;
   } else {
     check.innerHTML = "";
@@ -78,12 +75,11 @@ function pwCheck(pw, check) {
 
 // 비밀번호 재확인
 function pwDoubleCheck(pwDouble, check) {
+  if (!pwCheck(pwDouble, check)) return;
 
-  if(!pwCheck(pwDouble, check)) return;
-  
   const pw = user_pw.value;
 
-  if( pw !== pwDouble){
+  if (pw !== pwDouble) {
     check.innerHTML = "비밀번호와 동일한 값을 입력해주세요.";
     return false;
   } else {
@@ -112,7 +108,7 @@ function emailCheck(email) {
     email_check.innerHTML = "이메일을 확인해주세요";
     return false;
   } else {
-    if(is_email_check.value){
+    if (is_email_check.value) {
       email_check.innerHTML = "";
       mail_btn.disabled = true;
       return true;
@@ -121,16 +117,14 @@ function emailCheck(email) {
       mail_btn.disabled = false;
       return true;
     }
-
   }
 }
 
 async function mailNumCheck() {
-  
-  const randNum = random_num.value
+  const randNum = random_num.value;
 
   const url = "/user/email_num_check";
-  const data = {randNum};
+  const data = { randNum };
 
   let result;
   await $.post(url, data, (ret) => {
@@ -138,7 +132,6 @@ async function mailNumCheck() {
       num_check.innerHTML = "유효시간이 지났습니다.";
       result = false;
     } else if (ret == "suc") {
-
       alert("인증번호가 일치합니다.");
 
       num_check.innerHTML = "";
@@ -153,14 +146,13 @@ async function mailNumCheck() {
       is_num_check.value = "true";
 
       result = true;
-    } else if (ret == "wrong"){
+    } else if (ret == "wrong") {
       num_check.innerHTML = "인증번호가 일치하지 않습니다.";
 
       mail_btn.disabled = true;
 
       result = false;
-    }
-    else {
+    } else {
       alert("알 수 없는 에러가 발생하였습니다. 이메일을 다시 확인해주세요.");
       result = false;
     }
@@ -168,29 +160,35 @@ async function mailNumCheck() {
   return result;
 }
 
-
 // 마지막에 완료버튼을 누르면 전체 체크하고 하나라도 false가 있으면 넘어갈 수 없게
 function allCheck() {
+  if (!nameCheck(user_name.value)) return false;
 
-  if(!nameCheck(user_name.value)) return false;
+  if (!idCheck(user_id.value)) return false;
 
-  if(!idCheck(user_id.value)) return false;
+  if (!is_id_check.value) return false;
 
-  if(!is_id_check.value) return false;
+  if (!pwCheck(user_pw.value, pw_check)) return false;
 
-  if(!pwCheck(user_pw.value, pw_check)) return false;
+  if (!pwDoubleCheck(user_pw_check.value, pass_check)) return false;
 
-  if(!pwDoubleCheck(user_pw_check.value, pass_check)) return false;
+  if (!phoneCheck(user_phone.value)) return false;
 
-  if(!phoneCheck(user_phone.value)) return false;
+  if (!emailCheck(user_email.value)) return false;
 
-  if(!emailCheck(user_email.value)) return false;
+  if (!is_email_check.value) return false;
 
-  if(!is_email_check.value) return false;
-  
-  if(!is_num_check.value){
+  if (!is_num_check.value) {
     num_check.innerHTML = "인증번호를 확인해주세요.";
     return false;
   }
+  return true;
+}
+
+// 새로운 비밀번호 저장할 때
+function newPwCheck() {
+  if (!pwCheck(user_pw.value, pw_check)) return false;
+
+  if (!pwDoubleCheck(user_pw_check.value, pass_check)) return false;
   return true;
 }

@@ -12,8 +12,8 @@
     <meta content="Webflow" name="generator" />
 
     <!-- @@@@@@@@@ CSS 파일 START @@@@@@@@@-->
-    <link href="css/common.css" rel="stylesheet" type="text/css" />
-    <link href="css/mypage.css" rel="stylesheet" type="text/css" />
+    <link href="/css/common.css" rel="stylesheet" type="text/css" />
+    <link href="/css/mypage.css" rel="stylesheet" type="text/css" />
     <!-- @@@@@@@@@ CSS 파일 START @@@@@@@@@-->
 
     <link
@@ -107,7 +107,7 @@
                           <img src="/img/HC_Service_Dogs.png" alt="" />
                         </div>
                         <!-- 나중에 이부분 ejs 형식으로 바꿔줘야함 -->
-                        <button class="edit-skin-btn">스킨 변경</button>
+                        <!-- <button class="edit-skin-btn">스킨 변경</button> -->
                       </div>
                       <div class="id-box"><%= data.userId %></div>
                     </div>
@@ -115,7 +115,7 @@
                       <label for="">pw</label>
                       <button
                         class="change-pw-btn"
-                        onclick="location.href='/update_pw'"
+                        onclick="location.href='/user/update_pw'"
                       >
                         비밀번호 변경하기
                       </button>

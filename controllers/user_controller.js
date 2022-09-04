@@ -42,33 +42,7 @@ module.exports.loginTmp = async (req, res) => {
     res.redirect("/login");
   }
 };
-// 회원가입
-// module.exports.signUp =
 
-// 이메일 인증하기
-// module.exports.emailSend = {
-//   mailSend: function (tomail) {
-//     let transpoter = mailer.createTransport({
-//       service: "Naver",
-//       port: 587, // 25 587
-//       host: "smtp.naver.com",
-//       auth: {
-//         user: mail.mailer.user,
-//         pass: mail.mailer.pw,
-//       },
-//     });
-//     let mailoption = {
-//       from: mail.mailer.user,
-//       to: tomail.toEmail,
-//       subject: tomail.subject,
-//       html: tomail.text,
-//     };
-//     transpoter.sendMail(mailoption, (err, info) => {
-//       if (err) console.log(err);
-//       else console.log("send success", info.response);
-//     });
-//   },
-// };
 module.exports.emailSend = (req, res) => {
   let email = req.body.email;
   req.session.email = email;
@@ -185,18 +159,21 @@ module.exports.userMyPage = async (req, res) => {
   const accessToken = req.session?.access_token;
   const User = TokenService.verifyAccessToken(accessToken);
   const userId = User?.userId;
-
+  console.log(accessToken);
   // userMyPage의 매개변수로 아이디를 넣어주면 된다
   // 나중에 데이터에서 가져올 유저의 아이디 값을 주면 됨
   await UserService.userMyPage(userId).then((e) => {
     // render의 두번째 매개변수로 받아올 데이터?...
+    console.log(e);
     res.render("mypage", { data: e });
   });
 };
 
 // 마이페이지에서 비밀번호 변경창
 module.exports.myPageUpdatePw = async (req, res) => {
+  // 새로운 비밀번호를 담아준다.
   const newPw = req.body.newPw;
+  // 새로운 비밀번호 암호화
   const encryptedPw = EncryptionService.pwEncryption(newPw);
   const accessToken = req.session?.access_token;
   const User = TokenService.verifyAccessToken(accessToken);
