@@ -216,7 +216,7 @@ module.exports.myPageUpdatePw = async (userId, userPw) => {
         where: { userId },
       }
     );
-  } catch (error) {
+  } catch (err) {
     console.error(err);
     return err;
   }

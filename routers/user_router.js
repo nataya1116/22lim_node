@@ -27,7 +27,7 @@ router.post("/email_check", (req, res) => {
 router.post("/email_num_check", UserController.emailNumCheck);
 
 // 임시로 마이페이지 수정을 열었음 나중에 post방식으로 바꿀 것
-router.get("/mypage", (req, res) => {
+router.get("/mypage", SessionMiddleware.validity, (req, res) => {
   UserController.userMyPage(req, res);
 });
 

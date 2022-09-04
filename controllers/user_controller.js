@@ -180,7 +180,8 @@ module.exports.myPageUpdatePw = async (req, res) => {
     const User = TokenService.verifyAccessToken(accessToken);
     const userId = User?.userId;
     await UserService.myPageUpdatePw(userId, encryptedPw).then((e) => {
-      res.render("update_pw", { data: e });
+      console.log(e);
+      res.send("suc");
     });
   } else res.send("fail");
 };
