@@ -18,5 +18,11 @@ module.exports.delete = async (req, res) => {
 
     const result = await SkinWishService.delete(productWishId);
 
-    res.send(result);
+    if(result){
+        res.send("suc");
+    } else {
+        res.send("fail");
+    }
+
+    
 }

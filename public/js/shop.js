@@ -28,8 +28,8 @@ function skinWishCancel (userId, productId, productWishId, aId) {
     const data = { productWishId };
     const imgId = aId.childNodes[0];
 
-    $.post(url, data, (productWish) => {
-        if(productWish){
+    $.post(url, data, (result) => {
+        if(result == "suc"){
             aId.onclick = function (data) {
                 skinWish(userId, productId, aId);
             };
@@ -38,3 +38,27 @@ function skinWishCancel (userId, productId, productWishId, aId) {
     });
 }
 
+function skinBuy(userId, productId, productPoint, userPoint, btnId) {
+    if(productPoint > userPoint) {
+        alert("보유한 코인의 갯수가 모자랍니다.");
+        return;
+    }
+
+    const url = "/skin_user/buy";
+    const data = { userId, productId, productPoint };
+
+    $.post(url, data, (result) => {
+        if(result == "suc"){
+            btnId.onclick = function (data) {
+                skinToUse(userId, productId, btnId);
+            };
+            btnId.innerHTML = "to use";
+        }
+    });
+    
+}
+
+function skinToUse(userId, productId, btnId) {
+    // buy-btn 클래스를 가진 버튼 중 disabled 처리되어 있는 버튼을 찾아 skinToUse() 함수를 넣는 처리를 해준다.
+
+}
