@@ -13,7 +13,7 @@ module.exports.create = async (req, res) => {
 
 module.exports.createView = (req, res) => {
   const accessToken = req.session?.access_token;
-    const User = TokenService.verifyAccessToken(accessToken);
+  const User = TokenService.verifyAccessToken(accessToken);
   
   res.render("qna_board_insert", {
     User,

@@ -19,8 +19,9 @@
           <h1>SHOP</h1>
           <div class="subhead">나만의 캐릭터를 구매해보세요!</div><br>
           <% if(!!User) {%>
-            Point <img src="/img/coin.png" alt="" style="width: 20px;" > <span id="user_point"><%= User?.PointTotal.point %></span>
+            Point <img src="/img/coin.png" alt="" style="width: 20px;" > 
           <% } %>
+           <span id="user_point"><%= User?.PointTotal?.point %></span>
         </div>
       </div>
       
@@ -29,12 +30,15 @@
       class="section pattern wf-section shop-section">
       <!-- 여기서부터 내용 ------------------------------------------------------------------------------------------------------------ -->
       <div class="shop-container">
-        <% if(!!User) {%>
+        
           <div class="all-heart-btn">
-            <button>wish</button>
-            <button>in use</button>
+            <button onclick="location.href='/skin_products/list/1/12/'">all</button>
+            <% if(!!User) {%>
+              <button onclick="location.href='/skin_products/list_wish/1/12/'" >wish</button>
+              <button onclick="location.href='/skin_products/list_use/1/12/'">use</button>
+            <% } %>
           </div>
-        <% } %>
+
         <div class="container">
           <div class="w-dyn-list">
             <div role="list" class="grid-halves w-dyn-items">
@@ -63,24 +67,36 @@
                     <span><%= product?.info %></span>
                   </div>
                   <div class="modal-body-bottom">
+                  
 
-                  <% const skinUser = product?.GameSkinUsers[0] %>
-                  <% if (!!User && skinUser?.User.userId == User?.userId) {%>
-                    <% if (skinUser?.isUse) {%>
-                      <button class="buy-btn" id="buy_btn<%=product?.id%>" disabled>in use</button>
-                    <% } else { %> 
-                      <button class="buy-btn" id="buy_btn<%=product?.id%>" onclick="skinToUse('<%=User?.userId%>', <%=product?.id%>, buy_btn<%=product?.id%>)">to use</button>
-                    <% } %>   
-                  <% } else { %>
-                    <button class="buy-btn" id="buy_btn<%=product?.id%>" id="" onclick="skinBuy('<%=User?.userId%>', <%=product?.id%>, <%=product?.point%>, <%=User?.point%>, buy_btn<%=product?.id%>)" ><img src="/img/coin.png" alt="" style="width: 20px;" > <%= product?.point %> Buy</button>     
+                  <% if (!User || !product?.GameSkinUsers) {%>
+                    <button class="buy-btn" id="buy_btn<%=product?.id%>" id="" onclick="skinBuy('<%=User?.userId%>', <%=product?.id%>, <%=product?.point%>, buy_btn<%=product?.id%>)" ><img src="/img/coin.png" alt="" style="width: 20px;" > <%= product?.point %> Buy</button>   
+                  <% } %>
+
+                  <% product?.GameSkinUsers?.forEach(skinUser) { %> 
+                    <% if (skinUser?.User.userId == User?.userId) {%>
+
+                        <% if (skinUser?.isUse) {%>
+                          <button class="buy-btn" id="buy_btn<%=product?.id%>" disabled style="background-color: black; color: white;">in use</button>
+                            <% return; %>
+                        <% } else { %> 
+                          <button class="buy-btn" id="buy_btn<%=product?.id%>" onclick="skinToUse('<%=User?.userId%>', <%=product?.id%>, buy_btn<%=product?.id%>)">to use</button>
+                            <% return; %>
+                        <% } %>   
+                          
+                    <% } %>
+                  <% } %>
+
+                  <% if (!User || !product?.GameSkinWishes) {%>
+                      <a href="#" id="wish_a<%=product?.id%>" onclick="skinWish('<%=User?.userId%>', <%= product?.id %>, wish_a<%=product?.id%>)" ><img src="/img/heart1.png" alt="찜하기 버튼" class="heart-btn"></a>
                   <% } %>
                   
-                  <% const skinWish = product?.GameSkinWishes[0] %>
-                  <% if (!!User && skinWish?.User.userId == User?.userId) {%>
-                    <a href="#" id="wish_a<%=product?.id%>" onclick="skinWishCancel('<%=User?.userId%>', <%= product?.id %>, <%= skinWish?.id %>, wish_a<%=product?.id%>)"><img src="/img/heart2.png" alt="찜 해제 버튼" class="heart-btn" ></a>
-                  <% } else { %>
-                    <a href="#" id="wish_a<%=product?.id%>" onclick="skinWish('<%=User?.userId%>', <%= product?.id %>, wish_a<%=product?.id%>)" ><img src="/img/heart1.png" alt="찜하기 버튼" class="heart-btn"></a>
-                  <% } %> 
+                  <% product?.GameSkinWishes?.forEach(skinWish) { %> 
+                      <% if (!!User && skinWish?.User.userId == User?.userId) {%>
+                        <a href="#" id="wish_a<%=product?.id%>" onclick="skinWishCancel('<%=User?.userId%>', <%= product?.id %>, <%= skinWish?.id %>, wish_a<%=product?.id%>)"><img src="/img/heart2.png" alt="찜 해제 버튼" class="heart-btn" ></a>
+                        <% return; %>
+                      <% } %> 
+                  <% } %>
                   </div>
                 </div>
               </div>
@@ -95,18 +111,25 @@
               
             <div role="navigation" aria-label="List" class="w-pagination-wrapper pagination-wrapper">
               <a
-                href="?4d0523d6_page=2"
+                href="<%=url%>/<%= pageNum > 1 ? pageNum -1 : 1 %>/<%= limit %><%= searchWord != null ? '/'+searchWord : '' %>"
                 aria-label="Next Page"
                 class="w-pagination-next button button-small"
                 ><div class="w-inline-block">Next</div></a
-              ><link rel="prerender" href="?4d0523d6_page=2" />
+              >
               <div
                 aria-label="Page 1 of 2"
                 role="heading"
                 class="w-page-count pagination-page-count"
               >
-                1 / 2
+                <%=pageNum%> / <%=totalPage%>
               </div>
+              <a
+              href="<%=url%>/<%= pageNum < totalPage ? pageNum + 1 : totalPage %>/<%= limit %><%= searchWord != null ? '/'+searchWord : '' %>"
+              aria-label="Next Page"
+              class="w-pagination-next button button-small"
+              ><div class="w-inline-block">Prev</div></a
+            >
+
             </div>
           </div>
         </div>

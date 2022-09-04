@@ -1,14 +1,25 @@
 const { GameSkinUser, User, PointHistory, PointTotal, PointType, sequelize }= require("../model/index");
 const { POINT } = require("../config/config");
 
-module.exports.create = async (userId, productId, point) => {
+module.exports.create = async (userId, productId) => {
     try {
+
+        const user = await User.findOne({
+                                            where : { userId }
+                                        });
+
+        if(!user) return false;
+
         return await sequelize.transaction( async (t) => {
-            const user = await User.findOne({
-                                                where : { userId }
-                                            });
-            
-            if(!user) return null;
+
+
+            let skinUser = await GameSkinUser.findOne({
+                                                        where : { 
+                                                            userId : user.id,
+                                                            productId 
+                                                        }
+                                                    });
+            if(skinUser) return false;
 
             await GameSkinUser.create({
                                         userId : user.id, 
@@ -23,12 +34,12 @@ module.exports.create = async (userId, productId, point) => {
                                           id : POINT.SKIN_BUY
                                         }
                                       });
+
             const point = pointType?.dataValues.point;
-            const typeId = POINT.JOIN;
             
             await PointHistory.create({
                                         userId : user.id,
-                                        typeId
+                                        typeId : POINT.SKIN_BUY
                                     },
                                     {
                                         transaction: t
@@ -42,10 +53,64 @@ module.exports.create = async (userId, productId, point) => {
                                         {
                                             transaction: t
                                         });
+            return true;
         });
-
         
     } catch (err) {
         console.error(err);
+        return false;
     }
+}
+
+module.exports.use = async (userId, productId, isUse) => {
+    try {
+            const user = await User.findOne({
+                                                where : { userId }
+                                            });
+
+            if(!user) return false;
+
+            await sequelize.transaction( async (t) => {
+                // 기존의 사용한다고 설정된 값을 업데이트
+                await GameSkinUser.update({
+                                            isUse : false
+                                        },
+                                        {
+                                            where : {
+                                                userId : user.id,
+                                                isUse
+                                            }
+                                        },
+                                        {
+                                            transaction: t
+                                        });
+                // 스킨 사용 설정 업데이트
+                await GameSkinUser.update({
+                                            isUse
+                                        },
+                                        {
+                                            where : {
+                                                userId : user.id,
+                                                productId
+                                            }
+                                        },
+                                        {
+                                            transaction: t
+                                        });
+            });
+
+            const skinUser = await GameSkinUser.findOne({
+                                                            attributes : ["isUse"],
+                                                            where : { 
+                                                                userId : user.id,
+                                                                productId 
+                                                            }
+                                                        });
+            if(skinUser?.isUse) return true;
+            else return false
+    } catch (err) {
+        console.error(err);
+
+    }
+
 }

@@ -6,6 +6,10 @@ const SkinProdutsController = require("../controllers/game_skin_products_control
 const SessionMiddleware = require("../middlewares/session_middleware");
 
 
-router.get("/list", SessionMiddleware.pass, SkinProdutsController.list);
+router.get("/list/:page/:perPage", SessionMiddleware.pass, SkinProdutsController.list);
+
+router.get("/list_wish/:page/:perPage", SessionMiddleware.validity, SkinProdutsController.listWish);
+
+router.get("/list_use/:page/:perPage", SessionMiddleware.validity, SkinProdutsController.listUse);
 
 module.exports = router;
