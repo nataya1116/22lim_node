@@ -170,7 +170,7 @@ module.exports.userMyPage = async (req, res) => {
   await UserService.userMyPage(userId).then((e) => {
     // render의 두번째 매개변수로 받아올 데이터?...
     console.log(e);
-    res.render("mypage", { data: e });
+    res.render("mypage", { data: e, User });
   });
 };
 
@@ -189,6 +189,12 @@ module.exports.myPageUpdatePw = async (req, res) => {
       res.send("suc");
     });
   } else res.send("fail");
+};
+
+module.exports.myPageUpdatePwView = (req, res) => {
+  const accessToken = req.session?.access_token;
+  const User = TokenService.verifyAccessToken(accessToken);
+  res.render("update_pw", { User });
 };
 
 module.exports.useIdOverlap = async (req, res) => {

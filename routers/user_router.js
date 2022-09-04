@@ -32,8 +32,8 @@ router.get("/mypage", SessionMiddleware.validity, (req, res) => {
 });
 
 // 마이페이지에서 비밀번호 변경
-router.get("/update_pw", (req, res) => {
-  res.render("update_pw");
+router.get("/update_pw", SessionMiddleware.validity, (req, res) => {
+  UserController.myPageUpdatePwView(req, res);
 });
 
 router.post("/update_pw", SessionMiddleware.validity, (req, res) => {
