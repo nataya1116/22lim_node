@@ -145,7 +145,7 @@
       url: "/user/update_pw",
       type : "post",
       data : {
-        userPw : user_pw.value
+        newPw : user_pw.value
       },
       success : (data) => {
         if(data == newPwCheck()) alert("비밀번호가 변경되었습니다.")

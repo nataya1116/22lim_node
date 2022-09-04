@@ -208,7 +208,7 @@ module.exports.userMyPage = async (userId) => {
 // 마이페이지 내에서 비밀번호 변경
 module.exports.myPageUpdatePw = async (userId, userPw) => {
   try {
-    await User.update(
+    return await User.update(
       {
         userPw,
       },

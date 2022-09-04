@@ -172,15 +172,17 @@ module.exports.userMyPage = async (req, res) => {
 // 마이페이지에서 비밀번호 변경창
 module.exports.myPageUpdatePw = async (req, res) => {
   // 새로운 비밀번호를 담아준다.
-  const newPw = req.body.newPw;
-  // 새로운 비밀번호 암호화
-  const encryptedPw = EncryptionService.pwEncryption(newPw);
-  const accessToken = req.session?.access_token;
-  const User = TokenService.verifyAccessToken(accessToken);
-  const userId = User?.userId;
-  await UserService.myPageUpdatePw(userId, encryptedPw).then((e) => {
-    res.render("update_pw", { data: e });
-  });
+  const { newPw, newPwCheck } = req.body;
+  if (newPw == newPwCheck) {
+    // 새로운 비밀번호 암호화
+    const encryptedPw = EncryptionService.pwEncryption(newPw);
+    const accessToken = req.session?.access_token;
+    const User = TokenService.verifyAccessToken(accessToken);
+    const userId = User?.userId;
+    await UserService.myPageUpdatePw(userId, encryptedPw).then((e) => {
+      res.render("update_pw", { data: e });
+    });
+  } else res.send("fail");
 };
 
 module.exports.useIdOverlap = async (req, res) => {
