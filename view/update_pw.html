@@ -141,6 +141,8 @@
   </body>
   <script>
     function newPw(){
+      if(!newPwCheck()) return;
+
       $.ajax({
       url: "/user/update_pw",
       type : "post",
