@@ -70,8 +70,6 @@ app.use("/skin_user", skinUserRouter);
 
 app.use("/game_paranoia", gameParanoia);
 
-app.use("/find_pw", findPw);
-
 app.listen(PORT, () => {
   console.log(PORT, "번 포트 대기 중");
 });
@@ -84,4 +82,3 @@ sequelize
   .catch((err) => {
     console.error(err);
   });
-
