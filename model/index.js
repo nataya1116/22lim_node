@@ -18,6 +18,7 @@ const QnaBoard = require("./qna_board");
 const QnaReply = require("./qna_reply");
 const FreeBoard = require("./free_board");
 const FreeReply = require("./free_reply");
+const InactiveUser = require("./inactive_user");
 
 const sequelize = new Sequelize(
   config.dev.database,
@@ -51,6 +52,8 @@ db.PointTotal = PointTotal;
 db.PointHistory = PointHistory;
 db.PointType = PointType;
 
+db.InactiveUser = InactiveUser;
+
 // 테이블 생성
 Authority.init(sequelize);
 ConditionUser.init(sequelize);
@@ -75,6 +78,8 @@ PointType.init(sequelize);
 QnaBoard.init(sequelize);
 QnaReply.init(sequelize);
 
+InactiveUser.init(sequelize);
+
 // 테이블간의 관계 설정
 Authority.associate(db);
 ConditionUser.associate(db);
@@ -98,5 +103,7 @@ PointType.associate(db);
 
 QnaBoard.associate(db);
 QnaReply.associate(db);
+
+InactiveUser.associate(db);
 
 module.exports = db;
