@@ -1,6 +1,7 @@
-const TipBoardService = require("../service/tip_board_sevice");
-const TipReplyService = require("../service/tip_reply_sevice");
-const TokenService = require("../service/token_service");
+const { TipBoardService, 
+        TipReplyService, 
+        TokenService } = require("../service/index");
+
 const { AUTHORITY, BOARDS } = require("../config/config");
 
 module.exports.create = async (req, res) => {

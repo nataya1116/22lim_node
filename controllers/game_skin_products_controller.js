@@ -1,8 +1,8 @@
-const SkinProductsService = require("../service/game_skin_products_service");
-const SkinWishService = require("../service/game_skin_wish_service");
-const SkinUserService = require("../service/game_skin_user_service");
-const UserService = require("../service/user_service");
-const TokenService = require("../service/token_service");
+const { GameSkinProductsService, 
+        GameSkinUserService, 
+        GameSkinWishService, 
+        UserService, 
+        TokenService } = require("../service/index");
 
 module.exports.list = async (req, res) => {
     const accessToken = req.session?.access_token;
@@ -23,9 +23,9 @@ module.exports.list = async (req, res) => {
       offset = limit * (pageNum - 1);
     }
 
-    const result = await SkinProductsService.list(offset, limit);
+    const result = await GameSkinProductsService.list(offset, limit);
     const list = result?.rows;
-    const productNum = await SkinProductsService.count();
+    const productNum = await GameSkinProductsService.count();
 
     const totalPage = Math.ceil(productNum / limit);
     const url = "/skin_products/list";
@@ -51,9 +51,9 @@ module.exports.listWish = async (req, res) => {
       offset = limit * (pageNum - 1);
     }
 
-    const result = await SkinProductsService.listWish(User.userId, offset, limit);
+    const result = await GameSkinProductsService.listWish(User.userId, offset, limit);
     const list = result?.rows;
-    const productNum = await SkinWishService.count(User.userId);
+    const productNum = await GameSkinWishService.count(User.userId);
 
     const totalPage = Math.ceil(productNum / limit);
     const url = "/skin_products/list_wish";
@@ -75,9 +75,9 @@ module.exports.listUse = async (req, res) => {
 
     let offset = 0;
 
-    const result = await SkinProductsService.listUse(User.userId, offset, limit);
+    const result = await GameSkinProductsService.listUse(User.userId, offset, limit);
     const list = result?.rows;
-    const productNum = await SkinUserService.count(User.userId);
+    const productNum = await GameSkinUserService.count(User.userId);
 
     const totalPage = Math.ceil(productNum / limit);
     const url = "/skin_products/list_use";

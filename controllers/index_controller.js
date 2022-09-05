@@ -1,4 +1,4 @@
-const TokenService = require("../service/token_service");
+const { TokenService } = require("../service");
 
 module.exports.index = (req, res) => {
   const accessToken = req.session?.access_token;

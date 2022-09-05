@@ -1,4 +1,4 @@
-const QnaReplyService = require("../service/qna_reply_service");
+const { QnaReplyService } = require("../service");
 
 module.exports.create = async (req, res) => {
   const { offset, userId, boardId, content } = req.body;

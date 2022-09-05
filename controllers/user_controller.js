@@ -1,7 +1,8 @@
-const UserService = require("../service/user_service");
-const TokenService = require("../service/token_service");
-const SkinUserService = require("../service/game_skin_user_service");
-const EncryptionService = require("../service/encryption_service");
+const { UserService, 
+        GameSkinUserService, 
+        EncryptionService,
+        TokenService } = require("../service/index");
+
 const { mailer, jwt } = require("../modules/common");
 const { config } = require("../config/config");
 const randomNum = require("../service/random");
@@ -173,7 +174,7 @@ module.exports.userMyPage = async (req, res) => {
   const User = TokenService.verifyAccessToken(accessToken);
   const userId = User?.userId;
 
-  const result = await SkinUserService.findOne(userId);
+  const result = await GameSkinUserService.findOne(userId);
   const SkinUser = result.dataValues.GameSkinProduct;
   console.log(SkinUser);
   // userMyPage의 매개변수로 아이디를 넣어주면 된다

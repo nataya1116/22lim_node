@@ -1,6 +1,7 @@
-const QnaBoardService = require("../service/qna_board_service");
-const QnaReplyService = require("../service/qna_reply_service");
-const TokenService = require("../service/token_service");
+const { QnaBoardService, 
+        QnaReplyService, 
+        TokenService } = require("../service/index");
+
 const { AUTHORITY, BOARDS } = require("../config/config");
 
 module.exports.create = async (req, res) => {

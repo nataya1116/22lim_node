@@ -1,8 +1,8 @@
-const SkinUserService = require("../service/game_skin_user_service");
-const SkinProductsService = require("../service/game_skin_products_service");
-const TokenService = require("../service/token_service");
-const UserService = require("../service/user_service");
-const PointTotalService = require("../service/point_total_service");
+const { GameSkinUserService,
+        GameSkinProductsService, 
+        UserService, 
+        TokenService,
+        PointTotalService } = require("../service/index");
 
 module.exports.create = async (req, res) => {
 
@@ -17,11 +17,11 @@ module.exports.create = async (req, res) => {
     
     const userId = req.body.userId;
     const productId = Number(req.body.productId);
-    const point = await SkinProductsService.findPoint(productId);
+    const point = await GameSkinProductsService.findPoint(productId);
 
     if(User.point < point) return "lack";
     
-    const result = await SkinUserService.create(userId, productId);
+    const result = await GameSkinUserService.create(userId, productId);
     if(!result) return res.send({ result : "fail" });
     
     const totalPoint = await PointTotalService.findPoint(userId);
@@ -34,7 +34,7 @@ module.exports.use = async (req, res) => {
     const userId = req.body.userId;
     const productId = Number(req.body.productId);
 
-    const result = await SkinUserService.use(userId, productId, true);
+    const result = await GameSkinUserService.use(userId, productId, true);
 
     if(!result) return res.send("fail");
     return res.send("suc");

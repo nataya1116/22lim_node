@@ -1,4 +1,4 @@
-const TipReplyService = require("../service/tip_reply_sevice");
+const { TipReplyService } = require("../service");
 
 module.exports.create = async (req, res) => {
     const { offset, userId, boardId, content } = req.body;
