@@ -1,156 +1,156 @@
-    <%-include("./partial/header_up.html")%>
+<%-include("./partial/header_up.html")%>
 
-    <!-- @@@@@@@@@ CSS 파일 START @@@@@@@@@-->
+<!-- @@@@@@@@@ CSS 파일 START @@@@@@@@@-->
 
-    <!-- @@@@@@@@@ CSS 파일 START @@@@@@@@@-->
-    <link href="/css/common.css" rel="stylesheet" type="text/css" />
-    <link href="/css/shop.css" rel="stylesheet" type="text/css" />
-     <!-- @@@@@@@@@ CSS 파일 END @@@@@@@@@-->
+<!-- @@@@@@@@@ CSS 파일 START @@@@@@@@@-->
+<link href="/css/common.css" rel="stylesheet" type="text/css" />
+<link href="/css/shop.css" rel="stylesheet" type="text/css" />
+ <!-- @@@@@@@@@ CSS 파일 END @@@@@@@@@-->
 
-     <%-include("./partial/header_down.html")%>
-
-
-    
-    <div class="site-container">
-      
-      <div class="section small-section wf-section">
-        <!-- 상점 타이틀 ----------------------------------------------------------------------------------------------- -->
-        <div class="container">
-          <h1>SHOP</h1>
-          <div class="subhead">나만의 캐릭터를 구매해보세요!</div><br>
-          <% if(!!User) {%>
-            Point <img src="/img/coin.png" alt="" style="width: 20px;" > 
-          <% } %>
-           <span id="user_point"><%= User?.PointTotal?.point %></span>
-        </div>
-      </div>
-      
-      <div
-      data-w-id="17ac18b5-161b-07f2-842a-a33f4d0523b9"
-      class="section pattern wf-section shop-section">
-      <!-- 여기서부터 내용 ------------------------------------------------------------------------------------------------------------ -->
-      <div class="shop-container">
-        
-          <div class="all-heart-btn">
-            <button onclick="location.href='/skin_products/list/1/12/'">all</button>
-            <% if(!!User) {%>
-              <button onclick="location.href='/skin_products/list_wish/1/12/'" >wish</button>
-              <button onclick="location.href='/skin_products/list_use/1/12/'">use</button>
-            <% } %>
-          </div>
-
-        <div class="container">
-          <div class="w-dyn-list">
-            <div role="list" class="grid-halves w-dyn-items">
-            
-
-            <% list.forEach((product) => { %>
-              <div class="products">
-              <div
-                data-w-id="17ac18b5-161b-07f2-842a-a33f4d0523d8"
-                role="listitem"
-                class="skin-body w-dyn-item"
-                >
-                <div class="modal-header">
-                  <div class="button-circles-wrap">
-                    <div class="button-circle"></div>
-                    <div class="button-circle"></div>
-                  </div>
-                  <div class="flex-center">
-                    <!-- 아이템 상단 -->
-                  </div>
-                </div>
-                <div class="modal-body skin">
-                  <div class="product-img" style=" background-image: url('<%=product?.imgUrl%>'); background-position: <%=product?.positionX%>px <%=product?.positionY%>px;"></div>
-                  <div class="product-name">
-                    <h3><%= product?.name %></h3>
-                    <span><%= product?.info %></span>
-                  </div>
-                  <div class="modal-body-bottom">
-                  
+ <%-include("./partial/header_down.html")%>
 
 
-                  
-                  <% let skinUserCheck = false; %>
-                  <% product?.GameSkinUsers?.forEach((skinUser) => { %> 
-                    <% if (!!User && skinUser?.User.userId == User?.userId) {%>
-                        <% skinUserCheck = true; %>
-                        <% if (skinUser?.isUse) {%>
-                          <button class="buy-btn" id="buy_btn<%=product?.id%>" disabled style="background-color: black; color: white;">in use</button>
-                            <% return; %>
-                        <% } else { %> 
-                          <button class="buy-btn" id="buy_btn<%=product?.id%>" onclick="skinToUse('<%=User?.userId%>', <%=product?.id%>, buy_btn<%=product?.id%>)">to use</button>
-                            <% return; %>
-                        <% } %>   
-                          
-                    <% } %>
-                  <% }); %>
 
-                  <% if (!User || !skinUserCheck) { %>
-                    <button class="buy-btn" id="buy_btn<%=product?.id%>" id="" onclick="skinBuy('<%=User?.userId%>', <%=product?.id%>, <%=product?.point%>, buy_btn<%=product?.id%>)" ><img src="/img/coin.png" alt="" style="width: 20px;" > <%= product?.point %> Buy</button>   
-                  <% } %>
-
-
-                  <% let skinWishCheck = false; %>
-                  <% product?.GameSkinWishes?.forEach((skinWish) => { %> 
-                      <% if (!!User && skinWish?.User.userId == User?.userId) {%>
-                        <% skinWishCheck = true; %>
-                        <a href="#" id="wish_a<%=product?.id%>" onclick="skinWishCancel('<%=User?.userId%>', <%= product?.id %>, <%= skinWish?.id %>, wish_a<%=product?.id%>)"><img src="/img/heart2.png" alt="찜 해제 버튼" class="heart-btn" ></a>
-                        <% return; %>
-                      <% } %> 
-                  <% }); %>
-                        
-                  <% if (!User || !skinWishCheck) { %>
-                    <a href="#" id="wish_a<%=product?.id%>" onclick="skinWish('<%=User?.userId%>', <%= product?.id %>, wish_a<%=product?.id%>)" ><img src="/img/heart1.png" alt="찜하기 버튼" class="heart-btn"></a>
-                  <% } %>
-
-                  </div>
-                </div>
-              </div>
-              </div>
-            <% }); %>
-
-          </div>
-              
-                  
-                
-              
-              
-            <div role="navigation" aria-label="List" class="w-pagination-wrapper pagination-wrapper">
-              <a
-                href="<%=url%>/<%= pageNum > 1 ? pageNum -1 : 1 %>/<%= limit %><%= searchWord != null ? '/'+searchWord : '' %>"
-                aria-label="Next Page"
-                class="w-pagination-next button button-small"
-                ><div class="w-inline-block">Next</div></a
-              >
-              <div
-                aria-label="Page 1 of 2"
-                role="heading"
-                class="w-page-count pagination-page-count"
-              >
-                <%=pageNum%> / <%=totalPage%>
-              </div>
-              <a
-              href="<%=url%>/<%= pageNum < totalPage ? pageNum + 1 : totalPage %>/<%= limit %><%= searchWord != null ? '/'+searchWord : '' %>"
-              aria-label="Next Page"
-              class="w-pagination-next button button-small"
-              ><div class="w-inline-block">Prev</div></a
-            >
-
-            </div>
-          </div>
-        </div>
-      
-    </div>
-      
- <!-- @@@@@@@@@ FOOTER 부분 START @@@@@@@@@-->
-
- <div class="footer-section wf-section">
-  <div class="container">
-    <div class="footer">
-      <div>©2020 Company Name. All rights reserved. Made by 22Lim</div>
+<div class="site-container">
+  
+  <div class="section small-section wf-section">
+    <!-- 상점 타이틀 ----------------------------------------------------------------------------------------------- -->
+    <div class="container">
+      <h1>SHOP</h1>
+      <div class="subhead">나만의 캐릭터를 구매해보세요!</div><br>
+      <% if(!!User) {%>
+        Point <img src="/img/coin.png" alt="" style="width: 20px;" > 
+      <% } %>
+       <span id="user_point"><%= User?.point %></span>
     </div>
   </div>
+  
+  <div
+  data-w-id="17ac18b5-161b-07f2-842a-a33f4d0523b9"
+  class="section pattern wf-section shop-section">
+  <!-- 여기서부터 내용 ------------------------------------------------------------------------------------------------------------ -->
+  <div class="shop-container">
+    
+      <div class="all-heart-btn">
+        <button onclick="location.href='/skin_products/list/1/12/'">all</button>
+        <% if(!!User) {%>
+          <button onclick="location.href='/skin_products/list_wish/1/12/'" >wish</button>
+          <button onclick="location.href='/skin_products/list_use/1/12/'">use</button>
+        <% } %>
+      </div>
+
+    <div class="container">
+      <div class="w-dyn-list">
+        <div role="list" class="grid-halves w-dyn-items">
+        
+
+        <% list.forEach((product) => { %>
+          <div class="products">
+          <div
+            data-w-id="17ac18b5-161b-07f2-842a-a33f4d0523d8"
+            role="listitem"
+            class="skin-body w-dyn-item"
+            >
+            <div class="modal-header">
+              <div class="button-circles-wrap">
+                <div class="button-circle"></div>
+                <div class="button-circle"></div>
+              </div>
+              <div class="flex-center">
+                <!-- 아이템 상단 -->
+              </div>
+            </div>
+            <div class="modal-body skin">
+              <div class="product-img" style=" background-image: url('<%=product?.imgUrl%>'); background-position: <%=product?.positionX%>px <%=product?.positionY%>px;"></div>
+              <div class="product-name">
+                <h3><%= product?.name %></h3>
+                <span><%= product?.info %></span>
+              </div>
+              <div class="modal-body-bottom">
+              
+
+
+              
+              <% let skinUserCheck = false; %>
+              <% product?.GameSkinUsers?.forEach((skinUser) => { %> 
+                <% if (!!User && skinUser?.User.userId == User?.userId) {%>
+                    <% skinUserCheck = true; %>
+                    <% if (skinUser?.isUse) {%>
+                      <button class="buy-btn" id="buy_btn<%=product?.id%>" disabled style="background-color: black; color: white;">in use</button>
+                        <% return; %>
+                    <% } else { %> 
+                      <button class="buy-btn" id="buy_btn<%=product?.id%>" onclick="skinToUse('<%=User?.userId%>', <%=product?.id%>, buy_btn<%=product?.id%>)">to use</button>
+                        <% return; %>
+                    <% } %>   
+                      
+                <% } %>
+              <% }); %>
+
+              <% if (!User || !skinUserCheck) { %>
+                <button class="buy-btn" id="buy_btn<%=product?.id%>" id="" onclick="skinBuy('<%=User?.userId%>', <%=product?.id%>, <%=product?.point%>, buy_btn<%=product?.id%>)" ><img src="/img/coin.png" alt="" style="width: 20px;" > <%= product?.point %> Buy</button>   
+              <% } %>
+
+
+              <% let skinWishCheck = false; %>
+              <% product?.GameSkinWishes?.forEach((skinWish) => { %> 
+                  <% if (!!User && skinWish?.User.userId == User?.userId) {%>
+                    <% skinWishCheck = true; %>
+                    <a href="#" id="wish_a<%=product?.id%>" onclick="skinWishCancel('<%=User?.userId%>', <%= product?.id %>, <%= skinWish?.id %>, wish_a<%=product?.id%>)"><img src="/img/heart2.png" alt="찜 해제 버튼" class="heart-btn" ></a>
+                    <% return; %>
+                  <% } %> 
+              <% }); %>
+                    
+              <% if (!User || !skinWishCheck) { %>
+                <a href="#" id="wish_a<%=product?.id%>" onclick="skinWish('<%=User?.userId%>', <%= product?.id %>, wish_a<%=product?.id%>)" ><img src="/img/heart1.png" alt="찜하기 버튼" class="heart-btn"></a>
+              <% } %>
+
+              </div>
+            </div>
+          </div>
+          </div>
+        <% }); %>
+
+      </div>
+          
+              
+            
+          
+          
+        <div role="navigation" aria-label="List" class="w-pagination-wrapper pagination-wrapper">
+          <a
+            href="<%=url%>/<%= pageNum > 1 ? pageNum -1 : 1 %>/<%= limit %><%= searchWord != null ? '/'+searchWord : '' %>"
+            aria-label="Next Page"
+            class="w-pagination-next button button-small"
+            ><div class="w-inline-block">Next</div></a
+          >
+          <div
+            aria-label="Page 1 of 2"
+            role="heading"
+            class="w-page-count pagination-page-count"
+          >
+            <%=pageNum%> / <%=totalPage%>
+          </div>
+          <a
+          href="<%=url%>/<%= pageNum < totalPage ? pageNum + 1 : totalPage %>/<%= limit %><%= searchWord != null ? '/'+searchWord : '' %>"
+          aria-label="Next Page"
+          class="w-pagination-next button button-small"
+          ><div class="w-inline-block">Prev</div></a
+        >
+
+        </div>
+      </div>
+    </div>
+  
+</div>
+  
+<!-- @@@@@@@@@ FOOTER 부분 START @@@@@@@@@-->
+
+<div class="footer-section wf-section">
+<div class="container">
+<div class="footer">
+  <div>©2020 Company Name. All rights reserved. Made by 22Lim</div>
+</div>
+</div>
 </div>
 
 </div> <!-- <div class="site-container"> 닫는 태그 -->

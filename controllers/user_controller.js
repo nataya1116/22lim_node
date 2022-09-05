@@ -1,5 +1,6 @@
 const UserService = require("../service/user_service");
 const TokenService = require("../service/token_service");
+const SkinUserService = require("../service/game_skin_user_service");
 const EncryptionService = require("../service/encryption_service");
 const { mailer, jwt } = require("../modules/common");
 const { config } = require("../config/config");
@@ -33,21 +34,6 @@ module.exports.signUpView = async (req, res) => {
 
   res.render("signup", { User });
 }
-
-module.exports.loginTmp = async (req, res) => {
-  const id = req.body.user_id;
-  const pw = req.body.user_pw;
-  // const result = await UserService.Login(id, pw, req.session);
-  const result = await UserService.loginTmp(id, pw);
-
-  if (result) {
-    req.session.userId = id;
-
-    res.redirect("/");
-  } else {
-    res.redirect("/login");
-  }
-};
 
 module.exports.emailSend = (req, res) => {
   let email = req.body.email;
@@ -165,17 +151,36 @@ module.exports.loginView = (req, res) => {
   res.render("login", { User });
 };
 
+module.exports.logout = async (req, res) => {
+  const accessToken = req.session.access_token;
+  const refreshToken = req.session.refresh_token;
+
+  if(!accessToken && !refreshToken){
+    return res.redirect("/");
+  }
+
+  req.session.destroy((err)=> {
+    if(err){
+      console.error(err);
+    }
+    return res.redirect("/");
+  })
+}
+
 // 마이페이지------------------------------
 module.exports.userMyPage = async (req, res) => {
   const accessToken = req.session?.access_token;
   const User = TokenService.verifyAccessToken(accessToken);
   const userId = User?.userId;
 
+  const result = await SkinUserService.findOne(userId);
+  const SkinUser = result.dataValues.GameSkinProduct;
+  console.log(SkinUser);
   // userMyPage의 매개변수로 아이디를 넣어주면 된다
   // 나중에 데이터에서 가져올 유저의 아이디 값을 주면 됨
   await UserService.userMyPage(userId).then((e) => {
     // render의 두번째 매개변수로 받아올 데이터?...
-    res.render("mypage", { data: e, User });
+    res.render("mypage", { data: e, User, SkinUser});
   });
 };
 
