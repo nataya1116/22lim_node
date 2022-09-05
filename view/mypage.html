@@ -32,12 +32,13 @@
                       <span>character</span>
                       <div class="character-skin">
                         <div class="character">
-                          <img class="product-img" style=" background-image: url('<%=SkinUser?.imgUrl%>'); background-position: <%=SkinUser?.positionX%>px <%=SkinUser?.positionY%>px;" alt="" />
+                          <img style=" background-image: url('<%=SkinUser?.imgUrl%>'); background-position: <%=SkinUser?.positionX%>px <%=SkinUser?.positionY%>px;" alt="" />
                         </div>
                         <!-- 나중에 이부분 ejs 형식으로 바꿔줘야함 -->
                         <!-- <button class="edit-skin-btn">스킨 변경</button> -->
                       </div>
-                      <div class="id-box"><%= data.userId %></div>
+                      <br>
+                      <div class="id-box"><%= data.userId %>님</div>
                     </div>
                     <div class="info-box">
                       <label for="">pw</label>
