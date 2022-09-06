@@ -30,13 +30,17 @@
                   <div class="mypage-box-top">
                     <div class="character-box">
                       <span>character</span>
-                      <div class="character-skin">
-                        <div class="character">
-                          <img style=" background-image: url('<%=SkinUser?.imgUrl%>'); background-position: <%=SkinUser?.positionX%>px <%=SkinUser?.positionY%>px;" alt="" />
+
+                      <a href="http://localhost:4000/skin_products/list_use/1/12/">
+                        <div class="character-skin">
+                          <div class="character">
+                            <img style=" background-image: url('<%=SkinUser?.imgUrl%>'); background-position: <%=SkinUser?.positionX%>px <%=SkinUser?.positionY%>px;" alt="" />
+                          </div>
+                          <!-- 나중에 이부분 ejs 형식으로 바꿔줘야함 -->
+                          <!-- <button class="edit-skin-btn">스킨 변경</button> -->
                         </div>
-                        <!-- 나중에 이부분 ejs 형식으로 바꿔줘야함 -->
-                        <!-- <button class="edit-skin-btn">스킨 변경</button> -->
-                      </div>
+                      </a>
+                      
                       <br>
                       <div class="id-box"><%= data.userId %>님</div>
                       <a href="/user/point_history/1/10" style="text-decoration: none;"> Point <img src="/img/coin.png" alt="" style="width: 20px;" ><span id="user_point"><%= User?.point %></span> </a>
