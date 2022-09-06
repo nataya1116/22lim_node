@@ -7,6 +7,7 @@ const router = express.Router();
 
 const UserController = require("../controllers/user_controller");
 const PointHistoryController = require("../controllers/point_history_controller");
+const findIdController = require("../controllers/find_id_controller");
 
 router.get("/login", UserController.loginView);
 
@@ -32,6 +33,11 @@ router.get("/mypage", SessionMiddleware.validity, UserController.userMyPage);
 
 // 마이페이지에서 비밀번호 변경
 router.get("/update_pw", SessionMiddleware.validity, UserController.myPageUpdatePwView);
+
+// 로그인 창에서 아이디 찾기
+router.get("/find_id", findIdController.findIdView);
+
+router.post("/find_id", findIdController.idEmailSend);
 
 router.post("/update_pw", SessionMiddleware.validity, UserController.myPageUpdatePw);
 
