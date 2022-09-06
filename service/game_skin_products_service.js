@@ -29,7 +29,7 @@ module.exports.list = async (offset, limit) => {
         ],
         order: [["id", "DESC"]],
         offset,
-        limit,
+        limit
       });
     } catch (err) {
       console.log(err);
@@ -68,7 +68,7 @@ module.exports.listWish = async (userId, offset, limit) => {
                                                     // group: ['GameSkinWishes.id'],
                                                     order: [["id", "DESC"]],
                                                     offset,
-                                                    limit,
+                                                    limit
     });
   } catch (err) {
     console.log(err);
@@ -107,7 +107,7 @@ module.exports.listOwn = async (userId, offset, limit) => {
       ],
       order: [["id", "DESC"]],
       offset,
-      limit,
+      limit
     });
   } catch (err) {
     console.log(err);
@@ -116,10 +116,12 @@ module.exports.listOwn = async (userId, offset, limit) => {
 
 module.exports.findPoint = async (productId) => {
   try {
-    return await GameSkinProducts.findOne({
-                                            attributes: ["point"],
-                                            where : { productId }
-                                          });
+    const result = await GameSkinProducts.findOne({
+                                      attributes: ["point"],
+                                      where : { id : productId }
+                                    });
+    const point = result.dataValues.point;
+    return point;
   } catch (err) {
     console.error(err);
     return false;

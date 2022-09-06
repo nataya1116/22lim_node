@@ -1,11 +1,4 @@
-const {
-  User,
-  PointHistory,
-  PointTotal,
-  PointType,
-  GameSkinUser,
-  sequelize,
-} = require("../model/index");
+const { User, PointHistory, PointTotal, PointType, GameSkinUser, sequelize } = require("../model/index");
 const { POINT } = require("../config/config");
 
 // GameSkinUser/PointHistory/PointTotal 추가
@@ -139,12 +132,6 @@ module.exports.findUser = async (userId) => {
   try {
     return await User.findOne({
       attributes: ["userId", "userPw", "authorityId", "conditionId", "refreshToken"],
-      include: [
-        {
-          attributes: ["point"],
-          model: PointTotal,
-        },
-      ],
       where: {
         userId,
       },

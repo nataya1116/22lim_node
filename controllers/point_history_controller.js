@@ -1,4 +1,4 @@
-const { PointHistory, TokenService } = require("../service");
+const { PointHistoryService, PointTotalService, TokenService } = require("../service");
 
 module.exports.list = async (req, res) => {
     const accessToken = req.session?.access_token;
@@ -9,7 +9,7 @@ module.exports.list = async (req, res) => {
     }
 
     const pageNum = Number(req.params.page || "1");
-    const limit = Number(req.params.perPage || "10");
+    const limit = Number(req.params.perPage || "12");
     //
     let offset = 0;
 
@@ -17,13 +17,15 @@ module.exports.list = async (req, res) => {
         offset = limit * (pageNum - 1);
     }
     
-    const result = await PointHistory.findHistory(User.userId, offset, limit);
+    const result = await PointHistoryService.findHistory(User.userId, offset, limit);
     console.log(result);
     const list = result?.rows;
     const postNum = result?.count;
     const totalPage = Math.ceil(postNum / limit);
 
-    res.render("point_history", { User, list , totalPage , pageNum, limit });
+    const point = await PointTotalService.findPoint(User.userId);
+
+    res.render("point_history", { User, point, list , totalPage , pageNum, limit });
     // res.send(list);
 }
 
@@ -36,7 +38,7 @@ module.exports.listIsPayment = async (req, res) => {
     }
 
     const pageNum = Number(req.params.page || "1");
-    const limit = Number(req.params.perPage || "10");
+    const limit = Number(req.params.perPage || "12");
     //
     let offset = 0;
 
@@ -50,12 +52,13 @@ module.exports.listIsPayment = async (req, res) => {
     else isPayment = false;
 
 
-    const result = await PointHistory.findHistoryIsPayment(User.userId, isPayment, 0, 1000);
+    const result = await PointHistoryService.findHistoryIsPayment(User.userId, isPayment, offset, limit);
     const list = result?.rows;
     const postNum = result?.count;
     const totalPage = Math.ceil(postNum / limit);
 
-    res.render("point_history", { User, list , totalPage , pageNum, limit });
-    // console.log(result);
-    // res.send(list);
+    
+    const point = await PointTotalService.findPoint(User.userId);
+
+    res.render("point_history", { User, point, list , totalPage , pageNum, limit });
 }

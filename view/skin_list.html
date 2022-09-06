@@ -21,7 +21,7 @@
       <% if(!!User) {%>
         Point <img src="/img/coin.png" alt="" style="width: 20px;" > 
       <% } %>
-       <span id="user_point"><%= User?.point %></span>
+       <span id="user_point"><%= point %></span>
     </div>
   </div>
   
@@ -31,11 +31,28 @@
   <!-- 여기서부터 내용 ------------------------------------------------------------------------------------------------------------ -->
   <div class="shop-container">
     
-      <div class="all-heart-btn">
-        <button onclick="location.href='/skin_products/list/1/12/'">all</button>
+      <div>
+
+        <% if(button == "all" || !button) { %>
+          <button class="shop-choice-btn" onclick="location.href='/skin_products/list/1/12/'">all</button>
+        <% } else { %>
+          <button class="shop-btn" onclick="location.href='/skin_products/list/1/12/'">all</button>
+        <% } %>
+
         <% if(!!User) {%>
-          <button onclick="location.href='/skin_products/list_wish/1/12/'" >wish</button>
-          <button onclick="location.href='/skin_products/list_own/1/12/'">own</button>
+
+          <% if(button == "wish") { %>
+            <button class="shop-choice-btn" onclick="location.href='/skin_products/list_wish/1/12/'" >wish</button>
+          <% } else { %>
+            <button class="shop-btn" onclick="location.href='/skin_products/list_wish/1/12/'" >wish</button>
+          <% } %>
+
+          <% if(button == "own") { %>
+            <button  class="shop-choice-btn" onclick="location.href='/skin_products/list_own/1/12/'">own</button>
+          <% } else { %>
+            <button class="shop-btn" onclick="location.href='/skin_products/list_own/1/12/'">own</button>
+          <% } %>
+
         <% } %>
       </div>
 
@@ -76,7 +93,7 @@
                 <% if (!!User && skinUser?.User.userId == User?.userId) {%>
                     <% skinUserCheck = true; %>
                     <% if (skinUser?.isUse) {%>
-                      <button class="buy-btn" id="buy_btn<%=product?.id%>" disabled style="background-color: black; color: white;">in use</button>
+                      <button class="choice-btn" id="buy_btn<%=product?.id%>" disabled >in use</button>
                         <% return; %>
                     <% } else { %> 
                       <button class="buy-btn" id="buy_btn<%=product?.id%>" onclick="skinToUse('<%=User?.userId%>', <%=product?.id%>, buy_btn<%=product?.id%>)">to use</button>

@@ -1,4 +1,4 @@
-const { PointHistory, PointType, User } = require("../model/index");
+const { PointHistory, PointType, User } = require("../model");
 
 module.exports.findHistory = async (userId, offset, limit) => {
     try {

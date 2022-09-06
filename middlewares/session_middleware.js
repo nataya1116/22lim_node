@@ -27,13 +27,14 @@ module.exports.validity = async (req, res, next) => {
   if (refreshToken != user.refreshToken) {
     return res.redirect("/user/login");
   }
-  const point = user.PointTotal.point;
+
   const authorityId = user.authorityId;
+  const conditionId = user.conditionId;
 
   const accessTokenRe = TokenService.createAccessToken(
     userId,
-    point,
-    authorityId
+    authorityId,
+    conditionId
   );
 
   req.session.access_token = accessTokenRe;
@@ -67,13 +68,14 @@ module.exports.pass = async (req, res, next) => {
   if (refreshToken != user.refreshToken) {
     return next();
   }
-  const point = user.PointTotal.point;
+
   const authorityId = user.authorityId;
+  const conditionId = user.conditionId;
 
   const accessTokenRe = TokenService.createAccessToken(
     userId,
-    point,
-    authorityId
+    authorityId,
+    conditionId
   );
 
   req.session.access_token = accessTokenRe;
