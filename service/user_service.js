@@ -134,6 +134,7 @@ module.exports.findPw = async (userId) => {
   }
 };
 
+
 module.exports.findUser = async (userId) => {
   try {
     return await User.findOne({
@@ -233,6 +234,20 @@ module.exports.useEmail = async (email) => {
       },
       // raw: true
     });
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+};
+// 이메일
+module.exports.findId = async (email) => {
+  try {
+    return await User.findOne({
+      where: {
+        email,
+      },
+      // raw: true
+    },console.log(email));
   } catch (err) {
     console.error(err);
     return null;

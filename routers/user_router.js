@@ -6,7 +6,7 @@ const SessionMiddleware = require("../middlewares/session_middleware");
 const router = express.Router();
 
 const UserController = require("../controllers/user_controller");
-
+const findIdController = require("../controllers/find_id_controller");
 router.get("/login", UserController.loginView);
 
 router.post("/login", UserController.login);
@@ -30,8 +30,26 @@ router.post("/email_num_check", UserController.emailNumCheck);
 router.get("/mypage", SessionMiddleware.validity, UserController.userMyPage);
 
 // 마이페이지에서 비밀번호 변경
-router.get("/update_pw", SessionMiddleware.validity, UserController.myPageUpdatePwView);
+router.get(
+  "/update_pw",
+  SessionMiddleware.validity,
+  UserController.myPageUpdatePwView
+);
 
-router.post("/update_pw", SessionMiddleware.validity, UserController.myPageUpdatePw);
+// 로그인 창에서 아이디 찾기
+router.get("/find_id", (req, res) => {
+  // res.render("find_id")
+  findIdController.findIdView(req, res);
+});
+
+router.post("/find_id", (req, res) => {
+  findIdController.idEmailSend(req, res);
+});
+
+router.post(
+  "/update_pw",
+  SessionMiddleware.validity,
+  UserController.myPageUpdatePw
+);
 
 module.exports = router;

@@ -19,6 +19,7 @@ const QnaReply = require("./qna_reply");
 const FreeBoard = require("./free_board");
 const FreeReply = require("./free_reply");
 
+
 const sequelize = new Sequelize(
   config.dev.database,
   config.dev.username,
@@ -98,5 +99,7 @@ PointType.associate(db);
 
 QnaBoard.associate(db);
 QnaReply.associate(db);
+
+
 
 module.exports = db;
