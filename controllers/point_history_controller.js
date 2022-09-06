@@ -25,7 +25,9 @@ module.exports.list = async (req, res) => {
 
     const point = await PointTotalService.findPoint(User.userId);
 
-    res.render("point_history", { User, point, list , totalPage , pageNum, limit });
+    const button = "all";
+
+    res.render("point_history", { User, point, list , totalPage , pageNum, limit, button });
     // res.send(list);
 }
 
@@ -60,5 +62,7 @@ module.exports.listIsPayment = async (req, res) => {
     
     const point = await PointTotalService.findPoint(User.userId);
 
-    res.render("point_history", { User, point, list , totalPage , pageNum, limit });
+    const button = isPayment ? "spends" : "receive";
+
+    res.render("point_history", { User, point, list , totalPage , pageNum, limit, button });
 }
