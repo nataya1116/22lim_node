@@ -24,7 +24,7 @@ const CONDITION = {
 };
 
 const AUTHORITY = {
-  MANAGER: 1,
+  ADMIN: 1,
   USER: 2,
 };
 

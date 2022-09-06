@@ -6,11 +6,11 @@ const QnaBoardController = require("../controllers/qna_board_controller");
 
 const SessionMiddleware = require("../middlewares/session_middleware");
 
-router.post("/create", SessionMiddleware.validity, QnaBoardController.create);
+router.post("/create", SessionMiddleware.validityAdmin, QnaBoardController.create);
 
-router.post("/update", SessionMiddleware.validity, QnaBoardController.update);
+router.post("/update", SessionMiddleware.validityAdmin, QnaBoardController.update);
 
-router.get("/create_view", SessionMiddleware.validity, QnaBoardController.createView);
+router.get("/create_view", SessionMiddleware.validityAdmin, QnaBoardController.createView);
 
 // 순서대로 경로를 지정해주고 순서에 맞는 키로 저장이 된다.
 // 익스프레스 라우터에 get으로 첫번째 파라미터는 경로, 두번째 파라미터는 미들웨어..

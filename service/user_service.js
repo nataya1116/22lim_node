@@ -1,4 +1,4 @@
-const { User, PointHistory, PointTotal, PointType, GameSkinUser, sequelize } = require("../model/index");
+const { User, PointHistory, PointTotal, PointType, GameSkinUser, InactiveUser, sequelize } = require("../model/index");
 const { POINT } = require("../config/config");
 
 // GameSkinUser/PointHistory/PointTotal 추가
@@ -99,13 +99,14 @@ module.exports.loginTmp = async (id, pw) => {
 module.exports.updateRefreshToken = async (userId, refreshToken) => {
   try {
     await User.update(
-      {
-        refreshToken,
-      },
-      {
-        where: { userId },
-      }
-    );
+                      {
+                        refreshToken,
+                        lastLogin : new Date()
+                      },
+                      {
+                        where: { userId },
+                      }
+                    );
   } catch (error) {
     console.error(err);
     return err;
@@ -158,25 +159,6 @@ module.exports.useIdOverlap = async (userId) => {
     return "err";
   }
 };
-
-// module.exports.emailOverlap = async (email) => {
-//   try {
-//     const user = await User.findOne({
-//       attributes: ["email"],
-//       where: {
-//         email,
-//       }
-//     });
-
-//     if (!user) return false;
-
-//     else return true;
-
-//   } catch (err) {
-//     console.error(err);
-//     return "err";
-//   }
-// }
 
 // 마이페이지 조회
 module.exports.userMyPage = async (userId) => {
@@ -240,3 +222,17 @@ module.exports.findId = async (email) => {
     return null;
   }
 };
+
+module.exports.listUsers = (offset, limit) => {
+  return User.findAndCountAll({
+                                  attributes : ["userId", "authorityId", "conditionId", "createdAt", "lastLogin"],
+                                  include : [
+                                    {
+                                      attributes : ["stopFewDays"],
+                                      model : InactiveUser
+                                    }
+                                  ],
+                                  offset,
+                                  limit
+                              });
+}

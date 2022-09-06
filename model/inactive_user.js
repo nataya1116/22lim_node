@@ -15,6 +15,20 @@ class InactiveUser extends Sequelize.Model {
                 get() {
                     return moment(this.getDataValue("stopFewDays")).format("YYYY/MM/DD");
                 }
+            },
+            createdAt: {
+              type: Sequelize.DATE,
+              allowNull: false,
+              get() {
+                return moment(this.getDataValue("createdAt")).format("YYYY/MM/DD");
+              },
+            },
+            updatedAt: {
+              type: Sequelize.DATE,
+              allowNull: false,
+              get() {
+                return moment(this.getDataValue("updatedAt")).format("YYYY/MM/DD");
+              },
             }
         },
         {
@@ -22,7 +36,7 @@ class InactiveUser extends Sequelize.Model {
             underscored : true,
             modelName : "InactiveUser",
             tableName : "inactive_user",
-            timestamps : false,
+            timestamps : true,
             charset : "utf8",
             collate : "utf8_general_ci"
         });

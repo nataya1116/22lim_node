@@ -15,6 +15,8 @@ const TipReplyService = require("./tip_reply_sevice");
 
 const FreeBoardService = require("./free_board_service");
 
+const InactiveUserService = require("./inactive_user_service");
+
 const EncryptionService = require("./encryption_service");
 
 const TokenService = require("./token_service");
@@ -32,6 +34,7 @@ module.exports = { UserService,
                     TipBoardService,  
                     TipReplyService,
                     FreeBoardService,
+                    InactiveUserService,
                     EncryptionService,
                     TokenService,
                     // Random

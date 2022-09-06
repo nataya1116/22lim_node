@@ -51,30 +51,30 @@ class User extends Sequelize.Model {
           type: Sequelize.INTEGER,
           allowNull: false,
         },
+        lastLogin : {
+          type: Sequelize.DATE,
+          get() {
+            return moment(this.getDataValue("lastLogin")).format("YYYY/MM/DD HH:mm:ss");
+          }
+        },
         createdAt: {
           type: Sequelize.DATE,
           allowNull: false,
           get() {
-            return moment(this.getDataValue("createdAt")).format(
-              "YYYY/MM/DD HH:mm:ss"
-            );
-          },
+            return moment(this.getDataValue("createdAt")).format("YYYY/MM/DD HH:mm:ss");
+          }
         },
         updatedAt: {
           type: Sequelize.DATE,
           allowNull: false,
           get() {
-            return moment(this.getDataValue("updatedAt")).format(
-              "YYYY/MM/DD HH:mm:ss"
-            );
+            return moment(this.getDataValue("updatedAt")).format("YYYY/MM/DD HH:mm:ss");
           },
         },
         deletedAt: {
           type: Sequelize.DATE,
           get() {
-            return moment(this.getDataValue("deletedAt")).format(
-              "YYYY/MM/DD HH:mm:ss"
-            );
+            return moment(this.getDataValue("deletedAt")).format("YYYY/MM/DD HH:mm:ss");
           },
         },
       },
