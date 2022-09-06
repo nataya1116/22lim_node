@@ -125,8 +125,8 @@ html {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 200px;
-  height: 200px;
+  width: 300px;
+  height: 300px;
   margin-top: 5px;
   margin-bottom: 5px;
   border: 4px solid #000000;
@@ -137,7 +137,12 @@ html {
 }
 
 .character img {
-  width: 100px;
+  /* width: 100px; */
+  width: 121px;
+  height: 250px;
+  display: block;
+  background-repeat: no-repeat;
+  background-size: 1482px;
 }
 
 .writing span {

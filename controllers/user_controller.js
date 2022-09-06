@@ -1,5 +1,6 @@
 const UserService = require("../service/user_service");
 const TokenService = require("../service/token_service");
+const SkinUserService = require("../service/game_skin_user_service");
 const EncryptionService = require("../service/encryption_service");
 const { mailer, jwt } = require("../modules/common");
 const { config } = require("../config/config");
@@ -172,11 +173,14 @@ module.exports.userMyPage = async (req, res) => {
   const User = TokenService.verifyAccessToken(accessToken);
   const userId = User?.userId;
 
+  const result = await SkinUserService.findOne(userId);
+  const SkinUser = result.dataValues.GameSkinProduct;
+  console.log(SkinUser);
   // userMyPage의 매개변수로 아이디를 넣어주면 된다
   // 나중에 데이터에서 가져올 유저의 아이디 값을 주면 됨
   await UserService.userMyPage(userId).then((e) => {
     // render의 두번째 매개변수로 받아올 데이터?...
-    res.render("mypage", { data: e, User });
+    res.render("mypage", { data: e, User, SkinUser});
   });
 };
 

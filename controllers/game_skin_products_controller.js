@@ -9,7 +9,9 @@ module.exports.list = async (req, res) => {
     let User = TokenService.verifyAccessToken(accessToken);
 
     if(User){
-        User = await UserService.findUser(User.userId);
+        const user = await UserService.findUser(User.userId);
+        console.log(user);
+        User.point = user.dataValues.PointTotal.point
     }
 
     const pageNum = Number(req.params.page || "1");
@@ -36,7 +38,8 @@ module.exports.listWish = async (req, res) => {
     let User = TokenService.verifyAccessToken(accessToken);
 
     if(User){
-        User = await UserService.findUser(User.userId);
+        const user = await UserService.findUser(User.userId);
+        User.point = user.dataValues.PointTotal.point
     }
 
     const pageNum = Number(req.params.page || "1");
@@ -63,7 +66,8 @@ module.exports.listUse = async (req, res) => {
     let User = TokenService.verifyAccessToken(accessToken);
 
     if(User){
-        User = await UserService.findUser(User.userId);
+        const user = await UserService.findUser(User.userId);
+        User.point = user.dataValues.PointTotal.point
     }
 
     const pageNum = Number(req.params.page || "1");
