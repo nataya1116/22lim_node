@@ -76,7 +76,7 @@ module.exports.listWish = async (userId, offset, limit) => {
 };
 
 
-module.exports.listUse = async (userId, offset, limit) => {
+module.exports.listOwn = async (userId, offset, limit) => {
   try {
     return await GameSkinProducts.findAndCountAll({
       attributes: ["id", "name", "info", "point", "imgUrl", "positionX", "positionY"],
