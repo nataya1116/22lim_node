@@ -1,6 +1,6 @@
 const { TipBoardService, 
         TipReplyService, 
-        TokenService } = require("../service/index");
+        TokenService } = require("../service");
 
 const { AUTHORITY, BOARDS } = require("../config/config");
 

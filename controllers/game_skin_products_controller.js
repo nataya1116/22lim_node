@@ -2,7 +2,7 @@ const { GameSkinProductsService,
         GameSkinUserService, 
         GameSkinWishService, 
         UserService, 
-        TokenService } = require("../service/index");
+        TokenService } = require("../service");
 
 module.exports.list = async (req, res) => {
     const accessToken = req.session?.access_token;

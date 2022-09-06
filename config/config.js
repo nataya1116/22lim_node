@@ -17,8 +17,9 @@ const config = {
 };
 
 const CONDITION = {
-  ACTIVITY: 1,
-  INACTIVITY: 2,
+  WAITING : 1,
+  ACTIVITY: 2,
+  INACTIVITY: 3,
 };
 
 const AUTHORITY = {

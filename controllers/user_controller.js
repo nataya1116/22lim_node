@@ -1,7 +1,7 @@
 const { UserService, 
         GameSkinUserService, 
         EncryptionService,
-        TokenService } = require("../service/index");
+        TokenService } = require("../service");
 
 const { mailer, jwt } = require("../modules/common");
 const { config } = require("../config/config");

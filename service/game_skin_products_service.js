@@ -39,36 +39,36 @@ module.exports.list = async (offset, limit) => {
 module.exports.listWish = async (userId, offset, limit) => {
   try {
     return await GameSkinProducts.findAndCountAll({
-      attributes: ["id", "name", "info", "point", "imgUrl", "positionX", "positionY"],
-      include: [
-        {
-          attributes: ["isUse"],
-          model: GameSkinUser,
-          include: [
-              {
-                attributes: ["userId"],
-                model: User,
-              }
-            ]
-        },
-        {
-          attributes: ["id"],
-          model: GameSkinWish,
-          include: [
-              {
-                attributes: ["userId"],
-                model: User,
-                where : {
-                  userId
-                }
-              }
-          ]
-        }
-      ],
-      // group: ['GameSkinWishes.id'],
-      order: [["id", "DESC"]],
-      offset,
-      limit,
+                                                    attributes: ["id", "name", "info", "point", "imgUrl", "positionX", "positionY"],
+                                                    include: [
+                                                      {
+                                                        attributes: ["isUse"],
+                                                        model: GameSkinUser,
+                                                        include: [
+                                                            {
+                                                              attributes: ["userId"],
+                                                              model: User,
+                                                            }
+                                                          ]
+                                                      },
+                                                      {
+                                                        attributes: ["id"],
+                                                        model: GameSkinWish,
+                                                        include: [
+                                                            {
+                                                              attributes: ["userId"],
+                                                              model: User,
+                                                              where : {
+                                                                userId
+                                                              }
+                                                            }
+                                                        ]
+                                                      }
+                                                    ],
+                                                    // group: ['GameSkinWishes.id'],
+                                                    order: [["id", "DESC"]],
+                                                    offset,
+                                                    limit,
     });
   } catch (err) {
     console.log(err);

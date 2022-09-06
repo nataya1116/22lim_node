@@ -1,5 +1,5 @@
-const UserService = require("../service/user_service");
-const TokenService = require("../service/token_service");
+const { UserService, TokenService } = require("../service");
+const { CONDITION } = require("../config/config");
 
 module.exports.validity = async (req, res, next) => {
   const accessToken = await req.session?.access_token;

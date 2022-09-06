@@ -2,7 +2,7 @@ const { GameSkinUserService,
         GameSkinProductsService, 
         UserService, 
         TokenService,
-        PointTotalService } = require("../service/index");
+        PointTotalService } = require("../service");
 
 module.exports.create = async (req, res) => {
 

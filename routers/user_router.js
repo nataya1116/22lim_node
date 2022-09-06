@@ -6,6 +6,7 @@ const SessionMiddleware = require("../middlewares/session_middleware");
 const router = express.Router();
 
 const UserController = require("../controllers/user_controller");
+const PointHistoryController = require("../controllers/point_history_controller");
 
 router.get("/login", UserController.loginView);
 
@@ -33,5 +34,9 @@ router.get("/mypage", SessionMiddleware.validity, UserController.userMyPage);
 router.get("/update_pw", SessionMiddleware.validity, UserController.myPageUpdatePwView);
 
 router.post("/update_pw", SessionMiddleware.validity, UserController.myPageUpdatePw);
+
+router.get("/point_history/:page/:perPage/", SessionMiddleware.validity, PointHistoryController.list);
+
+router.get("/point_history/:page/:perPage/:isPayment", SessionMiddleware.validity, PointHistoryController.listIsPayment);
 
 module.exports = router;

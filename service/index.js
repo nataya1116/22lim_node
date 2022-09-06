@@ -1,6 +1,7 @@
 const UserService = require("./user_service");
 
 const PointTotalService = require("./point_total_service");
+const PointHistory = require("./point_history_service");
 
 const GameSkinProductsService = require("./game_skin_products_service");
 const GameSkinUserService = require("./game_skin_user_service");
@@ -22,6 +23,7 @@ const TokenService = require("./token_service");
 
 module.exports = { UserService, 
                     PointTotalService, 
+                    PointHistory,
                     GameSkinProductsService, 
                     GameSkinUserService, 
                     GameSkinWishService, 
