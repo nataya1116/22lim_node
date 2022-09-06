@@ -6,9 +6,7 @@ module.exports.create = async (req, res) => {
     const productId = Number(req.body.productId);
     
     const result = await GameSkinWishService.create(userId, productId);
-    
-    // console.log(result);
-    
+
     res.send(result);
 };
 

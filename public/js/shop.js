@@ -16,6 +16,7 @@ function skinWish (userId, productId, aId) {
             imgId.src = "/img/heart2.png";
         }else{
             alert("실패하였습니다.");
+            location.href = "/user/login";
         }
     });
 }
@@ -38,6 +39,7 @@ function skinWishCancel (userId, productId, productWishId, aId) {
             imgId.src = "/img/heart1.png";
         }else{
             alert("실패하였습니다.");
+            location.href = "/user/login";
         }
     });
 }
@@ -72,7 +74,7 @@ function skinBuy(userId, productId, productPoint, btnId) {
             user_point.innerHTML = result.point;
         } else {
             alert("실패하였습니다.");
-            window.location.href = "user/login";
+            location.href = "/user/login";
         }
     });
     
@@ -109,6 +111,7 @@ function skinToUse(userId, productId, btnId) {
 
         }else{
             alert("실패하였습니다.");
+            location.href = "/user/login";
         }
     })
     

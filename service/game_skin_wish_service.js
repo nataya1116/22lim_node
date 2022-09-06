@@ -22,6 +22,17 @@ module.exports.create = async (userId, productId) => {
                                                 productId
                                             });
         } else {
+            // updatedAt 시간을 업데이트 하기 위해....
+            const tmp = await GameSkinWish.update({
+                                                    // updatedAt : new Date()
+                                                    productId
+                                                },
+                                                {
+                                                    where : { 
+                                                        userId : user.id,
+                                                        productId 
+                                                    }
+                                                });
             return await GameSkinWish.findOne({
                                                 where : { 
                                                     userId : user.id,

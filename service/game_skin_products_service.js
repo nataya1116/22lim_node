@@ -66,7 +66,7 @@ module.exports.listWish = async (userId, offset, limit) => {
                                                       }
                                                     ],
                                                     // group: ['GameSkinWishes.id'],
-                                                    order: [["id", "DESC"]],
+                                                    order: [[GameSkinWish, "updatedAt", "DESC"]],
                                                     offset,
                                                     limit
     });
@@ -105,7 +105,7 @@ module.exports.listOwn = async (userId, offset, limit) => {
           ]
         }
       ],
-      order: [["id", "DESC"]],
+      order: [[GameSkinUser, "createdAt", "DESC"]],
       offset,
       limit
     });

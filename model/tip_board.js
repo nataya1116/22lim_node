@@ -28,7 +28,7 @@ class TipBoard extends Sequelize.Model {
           allowNull: false,
           get() {
             return moment(this.getDataValue("createdAt")).format(
-              "YYYY/MM/DD hh:mm:ss"
+              "YYYY/MM/DD HH:mm:ss"
             );
           },
         },
@@ -37,7 +37,7 @@ class TipBoard extends Sequelize.Model {
           allowNull: false,
           get() {
             return moment(this.getDataValue("updatedAt")).format(
-              "YYYY/MM/DD hh:mm:ss"
+              "YYYY/MM/DD HH:mm:ss"
             );
           },
         },
@@ -45,7 +45,7 @@ class TipBoard extends Sequelize.Model {
           type: Sequelize.DATE,
           get() {
             return moment(this.getDataValue("deletedAt")).format(
-              "YYYY/MM/DD hh:mm:ss"
+              "YYYY/MM/DD HH:mm:ss"
             );
           },
         },

@@ -9,6 +9,7 @@ const config = {
     database: "22lim_test2",
     host: "127.0.0.1",
     dialect: "mysql",
+    timezone: "Asia/Seoul"
   },
   mailer: {
     user: process.env.EMAIL,
