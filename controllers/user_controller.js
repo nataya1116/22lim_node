@@ -194,7 +194,7 @@ module.exports.userMyPage = async (req, res) => {
   const userId = User?.userId;
 
   const result = await GameSkinUserService.findOne(userId);
-  const SkinUser = result.dataValues.GameSkinProduct;
+  const SkinUser = result?.dataValues.GameSkinProduct;
   console.log(SkinUser);
 
   const point = await PointTotalService.findPoint(userId);

@@ -101,7 +101,7 @@
       <div class="btn-div">
         <select class="button clickBtn" id="condition_select" onchange="searchig()">
           <option value="0" >-</option>
-          <option value="1" <%=conditionId == CONDITION.WAITING ? "selected" : "" %> >대기 중</option>
+          <option value="1" <%=conditionId == CONDITION.WAITING ? "selected" : "" %> >승인 대기</option>
           <option value="2" <%=conditionId == CONDITION.ACTIVITY ? "selected" : "" %> >활동 가능</option>
           <option value="3" <%=conditionId == CONDITION.INACTIVITY ? "selected" : "" %> >활동 중지</option>
         </select>
