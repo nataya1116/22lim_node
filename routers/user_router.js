@@ -31,17 +31,35 @@ router.post("/email_num_check", UserController.emailNumCheck);
 router.get("/mypage", SessionMiddleware.validity, UserController.userMyPage);
 
 // 마이페이지에서 비밀번호 변경
-router.get("/update_pw", SessionMiddleware.validity, UserController.myPageUpdatePwView);
+router.get(
+  "/update_pw",
+  SessionMiddleware.validity,
+  UserController.myPageUpdatePwView
+);
+router.post("/change_pw");
 
 // 로그인 창에서 아이디 찾기
 router.get("/find_id", UserController.findIdView);
 
 router.post("/find_id", UserController.idEmailSend);
 
-router.post("/update_pw", SessionMiddleware.validity, UserController.myPageUpdatePw);
+router.get("/change_pw", (req, res) => {
+  res.render("change_pw");
+});
+router.get("/find_pw", (req, res) => {
+  res.render("find_pw");
+});
 
-router.get("/point_history/:page/:perPage/", SessionMiddleware.validity, PointHistoryController.list);
+router.get(
+  "/point_history/:page/:perPage/",
+  SessionMiddleware.validity,
+  PointHistoryController.list
+);
 
-router.get("/point_history/:page/:perPage/:isPayment", SessionMiddleware.validity, PointHistoryController.listIsPayment);
+router.get(
+  "/point_history/:page/:perPage/:isPayment",
+  SessionMiddleware.validity,
+  PointHistoryController.listIsPayment
+);
 
 module.exports = router;
