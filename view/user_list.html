@@ -66,7 +66,7 @@
                         <% } else if (user?.authorityId == AUTHORITY.USER && user?.conditionId == CONDITION.ACTIVITY) { %>
                           <td id="stop_days_td<%=i%>">
                             <select name="stopFewDays" id="stop_days_select<%=i%>" onchange="stopUser('<%=user.userId%>', stop_days_td<%=i%>, condition_td<%=i%>, stop_days_select<%=i%>)">
-                              <option value="0" selected>-</option>
+                              <option value="0">-</option>
                               <option value="1">1</option>
                               <option value="3">3</option>
                               <option value="7">7</option>
@@ -92,23 +92,24 @@
     </div>
     <div class="button-container">
       <div class="btn-div">
-        <select class="button clickBtn" id="search_key">
+        <select class="button clickBtn" id="authority_select" onchange="searchig()">
           <option value="0" >-</option>
-          <option value="1" >관리자</option>
-          <option value="2" >유저</option>
+          <option value="1" <%=authorityId == AUTHORITY.ADMIN ? "selected" : "" %> >관리자</option>
+          <option value="2" <%=authorityId == AUTHORITY.USER ? "selected" : "" %>>유저</option>
         </select>
       </div>
       <div class="btn-div">
-        <select class="button clickBtn" id="search_key">
+        <select class="button clickBtn" id="condition_select" onchange="searchig()">
           <option value="0" >-</option>
-          <option value="1" >대기 중</option>
-          <option value="2" >활동 가능</option>
-          <option value="3" >활동 중지</option>
+          <option value="1" <%=conditionId == CONDITION.WAITING ? "selected" : "" %> >대기 중</option>
+          <option value="2" <%=conditionId == CONDITION.ACTIVITY ? "selected" : "" %> >활동 가능</option>
+          <option value="3" <%=conditionId == CONDITION.INACTIVITY ? "selected" : "" %> >활동 중지</option>
         </select>
       </div>
-      <input class="find-input" id="find_input" type="text" placeholder="작성자명">
-      <input type="hidden" id="board_url" value="tip_board">
-      <button class="find-btn" id="find_btn" data-limit="<%= limit %>" >찾기</button>
+      <input class="find-input" id="find_input" type="text" placeholder="작성자명" value="<%=searchUserId%>">
+      <input type="hidden" id="page_num_input" value="<%=pageNum%>">
+      <input type="hidden" id="limit_input" value="<%=limit%>">
+      <button class="find-btn" id="find_btn" data-limit="<%= limit %>" onclick="searchig()">찾기</button>
     </div>
     <% if(!!list) { %>
     <div class="page-nav">

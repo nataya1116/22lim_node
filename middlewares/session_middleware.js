@@ -1,4 +1,4 @@
-const { UserService, TokenService } = require("../service");
+const { UserService, InactiveUserService ,TokenService } = require("../service");
 const { CONDITION, AUTHORITY } = require("../config/config");
 
 module.exports.validity = async (req, res, next) => {
@@ -10,12 +10,10 @@ module.exports.validity = async (req, res, next) => {
   }
   const decodeAcc = TokenService.verifyAccessToken(accessToken);
 
-  if(decodeAcc.conditionId == CONDITION.INACTIVITY){
-    
-    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-    res.write("<script>alert('관리자만 이용 가능합니다.')</script>");
-    res.write("<script>window.location='/user/login'</script>");
-    return;
+  if(decodeAcc.conditionId == CONDITION.INACTIVITY){  
+    return await inactive(decodeAcc.userId);
+  } else if(decodeAcc.conditionId == CONDITION.WAITING){
+    return waiting();
   }
 
   if (decodeAcc) {
@@ -26,6 +24,12 @@ module.exports.validity = async (req, res, next) => {
 
   if (!decodeRe) {
     return res.redirect("/user/login");
+  }
+
+  if(decodeRe.conditionId == CONDITION.INACTIVITY){
+    return await inactive(decodeRe.userId);
+  } else if(decodeRe.conditionId == CONDITION.WAITING){
+    return waiting();
   }
 
   const userId = decodeRe.userId;
@@ -105,10 +109,7 @@ module.exports.validityAdmin = async (req, res, next) => {
   }
 
   if(decodeAcc){
-    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-    res.write("<script>alert('관리자만 이용 가능합니다.')</script>");
-    res.write("<script>window.location='/user/login'</script>");
-    return;
+    return notAdmin();
   }
 
   const decodeRe = TokenService.verifyRefreshToken(refreshToken);
@@ -118,10 +119,7 @@ module.exports.validityAdmin = async (req, res, next) => {
   }
 
   if (decodeRe.authorityId != AUTHORITY.ADMIN){
-    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-    res.write("<script>alert('관리자만 이용 가능합니다.')</script>");
-    res.write("<script>window.location='/user/login'</script>");
-    return;
+    return notAdmin();
   }
 
   const userId = decodeRe.userId;
@@ -145,3 +143,26 @@ module.exports.validityAdmin = async (req, res, next) => {
 
   return next();
 };
+
+// 아래는 미들웨어 내부에서만 사용할 함수들
+async function inactive(userId) {
+  const date = await InactiveUserService.findStopFewDays(userId);
+  res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+  res.write("<script>window.location='/user/login'</script>");
+  res.write(`<script>alert('${date}까지 활동 불가합니다.')</script>`);
+  res.end();
+}
+
+function waiting() {
+  res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+  res.write("<script>window.location='/user/login'</script>");
+  res.write(`<script>alert('가입 승인 전까지는 활동이 불가합니다.')</script>`);
+  res.end();
+}
+
+function notAdmin(){
+  res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+  res.write("<script>window.location='/user/login'</script>");
+  res.write("<script>alert('관리자만 이용 가능합니다.')</script>");
+  res.end();
+}

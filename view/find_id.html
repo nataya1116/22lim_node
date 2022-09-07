@@ -53,7 +53,7 @@
     </div>
     <script src="/js/check_password.js"></script>
     <script src="/js/chat_ui.js"></script>
-    <script src="/js/validity.js"></script>
+    <!-- <script src="/js/validity.js"></script> -->
     
     <script
       src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.4.1.min.220afd743d.js?site=5e87e737ee7085b9ba02c101"
@@ -85,6 +85,26 @@
           }else alert("알 수 없는 오류");
         }
       })
+    }
+
+    // 이메일 정규식
+    function emailCheck(email) {
+      const emailRegex =
+        /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/g;
+      if (emailRegex.test(email) == false) {
+        email_check.innerHTML = "이메일을 확인해주세요";
+        return false;
+      } else {
+        if (is_email_check.value) {
+          email_check.innerHTML = "";
+          mail_btn.disabled = true;
+          return true;
+        } else {
+          email_check.innerHTML = "";
+          mail_btn.disabled = false;
+          return true;
+        }
+      }
     }
   </script>
 </html>

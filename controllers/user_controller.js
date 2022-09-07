@@ -109,6 +109,7 @@ module.exports.emailNumCheck = (req, res) => {
 
 // 로그인
 module.exports.login = async (req, res) => {
+
   const userId = req.body.user_id;
   const userPw = req.body.user_pw;
 
@@ -116,18 +117,27 @@ module.exports.login = async (req, res) => {
   const user = result?.dataValues;
 
   if (!user) {
-    return res.send("fail");
+    return res.send({result : "fail"});
   }
 
   const encryptedPw = user.userPw;
+  
   const isLogin = EncryptionService.isPwCheck(userPw, encryptedPw);
 
   if (!isLogin) {
-    return res.send("fail");
+    return res.send({result : "fail"});
   }
 
   const authorityId = user.authorityId;
   const conditionId = user.conditionId;
+
+  if(conditionId == CONDITION.INACTIVITY){
+    const date = await InactiveUserService.findStopFewDays(userId);
+    return res.send({result : "inactivity", date });
+  } else if(conditionId == CONDITION.WAITING) {
+    return res.send({result : "waiting"});
+  }
+
 
   const accessToken = TokenService.createAccessToken(
     userId,
@@ -145,10 +155,18 @@ module.exports.login = async (req, res) => {
 
   UserService.updateRefreshToken(userId, refreshToken);
 
-  return res.send("suc");
+  return res.send({result : "suc"});
 };
 
 module.exports.loginView = (req, res) => {
+  
+  // 로그인 페이지 접속 시 세션 삭제(로그아웃) 실행
+  req.session.destroy((err)=> {
+    if(err){
+      console.error(err);
+    }
+  });
+
   const User = null;
   res.render("login", { User });
 };
@@ -165,8 +183,8 @@ module.exports.logout = async (req, res) => {
     if(err){
       console.error(err);
     }
-    return res.redirect("/");
-  })
+  });
+  return res.redirect("/");
 }
 
 // 마이페이지------------------------------

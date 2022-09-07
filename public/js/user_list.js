@@ -44,3 +44,13 @@ function approvalUser(userId, stop_days_td, condition_td, approval_td){
         }
     });
 }
+
+function searchig(){
+    const authorityId = authority_select.value;
+    const conditioId = condition_select.value;
+    const searchUserId = find_input.value;
+    const pageNum = page_num_input.value;
+    const limit = limit_input.value;
+
+    location.href = `/admin/user_list/${pageNum}/${limit}/${authorityId}/${conditioId}/${searchUserId}`;
+}

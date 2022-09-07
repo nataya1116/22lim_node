@@ -10,9 +10,10 @@ module.exports.listUser = async (req, res) => {
     const pageNum = Number(req.params.page || "1");
     const limit = Number(req.params.perPage || "10");
     const authorityId = Number(req.params.authorityId || "0");
-    const conditionId = Number(req.params.conditioId || "0");
+    const conditionId = Number(req.params.conditionId || "0");
     const searchUserId = (req.params.searchUserId || null);
-  
+
+
     let offset = 0;
 
     if (pageNum > 1) {
