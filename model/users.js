@@ -112,9 +112,10 @@ class User extends Sequelize.Model {
 
     db.User.hasMany(db.PointHistory, { foreignKey: "userId", sourceKey: "id" });
 
+    db.User.hasMany(db.InactiveUser, { foreignKey: "userId", sourceKey: "id" });
+    
     // 1 : 1
     db.User.hasOne(db.PointTotal, { foreignKey: "userId", sourceKey: "id" });
-    db.User.hasOne(db.InactiveUser, { foreignKey: "userId", sourceKey: "id" });
 
     // N : 1
     db.User.belongsTo(db.Authority, { foreignKey: "authorityId", targetKey: "id" });
