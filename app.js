@@ -11,7 +11,7 @@ const indexRouter = require("./routers/index_router");
 
 const tipBoardRouter = require("./routers/tip_board_router");
 const qnaBoardRouter = require("./routers/qna_board_router");
-// const freeBoardRouter = require("./routers/free_board_router");
+const freeBoardRouter = require("./routers/free_board_router");
 
 const tipReplyRouter = require("./routers/tip_reply_router");
 const qnaReplyRouter = require("./routers/qna_reply_router");
@@ -20,8 +20,6 @@ const skinWishRouter = require("./routers/game_skin_wish_router");
 const skinUserRouter = require("./routers/game_skin_user_router");
 
 const gameParanoia = require("./routers/game_paranoia_router");
-
-const findPw = require("./routers/find_pw_router");
 
 const app = express();
 

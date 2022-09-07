@@ -4,9 +4,9 @@ dot.config();
 
 const config = {
   dev: {
-    username: "22lim",
+    username: "jinny",
     password: process.env.DATABASE_PASSWORD_DEV,
-    database: "22lim_test2",
+    database: "mydb",
     host: "127.0.0.1",
     dialect: "mysql",
   },
@@ -17,7 +17,7 @@ const config = {
 };
 
 const CONDITION = {
-  WAITING : 1,
+  WAITING: 1,
   ACTIVITY: 2,
   INACTIVITY: 3,
 };

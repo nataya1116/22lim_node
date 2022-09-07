@@ -1,6 +1,8 @@
-const { TipBoardService, 
-        TipReplyService, 
-        TokenService } = require("../service");
+const {
+  TipBoardService,
+  TipReplyService,
+  TokenService,
+} = require("../service");
 
 const { AUTHORITY, BOARDS } = require("../config/config");
 
@@ -13,16 +15,19 @@ module.exports.create = async (req, res) => {
 };
 
 module.exports.createView = (req, res) => {
+  const accessToken = req.session?.access_token;
+  const User = TokenService.verifyAccessToken(accessToken);
 
-    const accessToken = req.session?.access_token;
-    const User = TokenService.verifyAccessToken(accessToken);
-
-    res.render("tip_board_insert", { User, AUTHORITY, BOARDS, board : BOARDS.TIP_BOARD });
-}
+  res.render("tip_board_insert", {
+    User,
+    AUTHORITY,
+    BOARDS,
+    board: BOARDS.TIP_BOARD,
+  });
+};
 
 // 게시판 목록 페이지 네이션을 동작하게 하는 부분(검색어가 없을 때)
 module.exports.list = async (req, res) => {
-
   const accessToken = req.session?.access_token;
   const User = TokenService.verifyAccessToken(accessToken);
 
@@ -52,12 +57,19 @@ module.exports.list = async (req, res) => {
 
   const searchKey = "";
   const searchWord = "";
-    
-  res.render( "tip_board_list", { User, list , totalPage , pageNum, limit, searchKey, searchWord });
+
+  res.render("tip_board_list", {
+    User,
+    list,
+    totalPage,
+    pageNum,
+    limit,
+    searchKey,
+    searchWord,
+  });
 };
 
 module.exports.listSearch = async (req, res) => {
-
   const accessToken = req.session?.access_token;
   const User = TokenService.verifyAccessToken(accessToken);
 
@@ -86,10 +98,10 @@ module.exports.listSearch = async (req, res) => {
       break;
     case "content":
       result = await TipBoardService.listSearchContent(
-                                                        offset,
-                                                        limit,
-                                                        searchWord
-                                                      );
+        offset,
+        limit,
+        searchWord
+      );
       break;
     default:
       result = await TipBoardService.list(offset, limit);
@@ -101,37 +113,43 @@ module.exports.listSearch = async (req, res) => {
 
   const totalPage = Math.ceil(postNum / limit);
 
-  res.render("tip_board_list", {  
-                                  User,
-                                  list,
-                                  totalPage,
-                                  pageNum,
-                                  limit,
-                                  searchKey,
-                                  searchWord,
-                                });
-                              };
+  res.render("tip_board_list", {
+    User,
+    list,
+    totalPage,
+    pageNum,
+    limit,
+    searchKey,
+    searchWord,
+  });
+};
 
 module.exports.view = async (req, res) => {
+  const accessToken = req.session?.access_token;
+  const User = TokenService.verifyAccessToken(accessToken);
 
-    const accessToken = req.session?.access_token;
-    const User = TokenService.verifyAccessToken(accessToken);
+  const offset = Number(req.params.offset);
+  const result = await TipBoardService.viewOffset(offset);
 
-    const offset = Number(req.params.offset);
-    const result = await TipBoardService.viewOffset(offset);
-    
-    let post = result[0];
-    post.dataValues.view++;
-    const id = post.dataValues.id;
+  let post = result[0];
+  post.dataValues.view++;
+  const id = post.dataValues.id;
 
-    // console.log(post);
-    const postNum   = await TipBoardService.count();
-                      await TipBoardService.updateViewsCount(id);
+  // console.log(post);
+  const postNum = await TipBoardService.count();
+  await TipBoardService.updateViewsCount(id);
 
-    const replyList = await TipReplyService.list(id);
+  const replyList = await TipReplyService.list(id);
 
-    res.render("tip_board_view", { User, offset, post, postNum, replyList, offset });
-}
+  res.render("tip_board_view", {
+    User,
+    offset,
+    post,
+    postNum,
+    replyList,
+    offset,
+  });
+};
 
 module.exports.update = async (req, res) => {
   const id = Number(req.body.id);
@@ -143,7 +161,6 @@ module.exports.update = async (req, res) => {
 };
 
 module.exports.updatePrint = async (req, res) => {
-  
   const accessToken = req.session?.access_token;
   const User = TokenService.verifyAccessToken(accessToken);
 

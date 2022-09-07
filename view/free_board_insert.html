@@ -1,0 +1,101 @@
+    <%-include("./partial/header_up.html")%>
+
+    <!-- @@@@@@@@@ CSS 파일 START @@@@@@@@@-->
+    <link rel="stylesheet" href="/css/common.css" type="text/css" />
+    <link rel="stylesheet" href="/css/writing.css" type="text/css" />
+    <!-- @@@@@@@@@ CSS 파일 END @@@@@@@@@-->
+
+    <%-include("./partial/header_down.html")%>
+    
+    <div class="site-container">
+      <div class="section small-section wf-section">
+        <div class="container">
+          <h1>Free Boards</h1>
+          <div class="subhead"></div>
+        </div>
+      </div>
+      <div
+        data-w-id="17ac18b5-161b-07f2-842a-a33f4d0523b9"
+        class="section pattern wf-section"
+      >
+        <div class="container">
+          <div class="w-dyn-list">
+            <div role="list" class="grid-column w-dyn-items">
+              <div
+                data-w-id="5a8b8f09-d259-86e6-1c31-b57b69680df5"
+                role="listitem"
+                class="modal-wrapper w-dyn-item write-center"
+              >
+              <div class="in-box">
+
+                <div class="dropdown">
+                  <select class="dropdown-btn" type="button" value="카테고리"aria-expanded="false">
+                    <option value="<%= BOARDS.FREE_BOARD %>" <%= BOARDS.FREE_BOARD == board ? "selected" : "" %> >Free Boards</option>
+                    <option value="<%= BOARDS.TIP_BOARD %>" <%= BOARDS.TIP_BOARD == board ? "selected" : "" %> >Tip Boards</option>
+                  <% if( AUTHORITY.MANAGER ==  User?.authorityId ) {%>
+                    <option value="<%= BOARDS.QNA_BOARD %>" <%= BOARDS.QNA_BOARD == board ? "selected" : "" %> >QnA Boards</option>
+                  <% } %>
+                    
+                  </select>
+                </div>
+                <form action="/tip_board/create" method="post">
+                 <input id="Title_writ" type="text" name="title" placeholder="제목을 입력하세요" style="padding-left:15px ;">
+                 <input type="hidden" name="userId" value="<%= User?.userId %>" > 
+                 <div class="modal-body">
+                    <div>
+                    <textarea id="in_writ"type="text" name="content" style="padding:20px ;"></textarea>
+                    </div>
+                  </div>
+                  <button id="saveBtn">저장</button>
+                </form>
+              </div>
+
+              </div>
+             
+                </div>
+              </div>
+              
+               
+                </div>
+              </div>
+              
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-section wf-section">
+        <div class="container">
+          <div class="footer">
+            <div>
+              ©2020 Company Name. All rights reserved. Made by
+              <a href="https://www.mackenziechild.me/" target="_blank"
+                >Mackenzie</a
+              >. Built with
+              <a href="https://webflow.com/?rfsn=907313.fd59a6" target="_blank"
+                >Webflow</a
+              >.
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    
+    <script
+      src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=5e87e737ee7085b9ba02c101"
+      type="text/javascript"
+      integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+      crossorigin="anonymous"  
+    ></script>
+    <script
+      src="https://assets.website-files.com/5e87e737ee7085b9ba02c101/js/webflow.be692164d.js"
+      type="text/javascript"
+    ></script>
+    <script src="./membership.js"></script>
+    <!--[if lte IE 9
+      ]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script
+    ><![endif]-->
+  </body>
+</html>
