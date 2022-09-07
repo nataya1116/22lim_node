@@ -7,6 +7,8 @@ const router = express.Router();
 
 const AdminController = require("../controllers/admin_controller");
 
-router.get("/user_list/:page/:perPage/:condition", SessionMiddleware.validityAdmin, AdminController.listUser);
+router.get("/user_list/:page/:perPage/:authorityId/:conditionId", SessionMiddleware.validityAdmin, AdminController.listUser);
+
+router.get("/user_list/:page/:perPage/:authorityId/:conditionId/:searchUserId", SessionMiddleware.validityAdmin, AdminController.listUser);
 
 module.exports = router;

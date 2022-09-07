@@ -21,9 +21,6 @@
         <div class="container">
           <div class="w-dyn-list list-box">
             <div class="text-div">
-              <% if (User?.userId) {%>
-                <button class="text-btn"><a href="/tip_board/create_view">글쓰기</a></button>
-              <% } %>
             </div>
             <div role="list" class="grid-column w-dyn-items articles">
              <!-- 여기 기점 부터 리스트 -->
@@ -34,16 +31,18 @@
                     <div class="button-circle"></div>
                     <div class="button-circle"></div>
                   </div> -->
-                  <td style="width: 7.5vw;">번호</td>
-                  <td style="width: 50vw;">제목</td>
-                  <td style="width: 15vw;">작성자</td>
-                  <td style="width: 20vw;">작성일</td>
-                  <td style="width: 7.5vw;">조회</td>
+                  <td style="width: 15vw;">아이디</td>
+                  <td style="width: 20vw;">가입일</td>
+                  <td style="width: 20vw;">최종 로그인</td>
+                  <td style="width: 10vw;">등급</td>
+                  <td style="width: 10vw;">상태</td>
+                  <td style="width: 10vw;">활동중지</td>
+                  <td style="width: 10vw;">승인</td>
                 </tr>
 
               <% if(!!list) { %>
                 <% for( let i = 0; i < list.length; i++) {%>
-                      <% const post = list[i] %>
+                      <% const user = list[i] %>
 
                       <% let offset = 0; %>
                       <% if( pageNum > 1 ) { %>
@@ -51,11 +50,31 @@
                       <% } %>
                       <% offset += i; %>  
                       <tr class="divideIn">
-                        <td><%= post.id %></td>
-                        <td><a href="/tip_board/read/<%= offset %>" class="a-decoration" ><%= post.title %></a> </td>
-                        <td><%= post.User.userId %></td>
-                        <td><%= post.createdAt %></td>
-                        <td><%= post.view %></td>
+                        <td><%= user.userId %></td>
+                        <td><%= user.createdAt %></td>
+                        <td><%= user.lastLogin %></td>
+                        <td><%= user.Authority.name %></td>
+                        <td><%= user.ConditionUser.name %></td>
+                        <% if( user.conditionId == CONDITION.INACTIVITY ) {%>
+                          <td><%=new Date(new Date(user.InactiveUser.stopFewDays) - new Date()).getDay() %>일 남음</td>
+                        <% } else { %>
+                          <td>
+                            <select name="stopFewDays" id="stopFewDays">
+                              <option value="0" selected>-</option>
+                              <option value="1">1</option>
+                              <option value="3">3</option>
+                              <option value="7">7</option>
+                              <option value="10">10</option>
+                              <option value="15">15</option>
+                              <option value="30">30</option>
+                            </select>
+                          </td>
+                        <% } %>
+                        <% if( user.conditionId == CONDITION.WAITING ) {%>
+                          <td><button>승인</button></td>
+                        <% } else { %>
+                          <td>-</td>
+                        <% } %>
                       </tr>
                 <% }  %>
               <% }  %>
@@ -70,12 +89,10 @@
           <option value="content" <%=searchKey == "content" ? "selected" : "" %> >내용</option>
           <option value="userId" <%=searchKey == "userId" ? "selected" : "" %> >작성자</option>
         </select>
-
       </div>
       <input class="find-input" id="find_input" type="text" value="<%= searchWord %>">
       <input type="hidden" id="board_url" value="tip_board">
       <button class="find-btn" id="find_btn" data-limit="<%= limit %>">찾기</button>
-      
     </div>
     <% if(!!list) { %>
     <div class="page-nav">

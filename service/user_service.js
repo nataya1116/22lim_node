@@ -1,4 +1,5 @@
-const { User, PointHistory, PointTotal, PointType, GameSkinUser, InactiveUser, sequelize } = require("../model/index");
+const { User, PointHistory, PointTotal, PointType, GameSkinUser, InactiveUser, Authority, ConditionUser, sequelize } = require("../model/index");
+const Op = require("sequelize").Op;
 const { POINT } = require("../config/config");
 
 // GameSkinUser/PointHistory/PointTotal 추가
@@ -107,7 +108,7 @@ module.exports.updateRefreshToken = async (userId, refreshToken) => {
                         where: { userId },
                       }
                     );
-  } catch (error) {
+  } catch (err) {
     console.error(err);
     return err;
   }
@@ -223,15 +224,29 @@ module.exports.findId = async (email) => {
   }
 };
 
-module.exports.listUsers = (offset, limit) => {
+module.exports.listUserSearching = (offset, limit, userId, authorityId, conditionId) => {
+  const where = {};
+  if(!!userId) where.userId = { [Op.like]: `%${userId}%` }
+  if(!!authorityId) where.authorityId = authorityId;                   
+  if(!!conditionId) where.conditionId = conditionId;
+
   return User.findAndCountAll({
                                   attributes : ["userId", "authorityId", "conditionId", "createdAt", "lastLogin"],
                                   include : [
                                     {
                                       attributes : ["stopFewDays"],
                                       model : InactiveUser
+                                    },
+                                    {
+                                      attributes : ["name"],
+                                      model : Authority
+                                    },
+                                    {
+                                      attributes : ["name"],
+                                      model : ConditionUser
                                     }
                                   ],
+                                  where,
                                   offset,
                                   limit
                               });
