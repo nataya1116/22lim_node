@@ -11,4 +11,8 @@ router.get("/user_list/:page/:perPage/:authorityId/:conditionId", SessionMiddlew
 
 router.get("/user_list/:page/:perPage/:authorityId/:conditionId/:searchUserId", SessionMiddleware.validityAdmin, AdminController.listUser);
 
+router.post("/approval_user", SessionMiddleware.validityAdmin, AdminController.approvalUser);
+
+router.post("/stop_user", SessionMiddleware.validityAdmin, AdminController.stopUser);
+
 module.exports = router;

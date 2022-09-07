@@ -6,28 +6,27 @@ class InactiveUser extends Sequelize.Model {
         return super.init({
             userId : {
                 type : Sequelize.INTEGER,
-                allowNull : false,
-                unique : true
+                allowNull : false
             },
             stopFewDays : {
-                type : Sequelize.DATEONLY,
+                type : Sequelize.DATE,
                 allowNull: false,
                 get() {
-                    return moment(this.getDataValue("stopFewDays")).format("YYYY/MM/DD");
+                    return moment(this.getDataValue("stopFewDays")).format("YYYY/MM/DD HH:mm:ss");
                 }
             },
             createdAt: {
               type: Sequelize.DATE,
               allowNull: false,
               get() {
-                return moment(this.getDataValue("createdAt")).format("YYYY/MM/DD");
+                return moment(this.getDataValue("createdAt")).format("YYYY/MM/DD HH:mm:ss");
               },
             },
             updatedAt: {
               type: Sequelize.DATE,
               allowNull: false,
               get() {
-                return moment(this.getDataValue("updatedAt")).format("YYYY/MM/DD");
+                return moment(this.getDataValue("updatedAt")).format("YYYY/MM/DD HH:mm:ss");
               },
             }
         },

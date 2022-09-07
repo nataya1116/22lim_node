@@ -18,28 +18,35 @@ module.exports.findStopFewDays = async (userId) => {
     return result.dataValues.stopFewDays
 }
 
-module.exports.create = async (userId, days) => {
-    const user = await User.findOne({
-                                        attributes : ["id"],
-                                        where: { userId }
-                                    });
-    if (!user) return false;
-                                    
-    return sequelize.transaction(async (t) => {
-        const createResult = await InactiveUser.create({
-                                                            userId : user.id,
-                                                            stopFewDays : new Date(new Date().getTime() + days * 60 * 60 * 1000)
-                                                        });
+module.exports.create = async (userId, stopFewDays) => {
+    try {
+        const user = await User.findOne({
+            attributes : ["id"],
+            where: { userId }
+        });
+        if (!user) return false;
+                               
+  
+        await InactiveUser.create({
+                                    userId : user.id,
+                                    stopFewDays,
+                                });
 
-        const updateResult = await User.update({
-                                                    conditionId : CONDITION.INACTIVITY
-                                                },
-                                                {
-                                                    where : { userId }
-                                                });
-        if(createResult && updateResult) return true;
-        else return false;
-    });
+        await User.update({
+                            conditionId : CONDITION.INACTIVITY
+                        },
+                        {
+                            where : { userId }
+                        });  
+                        
+        return await User.count({
+            where : { userId, conditionId : CONDITION.INACTIVITY }
+        })
+     
+    } catch (err) {
+        console.log(err);
+        return false;
+    }
 
     
 

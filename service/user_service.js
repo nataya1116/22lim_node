@@ -1,6 +1,6 @@
 const { User, PointHistory, PointTotal, PointType, GameSkinUser, InactiveUser, Authority, ConditionUser, sequelize } = require("../model/index");
 const Op = require("sequelize").Op;
-const { POINT } = require("../config/config");
+const { POINT, CONDITION } = require("../config/config");
 
 // GameSkinUser/PointHistory/PointTotal 추가
 module.exports.create = async ({
@@ -250,4 +250,13 @@ module.exports.listUserSearching = (offset, limit, userId, authorityId, conditio
                                   offset,
                                   limit
                               });
+}
+
+module.exports.updateConditionApproval = async (userId) => {
+  return await User.update({
+                            conditionId : CONDITION.ACTIVITY
+                          },
+                          {
+                            where : { userId }
+                          })
 }

@@ -14,7 +14,7 @@ module.exports.signUp = async (req, res) => {
 
   const authorityId = AUTHORITY.USER;
 
-  const conditionId = CONDITION.ACTIVITY;
+  const conditionId = CONDITION.WAITING;
 
   const encryptedPw = EncryptionService.pwEncryption(userPw);
 
