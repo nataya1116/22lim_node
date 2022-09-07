@@ -2,6 +2,7 @@ const { UserService,
         GameSkinUserService, 
         EncryptionService,
         TokenService,
+        InactiveUserService,
         PointTotalService } = require("../service");
 
 const { mailer, jwt } = require("../modules/common");
