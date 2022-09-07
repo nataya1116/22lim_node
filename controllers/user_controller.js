@@ -1,7 +1,9 @@
-const { UserService, 
-        GameSkinUserService, 
-        EncryptionService,
-        TokenService } = require("../service");
+const {
+  UserService,
+  GameSkinUserService,
+  EncryptionService,
+  TokenService,
+} = require("../service");
 
 const { mailer, jwt } = require("../modules/common");
 const { config } = require("../config/config");
@@ -34,7 +36,7 @@ module.exports.signUpView = async (req, res) => {
   const User = null;
 
   res.render("signup", { User });
-}
+};
 
 module.exports.emailSend = (req, res) => {
   let email = req.body.email;
@@ -156,17 +158,17 @@ module.exports.logout = async (req, res) => {
   const accessToken = req.session.access_token;
   const refreshToken = req.session.refresh_token;
 
-  if(!accessToken && !refreshToken){
+  if (!accessToken && !refreshToken) {
     return res.redirect("/");
   }
 
-  req.session.destroy((err)=> {
-    if(err){
+  req.session.destroy((err) => {
+    if (err) {
       console.error(err);
     }
     return res.redirect("/");
-  })
-}
+  });
+};
 
 // 마이페이지------------------------------
 module.exports.userMyPage = async (req, res) => {
@@ -181,7 +183,7 @@ module.exports.userMyPage = async (req, res) => {
   // 나중에 데이터에서 가져올 유저의 아이디 값을 주면 됨
   await UserService.userMyPage(userId).then((e) => {
     // render의 두번째 매개변수로 받아올 데이터?...
-    res.render("mypage", { data: e, User, SkinUser});
+    res.render("mypage", { data: e, User, SkinUser });
   });
 };
 
@@ -263,6 +265,52 @@ module.exports.idEmailSend = (req, res) => {
   });
 };
 
+module.exports.findIdView = (req, res) => {
+  const accessToken = req.session?.access_token;
+  const User = TokenService.verifyAccessToken(accessToken);
+  res.render("find_id", { User });
+};
+
+module.exports.idEmailSend = (req, res) => {
+  let userEmail = req.body.userEmail;
+
+  UserService.findId(userEmail).then((e) => {
+    if (e !== null) {
+      let sendmail = {
+        toEmail: userEmail,
+        subject: `안녕하세요 22lim 아이디 조회 결과입니다.`,
+        text: `${userEmail}님의 아이디는, <h1>${e.userId}</h1> 입니다.`,
+      };
+
+      let transpoter = mailer.createTransport({
+        service: "Naver",
+        port: 587, // 25 587
+        host: "smtp.naver.com",
+        auth: {
+          user: config.mailer.user,
+          pass: config.mailer.pw,
+        },
+      });
+
+      let mailoption = {
+        from: config.mailer.user,
+        to: sendmail.toEmail,
+        subject: sendmail.subject,
+        html: sendmail.text,
+      };
+
+      transpoter.sendMail(mailoption, (err, info) => {
+        if (err) {
+          console.log(err);
+          res.send("err");
+        } else console.log("send success", info.response);
+      });
+      res.send("suc");
+    } else {
+      res.send("fail");
+    }
+  });
+};
 module.exports.findIdView = (req, res) => {
   const accessToken = req.session?.access_token;
   const User = TokenService.verifyAccessToken(accessToken);

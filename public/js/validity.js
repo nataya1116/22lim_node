@@ -192,3 +192,23 @@ function newPwCheck() {
   if (!pwDoubleCheck(user_pw_check.value, pass_check)) return false;
   return true;
 }
+
+// id 찾기 (이메일 보내기)
+function IdEmailCheck(email) {
+  const emailRegex =
+    /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/g;
+  if (emailRegex.test(email) == false) {
+    email_check.innerHTML = "이메일을 확인해주세요";
+    return false;
+  } else {
+    if (is_email_check.value) {
+      email_check.innerHTML = "";
+      mail_btn.disabled = true;
+      return true;
+    } else {
+      email_check.innerHTML = "해당 이메일로 아이디를 보내드립니다.";
+      mail_btn.disabled = false;
+      return true;
+    }
+  }
+}

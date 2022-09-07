@@ -134,11 +134,16 @@ module.exports.findPw = async (userId) => {
   }
 };
 
-
 module.exports.findUser = async (userId) => {
   try {
     return await User.findOne({
-      attributes: ["userId", "userPw", "authorityId", "conditionId", "refreshToken"],
+      attributes: [
+        "userId",
+        "userPw",
+        "authorityId",
+        "conditionId",
+        "refreshToken",
+      ],
       include: [
         {
           attributes: ["point"],
@@ -242,12 +247,31 @@ module.exports.useEmail = async (email) => {
 // 이메일
 module.exports.findId = async (email) => {
   try {
+    return await User.findOne(
+      {
+        where: {
+          email,
+        },
+        // raw: true
+      },
+      console.log(email)
+    );
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+};
+
+module.exports.checkEmailId = async (userId, email) => {
+  console.log(userId, email);
+  try {
     return await User.findOne({
       where: {
+        userId,
         email,
       },
       // raw: true
-    },console.log(email));
+    });
   } catch (err) {
     console.error(err);
     return null;
