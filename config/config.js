@@ -4,9 +4,9 @@ dot.config();
 
 const config = {
   dev: {
-    username: "admin",
+    username: "22lim",
     password: process.env.DATABASE_PASSWORD_DEV,
-    database: "mydb",
+    database: "22lim_test2",
     host: "127.0.0.1",
     dialect: "mysql",
   },

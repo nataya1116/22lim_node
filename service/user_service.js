@@ -265,7 +265,7 @@ module.exports.findId = async (email) => {
 module.exports.checkEmailId = async (userId, email) => {
   console.log(userId, email);
   try {
-    return await User.findOne({
+    return await User.findAll({
       where: {
         userId,
         email,

@@ -118,6 +118,9 @@ html {
   background-color: #000000;
   color: #ffffff;
 }
+.find-btn a:hover {
+  color: #ffffff;
+}
 
 .login-box {
   min-width: 700px;
@@ -185,9 +188,6 @@ html {
   color: #ffffff;
 }
 
-.same-check {
-  margin-left: 245px;
-}
 .find-btn a {
   text-decoration: none;
 }
@@ -201,8 +201,8 @@ html {
 .same-check {
   position: absolute;
   font-size: 12px;
-  margin-left: 245px;
-  margin-top: 110px;
+  margin-left: 317px;
+  margin-top: 70px;
 }
 
 .check {

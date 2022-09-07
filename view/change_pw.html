@@ -37,11 +37,7 @@
             (n.className += t + "touch");
       })(window, document);
     </script>
-    <link
-      href="/img/22lim-logo.svg"
-      rel="shortcut icon"
-      type="image/x-icon" />
-
+    <link href="/img/22lim-logo.svg" rel="shortcut icon" type="image/x-icon" />
   </head>
   <body>
     <div
@@ -56,7 +52,7 @@
         href="/"
         aria-current="page"
         class="logo-wrapper w-nav-brand w--current"
-        ><img src="/img/22lim_home_logo.svg" alt="Mac Logo" class="logo"
+        ><img src="/img/22lim-logo.svg" alt="Mac Logo" class="logo"
       /></a>
 
       <nav role="navigation" class="nav-menu w-nav-menu">
@@ -102,15 +98,22 @@
                 <div class="center-box">
                   <!-- 이따 여기 메인 -->
 
-                  <div class="join-main">
-                    <div class="email-div">
-                      <input type="text" placeholder="새로운 비밀번호" />
-                    </div>
-                    <input type="text"placeholder="비밀번호 확인" >
-                    <button class="same-check">일치확인</button>
-              
+                  <div class="new-pw">
+                    <input
+                      type="password"
+                      placeholder="새로운 비밀번호"
+                      id="user_pw"
+                      onkeyup="pwCheck(this.value, pw_check)" />
+                    <span id="pw_check" class="check"></span>
+                    <input
+                      type="password"
+                      placeholder="비밀번호 확인"
+                      id="user_pw_check"
+                      onkeyup="pwDoubleCheck(this.value, pass_check)" />
+                    <span id="pass_check" class="check"></span>
+                    <!-- /<button class="same-check">일치확인</button> -->
                   </div>
-                  <button class="yes-btn">완료</button>
+                  <button class="yes-btn" onclick="newPw()">완료</button>
                 </div>
               </div>
             </div>
@@ -125,58 +128,11 @@
         </div>
       </div>
       <!-- ----------------------------------button 부분------------------------------------ -->
-      <div id="container-floating">
-        <!-- <div class="nd4 nds">
-        <img class="reminder" />
-        <p class="letter">C</p>
-      </div>
 
-      <div class="nd3 nds">
-        <img
-          class="reminder"
-          src="//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/1x/ic_reminders_speeddial_white_24dp.png" />
-      </div> -->
-        <div class="nd1 nds">
-          <p class="letter">💬</p>
-        </div>
-        <div id="floating-button">
-          <p class="plus">+</p>
-          <div class="edit">😀</div>
-          <!-- 이미지로 넣어도 됨 -->
-        </div>
-      </div>
       <!-- ----------------------------------button end------------------------------------ -->
-      <div class="main-box">
-        <button class="exit-btn">✖</button>
-        <div class="box-content">
-          <div class="chat-head">무엇이든 물어보세요</div>
-          <div class="chet-box">
-            <div class="admin-box" >
-              <p>
-                👦
-                <div class="admin-chat">
-                  <div class="admin-inchat">안녕</div>
-                  <div class="adchat-day">2022.05.07</div>
-                </div>
-              </p>
-            </div>
-            <div class="user-box">
-              <p>
-              <div class="uset-chat">
-                <div class="user-inchat">안녕</div>
-                  <div class="uschat-day">2022.05.07</div>
-              </div>  
-                👩
-              </p>
-            </div>
-          </div>
-          <div class="border-box">
-            <textarea  class="chat-border" cols="30" rows="10" placeholder="채팅을 입력해 주세요"></textarea>
-          </div>
-        </div>
-     </div>
     </div>
     <script src="/js/chat_ui.js"></script>
+    <script src="/js/validity.js"></script>
     <script
       src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.4.1.min.220afd743d.js?site=5e87e737ee7085b9ba02c101"
       type="text/javascript"
@@ -189,4 +145,25 @@
       ]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script
     ><![endif]-->
   </body>
+  <script>
+    function newPw() {
+      if (!newPwCheck()) return;
+
+      $.ajax({
+        url: "/user/change_pw",
+        type: "post",
+        data: {
+          newPw: user_pw.value,
+          newPwCheck: user_pw_check.value,
+        },
+        success: (data) => {
+          if (data == "suc") {
+            alert("비밀번호가 변경되었습니다.");
+            location.href = "/user/mypage";
+          } else if (data == "fail") alert("비밀번호가 일치하지 않습니다.");
+          else alert("알수 없는 오류 발생");
+        },
+      });
+    }
+  </script>
 </html>
