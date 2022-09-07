@@ -37,11 +37,11 @@ module.exports.signUpView = async (req, res) => {
   res.render("signup", { User });
 }
 
-module.exports.emailSend = (req, res) => {
+module.exports.emailSend = async (req, res) => {
   let email = req.body.email;
   req.session.email = email;
 
-  UserService.useEmail(email).then((e) => {
+  await UserService.useEmail(email).then((e) => {
     if (e == null) {
       const randNum = randomNum();
       // req.session.randomNum = ranNum;
