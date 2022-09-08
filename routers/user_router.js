@@ -46,9 +46,7 @@ router.post("/find_id", UserController.idEmailSend);
 router.get("/change_pw", (req, res) => {
   res.render("change_pw");
 });
-router.get("/find_pw", (req, res) => {
-  res.render("find_pw");
-});
+router.get("/find_pw", UserController.pwEmailSend);
 
 router.get(
   "/point_history/:page/:perPage/",

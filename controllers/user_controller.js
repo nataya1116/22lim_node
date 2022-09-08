@@ -271,15 +271,26 @@ module.exports.findIdView = (req, res) => {
   res.render("find_id", { User });
 };
 
-module.exports.idEmailSend = (req, res) => {
-  let userEmail = req.body.userEmail;
-
-  UserService.findId(userEmail).then((e) => {
+module.exports.pwEmailSend = async (req, res) => {
+  let email = req.body.email;
+  let userId = req.body.userId;
+  await UserService.checkEmailId(userId, email).then(async (e) => {
     if (e !== null) {
+      const randomarr = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "~", "@", "!", "#", "$", "%", "^", "&", "*"];
+      const pwNums = 8;
+      const pw = "";
+
+      for (let i = 0; i < pwNums; i++) {
+        const randomgetnumber = Math.floor(Math.random() * 20);
+        pw += randomarr[randomgetnumber];
+      }
+      
+      const encryptedPw = await EncryptionService.pwEncryption(pw);
+      await UserService.myPageUpdatePw(userId, encryptedPw);
       let sendmail = {
-        toEmail: userEmail,
+        toEmail: email,
         subject: `안녕하세요 22lim 아이디 조회 결과입니다.`,
-        text: `${userEmail}님의 아이디는, <h1>${e.userId}</h1> 입니다.`,
+        text: `${userId}님의 임시 비밀번호는, <h1>${pw}</h1> 입니다.`,
       };
 
       let transpoter = mailer.createTransport({
@@ -316,3 +327,4 @@ module.exports.findIdView = (req, res) => {
   const User = TokenService.verifyAccessToken(accessToken);
   res.render("find_id", { User });
 };
+
