@@ -5,10 +5,12 @@ module.exports.findPoint = async (userId) => {
         const user = await User.findOne({
                                             where : { userId }
                                         });
-        return await PointTotal.findOne({
-                                            attributes: ["point"],
-                                            where : { userId : user.id }
-                                        });
+        const reulst = await PointTotal.findOne({
+                                                    attributes: ["point"],
+                                                    where : { userId : user.id }
+                                                });
+        const point = reulst.dataValues.point;
+        return point;
     } catch (err) {
         console.error(err);
         return null;

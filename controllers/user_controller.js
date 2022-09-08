@@ -3,6 +3,8 @@ const {
   GameSkinUserService,
   EncryptionService,
   TokenService,
+  InactiveUserService,
+  PointTotalService,
 } = require("../service");
 
 const { mailer, jwt } = require("../modules/common");
@@ -15,7 +17,7 @@ module.exports.signUp = async (req, res) => {
 
   const authorityId = AUTHORITY.USER;
 
-  const conditionId = CONDITION.ACTIVITY;
+  const conditionId = CONDITION.WAITING;
 
   const encryptedPw = EncryptionService.pwEncryption(userPw);
 
@@ -38,11 +40,11 @@ module.exports.signUpView = async (req, res) => {
   res.render("signup", { User });
 };
 
-module.exports.emailSend = (req, res) => {
+module.exports.emailSend = async (req, res) => {
   let email = req.body.email;
   req.session.email = email;
 
-  UserService.useEmail(email).then((e) => {
+  await UserService.useEmail(email).then((e) => {
     if (e == null) {
       const randNum = randomNum();
       // req.session.randomNum = ranNum;
@@ -117,28 +119,36 @@ module.exports.login = async (req, res) => {
   const user = result?.dataValues;
 
   if (!user) {
-    return res.send("fail");
+    return res.send({ result: "fail" });
   }
 
   const encryptedPw = user.userPw;
+
   const isLogin = EncryptionService.isPwCheck(userPw, encryptedPw);
 
   if (!isLogin) {
-    return res.send("fail");
+    return res.send({ result: "fail" });
   }
 
-  const point = user.PointTotal.point;
   const authorityId = user.authorityId;
+  const conditionId = user.conditionId;
+
+  if (conditionId == CONDITION.INACTIVITY) {
+    const date = await InactiveUserService.findStopFewDays(userId);
+    return res.send({ result: "inactivity", date });
+  } else if (conditionId == CONDITION.WAITING) {
+    return res.send({ result: "waiting" });
+  }
 
   const accessToken = TokenService.createAccessToken(
     userId,
-    point,
-    authorityId
+    authorityId,
+    conditionId
   );
   const refreshToken = TokenService.createRefreshToken(
     userId,
-    point,
-    authorityId
+    authorityId,
+    conditionId
   );
 
   req.session.access_token = accessToken;
@@ -146,10 +156,17 @@ module.exports.login = async (req, res) => {
 
   UserService.updateRefreshToken(userId, refreshToken);
 
-  return res.send("suc");
+  return res.send({ result: "suc" });
 };
 
 module.exports.loginView = (req, res) => {
+  // 로그인 페이지 접속 시 세션 삭제(로그아웃) 실행
+  req.session.destroy((err) => {
+    if (err) {
+      console.error(err);
+    }
+  });
+
   const User = null;
   res.render("login", { User });
 };
@@ -166,8 +183,8 @@ module.exports.logout = async (req, res) => {
     if (err) {
       console.error(err);
     }
-    return res.redirect("/");
   });
+  return res.redirect("/");
 };
 
 // 마이페이지------------------------------
@@ -177,13 +194,16 @@ module.exports.userMyPage = async (req, res) => {
   const userId = User?.userId;
 
   const result = await GameSkinUserService.findOne(userId);
-  const SkinUser = result.dataValues.GameSkinProduct;
+  const SkinUser = result?.dataValues.GameSkinProduct;
   console.log(SkinUser);
+
+  const point = await PointTotalService.findPoint(userId);
+
   // userMyPage의 매개변수로 아이디를 넣어주면 된다
   // 나중에 데이터에서 가져올 유저의 아이디 값을 주면 됨
   await UserService.userMyPage(userId).then((e) => {
     // render의 두번째 매개변수로 받아올 데이터?...
-    res.render("mypage", { data: e, User, SkinUser });
+    res.render("mypage", { data: e, User, point, SkinUser });
   });
 };
 

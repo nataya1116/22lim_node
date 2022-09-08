@@ -9,6 +9,7 @@ const config = {
     database: "22lim_test2",
     host: "127.0.0.1",
     dialect: "mysql",
+    timezone: "Asia/Seoul",
   },
   mailer: {
     user: process.env.EMAIL,
@@ -23,7 +24,7 @@ const CONDITION = {
 };
 
 const AUTHORITY = {
-  MANAGER: 1,
+  ADMIN: 1,
   USER: 2,
 };
 

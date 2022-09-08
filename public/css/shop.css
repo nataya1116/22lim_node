@@ -99,6 +99,35 @@ html {
   padding: 5px 12px 5px 12px;
 }
 
+.shop-btn {
+  margin-bottom: 30px;
+  border: 4px solid #000000;
+  background-color: #ffffff;
+  margin-right: auto;
+  padding: 5px 12px 5px 12px;
+}
+
+.shop-btn:hover {
+  border: 4px solid #000000;
+  background-color: #c4c4c4;
+  color: #ffffff;
+}
+
+.shop-choice-btn {
+  margin-bottom: 30px;
+  border: 4px solid #000000;
+  background-color: #c4c4c4;
+  color: #ffffff;
+  margin-right: auto;
+  padding: 5px 12px 5px 12px;
+}
+
+.all-heart-btn button:hover {
+  border: 4px solid #000000;
+  background-color: #000000;
+  color: #ffffff;
+}
+
 .shop-section {
   padding: 80px;
 }
@@ -108,6 +137,22 @@ html {
   border: 4px solid #000;
   background-color: #c4c4c4;
   color: #000;
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: 15px;
+  margin-right: 10px;
+  transition: transform 100ms ease-in-out;
+}
+
+.buy-btn:hover {
+  transform: scale(1.05);
+}
+
+.choice-btn {
+  padding: 4px 6px;
+  border: 4px solid #000;
+  background-color: #000;
+  color: #c4c4c4;
   font-size: 20px;
   font-weight: 600;
   margin-top: 15px;
@@ -126,15 +171,20 @@ html {
   height: 35px;
   margin-top: 15px;
   margin-right: 40px;
+  transition: transform 100ms ease-in-out;
+}
+
+.heart-btn:hover {
+  transform: scale(1.1);
 }
 
 .skin-body {
   -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: column;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    border: 4px solid #000;
-    background-color: #fff;
-    box-shadow: 8px 8px 0 0 #000;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  border: 4px solid #000;
+  background-color: #fff;
+  box-shadow: 8px 8px 0 0 #000;
 }

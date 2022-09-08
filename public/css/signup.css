@@ -152,12 +152,22 @@ html {
   height: 25px;
   margin-right: 5px;
 }
-
+.check-email-btn {
+  font-family: "NanumSquareRound-B";
+  font-weight: 600;
+  font-size: 13px;
+  height: 25px;
+  margin-right: 5px;
+  background-color: #efefef;
+}
 .check-id-btn:hover {
   background-color: #000000;
   color: #ffffff;
 }
-
+.check-email-btn:hover {
+  background-color: #000000;
+  color: #ffffff;
+}
 .num-div {
   display: flex;
   align-items: center;

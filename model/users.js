@@ -51,30 +51,30 @@ class User extends Sequelize.Model {
           type: Sequelize.INTEGER,
           allowNull: false,
         },
+        lastLogin : {
+          type: Sequelize.DATE,
+          get() {
+            return moment(this.getDataValue("lastLogin")).format("YYYY/MM/DD HH:mm:ss");
+          }
+        },
         createdAt: {
           type: Sequelize.DATE,
           allowNull: false,
           get() {
-            return moment(this.getDataValue("createdAt")).format(
-              "YYYY/MM/DD hh:mm:ss"
-            );
-          },
+            return moment(this.getDataValue("createdAt")).format("YYYY/MM/DD HH:mm:ss");
+          }
         },
         updatedAt: {
           type: Sequelize.DATE,
           allowNull: false,
           get() {
-            return moment(this.getDataValue("updatedAt")).format(
-              "YYYY/MM/DD hh:mm:ss"
-            );
+            return moment(this.getDataValue("updatedAt")).format("YYYY/MM/DD HH:mm:ss");
           },
         },
         deletedAt: {
           type: Sequelize.DATE,
           get() {
-            return moment(this.getDataValue("deletedAt")).format(
-              "YYYY/MM/DD hh:mm:ss"
-            );
+            return moment(this.getDataValue("deletedAt")).format("YYYY/MM/DD HH:mm:ss");
           },
         },
       },
@@ -112,9 +112,10 @@ class User extends Sequelize.Model {
 
     db.User.hasMany(db.PointHistory, { foreignKey: "userId", sourceKey: "id" });
 
+    db.User.hasMany(db.InactiveUser, { foreignKey: "userId", sourceKey: "id" });
+    
     // 1 : 1
     db.User.hasOne(db.PointTotal, { foreignKey: "userId", sourceKey: "id" });
-    db.User.hasOne(db.InactiveUser, { foreignKey: "userId", sourceKey: "id" });
 
     // N : 1
     db.User.belongsTo(db.Authority, { foreignKey: "authorityId", targetKey: "id" });

@@ -1,4 +1,4 @@
-const { TipReply, User, PointTotal, PointHistory, PointType, sequelize } = require("../model/index");
+const { TipReply, User, PointTotal, PointHistory, PointType, sequelize } = require("../model");
 const Op = require("sequelize").Op;
 const { POINT } = require("../config/config");
 

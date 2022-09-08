@@ -34,7 +34,7 @@ class GameSkinProducts extends Sequelize.Model {
           allowNull: false,
           get() {
             return moment(this.getDataValue("createdAt")).format(
-              "YYYY/MM/DD hh:mm:ss"
+              "YYYY/MM/DD HH:mm:ss"
             );
           },
         },
@@ -43,7 +43,7 @@ class GameSkinProducts extends Sequelize.Model {
           allowNull: false,
           get() {
             return moment(this.getDataValue("updatedAt")).format(
-              "YYYY/MM/DD hh:mm:ss"
+              "YYYY/MM/DD HH:mm:ss"
             );
           },
         },

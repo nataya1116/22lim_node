@@ -31,7 +31,7 @@
                     <div class="character-box">
                       <span>character</span>
 
-                      <a href="http://localhost:4000/skin_products/list_use/1/12/">
+                      <a href="/skin_products/list_own/1/12/">
                         <div class="character-skin">
                           <div class="character">
                             <img style=" background-image: url('<%=SkinUser?.imgUrl%>'); background-position: <%=SkinUser?.positionX%>px <%=SkinUser?.positionY%>px;" alt="" />
@@ -43,7 +43,7 @@
                       
                       <br>
                       <div class="id-box"><%= data.userId %>님</div>
-                      <a href="/user/point_history/1/10" style="text-decoration: none;"> Point <img src="/img/coin.png" alt="" style="width: 20px;" ><span id="user_point"><%= User?.point %></span> </a>
+                      <a href="/user/point_history/1/10" style="text-decoration: none;"> Point <img src="/img/coin.png" alt="" style="width: 20px;" > <span id="user_point"><%= point %></span> </a>
                       <br><br>
                     </div>
                     <div class="info-box">

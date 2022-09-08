@@ -109,9 +109,13 @@
         const url = "/user/login";
         const data = { user_id : user_id.value, user_pw : user_pw.value };
         $.post(url, data, (ret) => {
-            if(ret == "suc"){
+            if(ret.result == "suc"){
               alert("로그인에 성공하였습니다.");
               location.href = "/";
+            } else if (ret.result == "inactivity"){
+              alert(`${ret.date}까지 활동 불가합니다.`);
+            } else if (ret.result == "waiting") {
+              alert("가입 승인 전까지는 활동이 불가합니다.");
             }else{
               alert("아이디 또는 비밀번호가 틀립니다. 다시 로그인해주세요.");
             }

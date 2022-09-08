@@ -3,6 +3,7 @@
     <!-- @@@@@@@@@ CSS 파일 START @@@@@@@@@-->
     <link rel="stylesheet" href="/css/common.css" type="text/css">
     <link rel="stylesheet" href="/css/board_list.css" type="text/css">
+    <link rel="stylesheet" href="/css/shop.css">
     <!-- @@@@@@@@@ CSS 파일 END @@@@@@@@@-->
 
     <%-include("./partial/header_down.html")%>
@@ -11,7 +12,8 @@
       <div class="section small-section wf-section">
         <div class="container">
           <h1>Point History</h1>
-          <div class="subhead"></div>
+          <!-- <div class="subhead"></div> -->
+          Point <img src="/img/coin.png" alt="" style="width: 20px;" > <span id="user_point"><%= point %></span>
         </div>
       </div>
       <div
@@ -21,9 +23,23 @@
         <div class="container">
           <div class="w-dyn-list list-box">
             <div class="text-div">
-              <button onclick="location.href='/user/point_history/1/12/'">all</button>
-              <button onclick="location.href='/user/point_history/1/12/0'">receive</button>
-              <button onclick="location.href='/user/point_history/1/12/1'">spends</button>
+              <% if(button == "all") {%>
+                <button class="shop-choice-btn" onclick="location.href='/user/point_history/1/12/'">all</button>
+              <% } else { %>
+                <button class="shop-btn" onclick="location.href='/user/point_history/1/12/'">all</button>
+              <% } %>
+              <% if(button == "receive") {%>
+                <button class="shop-choice-btn" onclick="location.href='/user/point_history/1/12/0'">receive</button>
+              <% } else { %>
+                <button class="shop-btn" onclick="location.href='/user/point_history/1/12/0'">receive</button>
+              <% } %>
+
+              <% if(button == "spends") {%>
+                <button class="shop-choice-btn" onclick="location.href='/user/point_history/1/12/1'">spends</button>
+              <% } else { %>
+                <button class="shop-btn" onclick="location.href='/user/point_history/1/12/1'">spends</button>
+              <% } %>
+              
             </div>
             <div role="list" class="grid-column w-dyn-items articles">
              <!-- 여기 기점 부터 리스트 -->
