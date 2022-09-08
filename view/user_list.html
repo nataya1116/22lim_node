@@ -10,7 +10,7 @@
     <div class="site-container">
       <div class="section small-section wf-section">
         <div class="container">
-          <h1>Tip Boards</h1>
+          <h1>User List</h1>
           <div class="subhead"></div>
         </div>
       </div>
@@ -21,9 +21,6 @@
         <div class="container">
           <div class="w-dyn-list list-box">
             <div class="text-div">
-              <% if (User?.userId) {%>
-                <button class="text-btn"><a href="/tip_board/create_view">글쓰기</a></button>
-              <% } %>
             </div>
             <div role="list" class="grid-column w-dyn-items articles">
              <!-- 여기 기점 부터 리스트 -->
@@ -34,16 +31,18 @@
                     <div class="button-circle"></div>
                     <div class="button-circle"></div>
                   </div> -->
-                  <td style="width: 7.5vw;">번호</td>
-                  <td style="width: 50vw;">제목</td>
-                  <td style="width: 15vw;">작성자</td>
-                  <td style="width: 20vw;">작성일</td>
-                  <td style="width: 7.5vw;">조회</td>
+                  <td style="width: 15vw;">아이디</td>
+                  <td style="width: 20vw;">가입일</td>
+                  <td style="width: 20vw;">최종 로그인</td>
+                  <td style="width: 10vw;">등급</td>
+                  <td style="width: 10vw;">상태</td>
+                  <td style="width: 10vw;">활동중지</td>
+                  <td style="width: 10vw;">승인</td>
                 </tr>
 
               <% if(!!list) { %>
                 <% for( let i = 0; i < list.length; i++) {%>
-                      <% const post = list[i] %>
+                      <% const user = list[i] %>
 
                       <% let offset = 0; %>
                       <% if( pageNum > 1 ) { %>
@@ -51,11 +50,39 @@
                       <% } %>
                       <% offset += i; %>  
                       <tr class="divideIn">
-                        <td><%= post.id %></td>
-                        <td><a href="/tip_board/read/<%= offset %>" class="a-decoration" ><%= post.title %></a> </td>
-                        <td><%= post.User.userId %></td>
-                        <td><%= post.createdAt %></td>
-                        <td><%= post.view %></td>
+                        <td><%= user.userId %></td>
+                        <td><%= user.createdAt %></td>
+                        <% if (user.lastLogin == "Invalid date") { %>
+                        <td>-</td>
+                        <% } else { %>
+                        <td><%= user.lastLogin %></td>
+                        <% } %>
+                        <td><%= user.Authority.name %></td>
+                        <td id="condition_td<%=i%>"><%= user.ConditionUser.name %></td>
+                        <% if( user.conditionId == CONDITION.INACTIVITY ) {%>
+                          <td id="stop_days_td<%=i%>">
+                            <%= Math.ceil((new Date(user?.InactiveUsers[0]?.stopFewDays).getTime() - new Date().getTime()) / (24 * 60 * 60 * 1000)) %>일 남음   
+                          </td>
+                        <% } else if (user?.authorityId == AUTHORITY.USER && user?.conditionId == CONDITION.ACTIVITY) { %>
+                          <td id="stop_days_td<%=i%>">
+                            <select name="stopFewDays" id="stop_days_select<%=i%>" onchange="stopUser('<%=user.userId%>', stop_days_td<%=i%>, condition_td<%=i%>, stop_days_select<%=i%>)">
+                              <option value="0">-</option>
+                              <option value="1">1</option>
+                              <option value="3">3</option>
+                              <option value="7">7</option>
+                              <option value="10">10</option>
+                              <option value="15">15</option>
+                              <option value="30">30</option>
+                            </select>
+                          </td>
+                        <% } else { %>
+                          <td id="stop_days_td<%=i%>">-</td>
+                        <% } %>
+                        <% if( user.conditionId == CONDITION.WAITING ) {%>
+                          <td id="approval_td<%=i%>"><button onclick="approvalUser('<%=user.userId%>', stop_days_td<%=i%>, condition_td<%=i%>, approval_td<%=i%>)">승인</button></td>
+                        <% } else { %>
+                          <td id="approval_td<%=i%>">-</td>
+                        <% } %>
                       </tr>
                 <% }  %>
               <% }  %>
@@ -65,44 +92,51 @@
     </div>
     <div class="button-container">
       <div class="btn-div">
-        <select class="button clickBtn" id="search_key">
-          <option value="title" <%=searchKey == "title" ? "selected" : "" %> >제목</option>
-          <option value="content" <%=searchKey == "content" ? "selected" : "" %> >내용</option>
-          <option value="userId" <%=searchKey == "userId" ? "selected" : "" %> >작성자</option>
+        <select class="button clickBtn" id="authority_select" onchange="searchig()">
+          <option value="0" >-</option>
+          <option value="1" <%=authorityId == AUTHORITY.ADMIN ? "selected" : "" %> >관리자</option>
+          <option value="2" <%=authorityId == AUTHORITY.USER ? "selected" : "" %>>유저</option>
         </select>
-
       </div>
-      <input class="find-input" id="find_input" type="text" value="<%= searchWord %>">
-      <input type="hidden" id="board_url" value="tip_board">
-      <button class="find-btn" id="find_btn" data-limit="<%= limit %>">찾기</button>
-      
+      <div class="btn-div">
+        <select class="button clickBtn" id="condition_select" onchange="searchig()">
+          <option value="0" >-</option>
+          <option value="1" <%=conditionId == CONDITION.WAITING ? "selected" : "" %> >승인 대기</option>
+          <option value="2" <%=conditionId == CONDITION.ACTIVITY ? "selected" : "" %> >활동 가능</option>
+          <option value="3" <%=conditionId == CONDITION.INACTIVITY ? "selected" : "" %> >활동 중지</option>
+        </select>
+      </div>
+      <input class="find-input" id="find_input" type="text" placeholder="작성자명" value="<%=searchUserId%>">
+      <input type="hidden" id="page_num_input" value="<%=pageNum%>">
+      <input type="hidden" id="limit_input" value="<%=limit%>">
+      <button class="find-btn" id="find_btn" data-limit="<%= limit %>" onclick="searchig()">찾기</button>
     </div>
     <% if(!!list) { %>
     <div class="page-nav">
       <a class="a-decoration" 
-        href="/tip_board/list/1/<%= limit %><%= searchKey != '' ? '/'+searchKey : '' %><%= searchWord != '' ? '/'+searchWord : '' %>">
+        href="/admin/user_list/1/<%= limit %>/<%=authorityId ? authorityId : 0 %>/<%=conditionId ? conditionId : 0 %><%= searchUserId ? '/'+searchUserId : ''%>">
         <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAHCAQAAABwkq/rAAAAHUlEQVR42mNgAIPi/8X/kWkwA8SE0UQIMJAsCKMBBzk27fqtkcYAAAAASUVORK5CYII=" alt="처음페이지로 이동">
       </a>
       <a class="a-decoration" 
-        href="/tip_board/list/<%= pageNum > 1 ? pageNum - 1 : 1 %>/<%= limit %><%= searchKey != '' ? '/'+searchKey : '' %><%= searchWord != '' ? '/'+searchWord : '' %>">
+        href="/admin/user_list/<%= pageNum > 1 ? pageNum - 1 : 1 %>/<%= limit %>/<%=authorityId ? authorityId : 0 %>/<%=conditionId ? conditionId : 0 %> <%= searchUserId ? '/'+searchUserId : ''%>">
         <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAHCAQAAABqrk9lAAAAGElEQVR42mNgAIPi/8X/4QwwE5PBQJADAAKSG3cyVhtXAAAAAElFTkSuQmCC" alt="이전페이지 이동 아이콘">
       </a>
 
       <% for( let i = 1; i <= totalPage; i++) { %>
 
         <% if( pageNum != i) { %> 
-          <a class='a-decoration' href="/tip_board/list/<%= i %>/<%= limit %><%= searchKey != '' ? '/'+searchKey : '' %><%= searchWord != '' ? '/'+searchWord : '' %>" ><%= i %></a>
+          <a class='a-decoration' href="/admin/user_list/<%= i %>/<%= limit %>/<%=authorityId ? authorityId : 0 %>/<%=conditionId ? conditionId : 0 %> <%= searchUserId ? '/'+searchUserId : ''%>" ><%= i %></a>
         <% } else { %>
-          <a href="/tip_board/list/<%= i %>/<%= limit %><%= searchKey != '' ? '/'+searchKey : '' %><%= searchWord != '' ? '/'+searchWord : '' %>" ><%= i %></a>
+          <a href="/admin/user_list/<%= i %>/<%= limit %>/<%=authorityId ? authorityId : 0 %>/<%=conditionId ? conditionId : 0 %> <%= searchUserId ? '/'+searchUserId : ''%>" ><%= i %></a>
         <% } %>
       <% } %>
 
       <a class="a-decoration"
-      href="/tip_board/list/<%= pageNum < totalPage ? pageNum + 1 : totalPage %>/<%= limit %><%= searchKey != '' ? '/'+searchKey : '' %><%= searchWord != '' ? '/'+searchWord : '' %>">
+      href="/admin/user_list/<%= pageNum < totalPage ? pageNum + 1 : totalPage %>/<%= limit %>/<%=authorityId ? authorityId : 0 %>/<%=conditionId ? conditionId : 0 %> <%= searchUserId ? '/'+searchUserId : ''%>">
       <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAHCAQAAABqrk9lAAAAGUlEQVR42mMo/l/8nwECQEwCHEwGhAlRBgA2mht3SwgzrwAAAABJRU5ErkJggg==" alt="다음페이지 이동">
       </a>
       <a class="a-decoration"
-        href="/tip_board/list/<%= totalPage %>/<%= limit %><%= searchKey != '' ? '/'+searchKey : '' %><%= searchWord != '' ? '/'+searchWord : '' %>">
+        href="/admin/user_list/<%= totalPage %>/<%= limit %>/<%=authorityId ? authorityId : 0 %>/<%=conditionId ? conditionId : 0 %> <%= searchUserId ? '/'+searchUserId : ''%>">
         <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAHCAQAAABwkq/rAAAAIElEQVR42mMo/l/8n4GBgQFGQ5kgDowmQZCwAMImhDkAb0k27Zcisn8AAAAASUVORK5CYII=" alt="마지막 페이지 이동">
       </a>
     </div>
@@ -125,9 +159,11 @@
       src="https://assets.website-files.com/5e87e737ee7085b9ba02c101/js/webflow.be692164d.js"
       type="text/javascript"
     ></script>
-    <!--[if lte IE 9
-      ]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script
-    ><![endif]-->
-    <script src="/js/borad_list.js"></script>
+    <script
+    src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"
+    type="text/javascript"
+    ></script>
+
+    <script src="/js/user_list.js"></script>
   </body>
 </html>

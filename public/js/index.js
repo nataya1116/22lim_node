@@ -22,10 +22,10 @@ $(".click-to-top").click(function () {
   $(this).css("z-index", topZ + 1);
 });
 
-startBtn.onclick = function(){
-  window.open('http://localhost:4000/game_paranoia',"game_parnoia","width=1200,height=800")
-}
-startBtn2.onclick = function(){
-  window.open('http://localhost:4000/game_paranoia',"game_parnoia","width=1200,height=800")
-}
+// startBtn.onclick = function(){
+//   window.open('http://localhost:4000/game_paranoia',"game_parnoia","width=1200,height=800")
+// }
+// startBtn2.onclick = function(){
+//   window.open('http://localhost:4000/game_paranoia',"game_parnoia","width=1200,height=800")
+// }
 

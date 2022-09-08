@@ -1,4 +1,4 @@
-const { GameSkinUser, User, PointHistory, PointTotal, PointType, sequelize, GameSkinProducts }= require("../model/index");
+const { GameSkinUser, User, PointHistory, PointTotal, PointType, sequelize, GameSkinProducts }= require("../model");
 const { POINT } = require("../config/config");
 
 module.exports.create = async (userId, productId) => {

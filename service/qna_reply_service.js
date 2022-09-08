@@ -1,4 +1,4 @@
-const { QnaReply, User, PointTotal, PointHistory, PointType, sequelize } = require("../model/index");
+const { QnaReply, User, PointTotal, PointHistory, PointType, sequelize } = require("../model");
 const Op = require("sequelize").Op;
 const { POINT } = require("../config/config");
 

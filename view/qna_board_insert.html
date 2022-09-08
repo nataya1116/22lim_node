@@ -32,7 +32,7 @@
                   <select class="dropdown-btn" type="button" value="카테고리"aria-expanded="false">
                     <option value="<%= BOARDS.FREE_BOARD %>" <%= BOARDS.FREE_BOARD == board ? "selected" : "" %> >Free Boards</option>
                     <option value="<%= BOARDS.TIP_BOARD %>" <%= BOARDS.TIP_BOARD == board ? "selected" : "" %> >Tip Boards</option>
-                  <% if( AUTHORITY.MANAGER ==  User?.authorityId ) {%>
+                  <% if( AUTHORITY.ADMIN ==  User?.authorityId ) {%>
                     <option value="<%= BOARDS.QNA_BOARD %>" <%= BOARDS.QNA_BOARD == board ? "selected" : "" %> >QnA Boards</option>
                   <% } %>
                     

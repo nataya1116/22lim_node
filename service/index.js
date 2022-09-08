@@ -1,7 +1,7 @@
 const UserService = require("./user_service");
 
 const PointTotalService = require("./point_total_service");
-const PointHistory = require("./point_history_service");
+const PointHistoryService = require("./point_history_service");
 
 const GameSkinProductsService = require("./game_skin_products_service");
 const GameSkinUserService = require("./game_skin_user_service");
@@ -15,6 +15,8 @@ const TipReplyService = require("./tip_reply_sevice");
 
 const FreeBoardService = require("./free_board_service");
 
+const InactiveUserService = require("./inactive_user_service");
+
 const EncryptionService = require("./encryption_service");
 
 const TokenService = require("./token_service");
@@ -23,7 +25,7 @@ const TokenService = require("./token_service");
 
 module.exports = { UserService, 
                     PointTotalService, 
-                    PointHistory,
+                    PointHistoryService,
                     GameSkinProductsService, 
                     GameSkinUserService, 
                     GameSkinWishService, 
@@ -32,6 +34,7 @@ module.exports = { UserService,
                     TipBoardService,  
                     TipReplyService,
                     FreeBoardService,
+                    InactiveUserService,
                     EncryptionService,
                     TokenService,
                     // Random

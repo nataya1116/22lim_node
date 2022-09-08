@@ -4,9 +4,13 @@ const {
   PointTotal,
   PointType,
   GameSkinUser,
+  InactiveUser,
+  Authority,
+  ConditionUser,
   sequelize,
 } = require("../model/index");
-const { POINT } = require("../config/config");
+const Op = require("sequelize").Op;
+const { POINT, CONDITION } = require("../config/config");
 
 // GameSkinUser/PointHistory/PointTotal 추가
 module.exports.create = async ({
@@ -108,12 +112,13 @@ module.exports.updateRefreshToken = async (userId, refreshToken) => {
     await User.update(
       {
         refreshToken,
+        lastLogin: new Date(),
       },
       {
         where: { userId },
       }
     );
-  } catch (error) {
+  } catch (err) {
     console.error(err);
     return err;
   }
@@ -144,12 +149,6 @@ module.exports.findUser = async (userId) => {
         "conditionId",
         "refreshToken",
       ],
-      include: [
-        {
-          attributes: ["point"],
-          model: PointTotal,
-        },
-      ],
       where: {
         userId,
       },
@@ -176,25 +175,6 @@ module.exports.useIdOverlap = async (userId) => {
     return "err";
   }
 };
-
-// module.exports.emailOverlap = async (email) => {
-//   try {
-//     const user = await User.findOne({
-//       attributes: ["email"],
-//       where: {
-//         email,
-//       }
-//     });
-
-//     if (!user) return false;
-
-//     else return true;
-
-//   } catch (err) {
-//     console.error(err);
-//     return "err";
-//   }
-// }
 
 // 마이페이지 조회
 module.exports.userMyPage = async (userId) => {
@@ -276,4 +256,55 @@ module.exports.checkEmailId = async (userId, email) => {
     console.error(err);
     return null;
   }
+};
+
+module.exports.listUserSearching = (
+  offset,
+  limit,
+  userId,
+  authorityId,
+  conditionId
+) => {
+  const where = {};
+  if (!!userId) where.userId = { [Op.like]: `%${userId}%` };
+  if (!!authorityId) where.authorityId = authorityId;
+  if (!!conditionId) where.conditionId = conditionId;
+
+  return User.findAndCountAll({
+    attributes: [
+      "userId",
+      "authorityId",
+      "conditionId",
+      "createdAt",
+      "lastLogin",
+    ],
+    include: [
+      {
+        attributes: ["stopFewDays"],
+        model: InactiveUser,
+      },
+      {
+        attributes: ["name"],
+        model: Authority,
+      },
+      {
+        attributes: ["name"],
+        model: ConditionUser,
+      },
+    ],
+    where,
+    offset,
+    limit,
+  });
+};
+
+module.exports.updateConditionApproval = async (userId) => {
+  return await User.update(
+    {
+      conditionId: CONDITION.ACTIVITY,
+    },
+    {
+      where: { userId },
+    }
+  );
 };

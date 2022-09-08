@@ -10,6 +10,6 @@ router.get("/list/:page/:perPage", SessionMiddleware.pass, SkinProdutsController
 
 router.get("/list_wish/:page/:perPage", SessionMiddleware.validity, SkinProdutsController.listWish);
 
-router.get("/list_use/:page/:perPage", SessionMiddleware.validity, SkinProdutsController.listUse);
+router.get("/list_own/:page/:perPage", SessionMiddleware.validity, SkinProdutsController.listOwn);
 
 module.exports = router;

@@ -16,6 +16,7 @@ function skinWish (userId, productId, aId) {
             imgId.src = "/img/heart2.png";
         }else{
             alert("실패하였습니다.");
+            location.href = "/user/login";
         }
     });
 }
@@ -38,6 +39,7 @@ function skinWishCancel (userId, productId, productWishId, aId) {
             imgId.src = "/img/heart1.png";
         }else{
             alert("실패하였습니다.");
+            location.href = "/user/login";
         }
     });
 }
@@ -65,11 +67,14 @@ function skinBuy(userId, productId, productPoint, btnId) {
                 skinToUse(userId, productId, btnId);
             };
             btnId.innerHTML = "to use";
-            btnId.style.backgroundColor = "#c4c4c4";
-            btnId.style.color = "#000";
+            btnId.className = "buy-btn"
             user_point.innerHTML = result.point;
-        }else{
+        }else if (result.result == "lack"){
+            alert("보유한 코인의 갯수가 모자랍니다.");
+            user_point.innerHTML = result.point;
+        } else {
             alert("실패하였습니다.");
+            location.href = "/user/login";
         }
     });
     
@@ -86,14 +91,13 @@ function skinToUse(userId, productId, btnId) {
 
     $.post(url, data, (result) => {
         if(result == "suc"){
-            // buy-btn 클래스를 가진 버튼 중 disabled 처리되어 있는 버튼을 찾아 skinToUse() 함수를 넣는 처리를 해준다.
-            const buyBtnList = document.querySelectorAll(".buy-btn");
+            // choice-btn 클래스를 가진 버튼 중 disabled 처리되어 있는 버튼을 찾아 skinToUse() 함수를 넣는 처리를 해준다.
+            const buyBtnList = document.querySelectorAll(".choice-btn");
             buyBtnList.forEach((btn) => {
                 if(btn.disabled){
                     btn.disabled = false;
                     btn.innerHTML = "to use";
-                    btn.style.backgroundColor = "#c4c4c4";
-                    btn.style.color = "#000";
+                    btn.className = "buy-btn"
                     btn.onclick = function () {
                         skinToUse(userId, productId, btn);
                     };
@@ -103,11 +107,11 @@ function skinToUse(userId, productId, btnId) {
             btnId.disabled = true;
             btnId.innerHTML = "in use";
             btnId.onclick = null;
-            btnId.style.backgroundColor = "black";
-            btnId.style.color = "white";
+            btnId.className = "choice-btn"
 
         }else{
             alert("실패하였습니다.");
+            location.href = "/user/login";
         }
     })
     
