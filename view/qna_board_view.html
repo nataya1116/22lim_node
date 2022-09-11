@@ -147,7 +147,7 @@
               </div> <!-- <div class="cm-content"> END-->
             
             </div>
-            <button onclick="location.href='/qna_board/list/1/10';">목록</button>
+            <button onclick="location.href=`/qna_board/list/1/10<%= searchKey != '' ? '/'+searchKey : '' %><%= searchWord != '' ? '/'+searchWord : '' %>`;">목록</button>
           </div>
         </div>
       </div>
@@ -157,10 +157,10 @@
        <!-- --------------------------------------------------------------------------- -->
        <div class="list-guid">
         <% if (offset < postNum -1 ) {%>
-        <div class="bfr-list">↑ &nbsp;<a href="/qna_board/read/<%= offset+1 %>">이전글</a></div>
+        <div class="bfr-list">↑ &nbsp;<a href="/qna_board/read/<%= offset+1 %><%= searchKey != '' ? '/'+searchKey : '' %><%= searchWord != '' ? '/'+searchWord : '' %>">이전글</a></div>
         <% } %>
         <% if (offset >= 1 ) {%>
-        <div class="nxt-list">↓ &nbsp;<a href="/qna_board/read/<%= offset-1 %>">다음글</a></div>
+        <div class="nxt-list">↓ &nbsp;<a href="/qna_board/read/<%= offset-1 %><%= searchKey != '' ? '/'+searchKey : '' %><%= searchWord != '' ? '/'+searchWord : '' %>">다음글</a></div>
         <% } %>
        </div>
         </div>

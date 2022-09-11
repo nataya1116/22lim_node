@@ -224,39 +224,50 @@ module.exports.findId = async (email) => {
   }
 };
 
-module.exports.listUserSearching = (offset, limit, userId, authorityId, conditionId) => {
+module.exports.listUserSearching = async (offset, limit, userId, authorityId, conditionId) => {
   const where = {};
   if(!!userId) where.userId = { [Op.like]: `%${userId}%` }
   if(!!authorityId) where.authorityId = authorityId;                   
   if(!!conditionId) where.conditionId = conditionId;
-
-  return User.findAndCountAll({
-                                  attributes : ["userId", "authorityId", "conditionId", "createdAt", "lastLogin"],
-                                  include : [
-                                    {
-                                      attributes : ["stopFewDays"],
-                                      model : InactiveUser
-                                    },
-                                    {
-                                      attributes : ["name"],
-                                      model : Authority
-                                    },
-                                    {
-                                      attributes : ["name"],
-                                      model : ConditionUser
-                                    }
-                                  ],
-                                  where,
-                                  offset,
-                                  limit
-                              });
+  try {
+    return await User.findAndCountAll({
+                                    attributes : ["userId", "authorityId", "conditionId", "createdAt", "lastLogin"],
+                                    include : [
+                                      {
+                                        attributes : ["stopFewDays"],
+                                        model : InactiveUser
+                                      },
+                                      {
+                                        attributes : ["name"],
+                                        model : Authority
+                                      },
+                                      {
+                                        attributes : ["name"],
+                                        model : ConditionUser
+                                      }
+                                    ],
+                                    where,
+                                    offset,
+                                    limit
+                                });
+  } catch (err) {
+    console.error(err);
+    return false;
+  }
+  
 }
 
 module.exports.updateConditionApproval = async (userId) => {
-  return await User.update({
-                            conditionId : CONDITION.ACTIVITY
-                          },
-                          {
-                            where : { userId }
-                          })
+  try {
+    return await User.update({
+      conditionId : CONDITION.ACTIVITY
+    },
+    {
+      where : { userId }
+    });
+  } catch (err) {
+    console.error(err);
+    return false;
+  }
+
 }

@@ -98,7 +98,8 @@ module.exports.list = async (boardId) => {
                     include: [
                         {
                          attributes : ['userId'],  
-                         model : User }
+                         model : User 
+                        }
                     ],
                     where : {
                         boardId

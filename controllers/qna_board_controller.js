@@ -25,11 +25,14 @@ module.exports.createView = (req, res) => {
 };
 
 // 게시판 목록 페이지 네이션을 동작하게 하는 부분(검색어가 없을 때)
-module.exports.list = async (req, res) => {
-  
+module.exports.listSearching = async (req, res) => {
+
   const accessToken = req.session?.access_token;
   const User = TokenService.verifyAccessToken(accessToken);
 
+  const searchKey = req.params?.searchKey || null;
+  const searchWord = req.params?.searchWord || null;
+  console.log(searchKey, searchWord);
   // get방식으로 가져올 때는 req.parmas
   // post방식으로 가져올땐 req.body
   // parmas는 문자열로만 인식을 함! 그래서 타입캐스팅을 Number로 해준다
@@ -48,79 +51,13 @@ module.exports.list = async (req, res) => {
     offset = limit * (pageNum - 1);
   }
   // 팁 보드 리스트
-  const result = await QnaBoardService.list(offset, limit);
-  // console.log(result);
+  const result = await QnaBoardService.listSearching(offset, limit, searchKey, searchWord);
+
   const list = result?.rows;
   const postNum = result?.count;
   const totalPage = Math.ceil(postNum / limit);
 
-  const searchKey = "";
-  const searchWord = "";
-
-  res.render("qna_board_list", {
-    User,
-    list,
-    totalPage,
-    pageNum,
-    limit,
-    searchKey,
-    searchWord,
-  });
-};
-
-module.exports.listSearch = async (req, res) => {
-  const accessToken = req.session?.access_token;
-  const User = TokenService.verifyAccessToken(accessToken);
-
-  const pageNum = Number(req.params.page || "1");
-  const limit = Number(req.params.perPage || "10");
-  const { searchKey, searchWord } = req.params;
-
-  let offset = 0;
-
-  if (pageNum > 1) {
-    offset = limit * (pageNum - 1);
-  }
-
-  let result;
-
-  switch (searchKey) {
-    case "userId":
-      result = await QnaBoardService.listSearchUserId(
-        offset,
-        limit,
-        searchWord
-      );
-      break;
-    case "title":
-      result = await QnaBoardService.listSearchTitle(offset, limit, searchWord);
-      break;
-    case "content":
-      result = await QnaBoardService.listSearchContent(
-        offset,
-        limit,
-        searchWord
-      );
-      break;
-    default:
-      result = await QnaBoardService.list(offset, limit);
-      break;
-  }
-  // console.log(result);
-  const list = result?.rows;
-  const postNum = result?.count;
-
-  const totalPage = Math.ceil(postNum / limit);
-
-  res.render("qna_board_list", {
-    User,
-    list,
-    totalPage,
-    pageNum,
-    limit,
-    searchKey,
-    searchWord,
-  });
+  res.render( "qna_board_list", { User, list , totalPage , pageNum, limit, searchKey, searchWord });
 };
 
 module.exports.view = async (req, res) => {
@@ -128,15 +65,17 @@ module.exports.view = async (req, res) => {
   const accessToken = req.session?.access_token;
   const User = TokenService.verifyAccessToken(accessToken);
 
-  const offset = Number(req.params.offset);
-  const result = await QnaBoardService.viewOffset(offset);
+  const searchKey = req.params?.searchKey || null;
+  const searchWord = req.params?.searchWord || null;
 
-  let post = result[0];
+  const offset = Number(req.params.offset);
+  const result = await QnaBoardService.viewOffset(offset, searchKey, searchWord);
+
+  const post = result?.rows[0];
   post.dataValues.view++;
   const id = post.dataValues.id;
 
-  // console.log(post);
-  const postNum = await QnaBoardService.count();
+  const postNum = result?.count;
   await QnaBoardService.updateViewsCount(id);
 
   const replyList = await QnaReplyService.list(id);
@@ -148,7 +87,9 @@ module.exports.view = async (req, res) => {
     post,
     postNum,
     replyList,
-    offset
+    offset,
+    searchKey, 
+    searchWord
   });
 };
 
@@ -162,7 +103,7 @@ module.exports.update = async (req, res) => {
   res.redirect("/qna_board/read/" + offset);
 };
 
-module.exports.updatePrint = async (req, res) => {
+module.exports.updateView = async (req, res) => {
 
   const accessToken = req.session?.access_token;
   const User = TokenService.verifyAccessToken(accessToken);

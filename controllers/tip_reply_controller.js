@@ -23,7 +23,7 @@ module.exports.update = async (req, res) => {
     res.redirect("/tip_board/read/"+offset);
 }
 
-// module.exports.updatePrint = async (req, res) => {
+// module.exports.updateView = async (req, res) => {
 //     const { id, offset } = req.body;
     
 //     res.render("tip_board_update");

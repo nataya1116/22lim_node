@@ -20,11 +20,15 @@ module.exports.createView = (req, res) => {
     res.render("tip_board_insert", { User, AUTHORITY, BOARDS, board : BOARDS.TIP_BOARD });
 }
 
+
 // 게시판 목록 페이지 네이션을 동작하게 하는 부분(검색어가 없을 때)
-module.exports.list = async (req, res) => {
+module.exports.listSearching = async (req, res) => {
 
   const accessToken = req.session?.access_token;
   const User = TokenService.verifyAccessToken(accessToken);
+
+  const searchKey = req.params?.searchKey || null;
+  const searchWord = req.params?.searchWord || null;
 
   // get방식으로 가져올 때는 req.parmas
   // post방식으로 가져올땐 req.body
@@ -44,93 +48,39 @@ module.exports.list = async (req, res) => {
     offset = limit * (pageNum - 1);
   }
   // 팁 보드 리스트
-  const result = await TipBoardService.list(offset, limit);
-  // console.log(result);
+  const result = await TipBoardService.listSearching(offset, limit, searchKey, searchWord);
+
   const list = result?.rows;
   const postNum = result?.count;
   const totalPage = Math.ceil(postNum / limit);
 
-  const searchKey = "";
-  const searchWord = "";
-    
+  console.log(searchKey, searchWord);
+
   res.render( "tip_board_list", { User, list , totalPage , pageNum, limit, searchKey, searchWord });
 };
-
-module.exports.listSearch = async (req, res) => {
-
-  const accessToken = req.session?.access_token;
-  const User = TokenService.verifyAccessToken(accessToken);
-
-  const pageNum = Number(req.params.page || "1");
-  const limit = Number(req.params.perPage || "10");
-  const { searchKey, searchWord } = req.params;
-
-  let offset = 0;
-
-  if (pageNum > 1) {
-    offset = limit * (pageNum - 1);
-  }
-
-  let result;
-
-  switch (searchKey) {
-    case "userId":
-      result = await TipBoardService.listSearchUserId(
-        offset,
-        limit,
-        searchWord
-      );
-      break;
-    case "title":
-      result = await TipBoardService.listSearchTitle(offset, limit, searchWord);
-      break;
-    case "content":
-      result = await TipBoardService.listSearchContent(
-                                                        offset,
-                                                        limit,
-                                                        searchWord
-                                                      );
-      break;
-    default:
-      result = await TipBoardService.list(offset, limit);
-      break;
-  }
-  // console.log(result);
-  const list = result?.rows;
-  const postNum = result?.count;
-
-  const totalPage = Math.ceil(postNum / limit);
-
-  res.render("tip_board_list", {  
-                                  User,
-                                  list,
-                                  totalPage,
-                                  pageNum,
-                                  limit,
-                                  searchKey,
-                                  searchWord,
-                                });
-                              };
 
 module.exports.view = async (req, res) => {
 
     const accessToken = req.session?.access_token;
     const User = TokenService.verifyAccessToken(accessToken);
 
+    const searchKey = req.params?.searchKey || null;
+    const searchWord = req.params?.searchWord || null;
+
     const offset = Number(req.params.offset);
-    const result = await TipBoardService.viewOffset(offset);
+    const result = await TipBoardService.viewOffset(offset, searchKey, searchWord);
     
-    let post = result[0];
+    const post = result?.rows[0];
     post.dataValues.view++;
     const id = post.dataValues.id;
 
-    // console.log(post);
-    const postNum   = await TipBoardService.count();
+    const postNum   = result?.count;
                       await TipBoardService.updateViewsCount(id);
 
+    // offset 값으로 찾아서 보여주는 것이 아니라 id(pk)로 찾는 방식이라면 리플을 따로 불러올 필요 없이 TipBoardService.viewOffset() 함수에서 인클루드로 리플 모델을 불러와도 된다. 굳이 offset 방식으로 값을 처리한 이유는 id값으로 처리 할 경우 게시글이 삭제 되었을때 오류가 발생하기 때문이다.
     const replyList = await TipReplyService.list(id);
 
-    res.render("tip_board_view", { User, offset, post, postNum, replyList, offset });
+    res.render("tip_board_view", { User, offset, post, postNum, replyList, offset, searchKey, searchWord });
 }
 
 module.exports.update = async (req, res) => {
@@ -142,7 +92,7 @@ module.exports.update = async (req, res) => {
   res.redirect("/tip_board/read/" + offset);
 };
 
-module.exports.updatePrint = async (req, res) => {
+module.exports.updateView = async (req, res) => {
   
   const accessToken = req.session?.access_token;
   const User = TokenService.verifyAccessToken(accessToken);

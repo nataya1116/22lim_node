@@ -10,7 +10,7 @@
     <div class="site-container">
       <div class="section small-section wf-section">
         <div class="container">
-          <h1>QnA Boards</h1>
+          <h1>QnA Board</h1>
           <div class="subhead"></div>
         </div>
       </div>
@@ -28,16 +28,6 @@
               >
               <div class="in-box">
 
-                <div class="dropdown">
-                  <select class="dropdown-btn" type="button" value="카테고리"aria-expanded="false">
-                    <option value="<%= BOARDS.FREE_BOARD %>" <%= BOARDS.FREE_BOARD == board ? "selected" : "" %> >Free Boards</option>
-                    <option value="<%= BOARDS.TIP_BOARD %>" <%= BOARDS.TIP_BOARD == board ? "selected" : "" %> >Tip Boards</option>
-                  <% if( AUTHORITY.ADMIN ==  User?.authorityId ) {%>
-                    <option value="<%= BOARDS.QNA_BOARD %>" <%= BOARDS.QNA_BOARD == board ? "selected" : "" %> >QnA Boards</option>
-                  <% } %>
-                    
-                  </select>
-                </div>
                 <form action="/qna_board/create" method="post">
                  <input id="Title_writ" type="text" name="title" placeholder="제목을 입력하세요" style="padding-left:15px ;">
                  <input type="hidden" name="userId" value="<%= User?.userId %>"  > 
