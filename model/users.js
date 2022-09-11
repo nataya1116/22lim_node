@@ -107,8 +107,8 @@ class User extends Sequelize.Model {
     db.User.hasMany(db.GameSkinUser, { foreignKey: "userId", sourceKey: "id" });
     db.User.hasMany(db.GameSkinWish, { foreignKey: "userId", sourceKey: "id" });
 
-    db.User.hasMany(db.Chatting, { foreignKey: "userId1", sourceKey: "id" });
-    db.User.hasMany(db.Chatting, { foreignKey: "userId2", sourceKey: "id" });
+    // db.User.hasMany(db.Chatting, { foreignKey: "userId1", sourceKey: "id" });
+    // db.User.hasMany(db.Chatting, { foreignKey: "userId2", sourceKey: "id" });
 
     db.User.hasMany(db.PointHistory, { foreignKey: "userId", sourceKey: "id" });
 
