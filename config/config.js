@@ -4,11 +4,12 @@ dot.config();
 
 const config = {
   dev: {
-    username: "jinny",
+    username: "22lim",
     password: process.env.DATABASE_PASSWORD_DEV,
-    database: "mydb",
+    database: "22lim_db",
     host: "127.0.0.1",
     dialect: "mysql",
+    timezone: "Asia/Seoul",
   },
   mailer: {
     user: process.env.EMAIL,
@@ -23,7 +24,7 @@ const CONDITION = {
 };
 
 const AUTHORITY = {
-  MANAGER: 1,
+  ADMIN: 1,
   USER: 2,
 };
 

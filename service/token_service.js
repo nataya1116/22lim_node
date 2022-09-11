@@ -4,13 +4,13 @@ const { jwt , dot } = require("../modules/common");
 dot.config();
 
 // 인자로 추가할 값 포인트, 권한
-module.exports.createAccessToken = (userId, point, authorityId) => {
+module.exports.createAccessToken = (userId, authorityId, conditionId) => {
     
     return jwt.sign(
                     {
                         userId, 
-                        point, 
-                        authorityId
+                        authorityId,
+                        conditionId
                     },
                     process.env.ACCESS_TOKEN_KEY,
                     {
@@ -19,13 +19,13 @@ module.exports.createAccessToken = (userId, point, authorityId) => {
                 );
 }
 
-module.exports.createRefreshToken = (userId, point, authorityId) => {
+module.exports.createRefreshToken = (userId, authorityId, conditionId) => {
     
     return jwt.sign(
                     {
                         userId, 
-                        point, 
-                        authorityId
+                        authorityId,
+                        conditionId
                     },
                     process.env.REFRESH_TOKEN_KEY,
                     {

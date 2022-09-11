@@ -6,7 +6,7 @@ const User = require("./users");
 const Authority = require("./authority");
 const TipBoard = require("./tip_board");
 const TipReply = require("./tip_reply");
-const Chatting = require("./chatting");
+// const Chatting = require("./chatting");
 const GameSkinProducts = require("./game_skin_products");
 const GameSkinUser = require("./game_skin_user");
 const GameSkinWish = require("./game_skin_wish");
@@ -43,7 +43,7 @@ db.QnaReply = QnaReply;
 db.FreeBoard = FreeBoard;
 db.FreeReply = FreeReply;
 
-db.Chatting = Chatting;
+// db.Chatting = Chatting;
 
 db.GameSkinProducts = GameSkinProducts;
 db.GameSkinUser = GameSkinUser;
@@ -65,7 +65,7 @@ TipReply.init(sequelize);
 // FreeBoard.init(sequelize);
 // FreeReply.init(sequelize);
 
-Chatting.init(sequelize);
+// Chatting.init(sequelize);
 
 GameSkinProducts.init(sequelize);
 GameSkinUser.init(sequelize);
@@ -91,7 +91,7 @@ TipReply.associate(db);
 // FreeBoard.associate(db);
 // FreeReply.associate(db);
 
-Chatting.associate(db);
+// Chatting.associate(db);
 
 GameSkinProducts.associate(db);
 GameSkinUser.associate(db);

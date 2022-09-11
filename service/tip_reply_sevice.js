@@ -1,4 +1,4 @@
-const { TipReply, User, PointTotal, PointHistory, PointType, sequelize } = require("../model/index");
+const { TipReply, User, PointTotal, PointHistory, PointType, sequelize } = require("../model");
 const Op = require("sequelize").Op;
 const { POINT } = require("../config/config");
 
@@ -98,7 +98,8 @@ module.exports.list = async (boardId) => {
                     include: [
                         {
                          attributes : ['userId'],  
-                         model : User }
+                         model : User 
+                        }
                     ],
                     where : {
                         boardId

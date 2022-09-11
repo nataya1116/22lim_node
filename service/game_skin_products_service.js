@@ -29,7 +29,7 @@ module.exports.list = async (offset, limit) => {
         ],
         order: [["id", "DESC"]],
         offset,
-        limit,
+        limit
       });
     } catch (err) {
       console.log(err);
@@ -66,9 +66,9 @@ module.exports.listWish = async (userId, offset, limit) => {
                                                       }
                                                     ],
                                                     // group: ['GameSkinWishes.id'],
-                                                    order: [["id", "DESC"]],
+                                                    order: [[GameSkinWish, "updatedAt", "DESC"]],
                                                     offset,
-                                                    limit,
+                                                    limit
     });
   } catch (err) {
     console.log(err);
@@ -76,7 +76,7 @@ module.exports.listWish = async (userId, offset, limit) => {
 };
 
 
-module.exports.listUse = async (userId, offset, limit) => {
+module.exports.listOwn = async (userId, offset, limit) => {
   try {
     return await GameSkinProducts.findAndCountAll({
       attributes: ["id", "name", "info", "point", "imgUrl", "positionX", "positionY"],
@@ -105,9 +105,9 @@ module.exports.listUse = async (userId, offset, limit) => {
           ]
         }
       ],
-      order: [["id", "DESC"]],
+      order: [[GameSkinUser, "createdAt", "DESC"]],
       offset,
-      limit,
+      limit
     });
   } catch (err) {
     console.log(err);
@@ -116,10 +116,12 @@ module.exports.listUse = async (userId, offset, limit) => {
 
 module.exports.findPoint = async (productId) => {
   try {
-    return await GameSkinProducts.findOne({
-                                            attributes: ["point"],
-                                            where : { productId }
-                                          });
+    const result = await GameSkinProducts.findOne({
+                                      attributes: ["point"],
+                                      where : { id : productId }
+                                    });
+    const point = result.dataValues.point;
+    return point;
   } catch (err) {
     console.error(err);
     return false;

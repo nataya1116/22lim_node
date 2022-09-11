@@ -99,6 +99,29 @@ html {
   padding: 5px 12px 5px 12px;
 }
 
+.shop-btn {
+  margin-bottom: 30px;
+  border: 4px solid #000000;
+  background-color: #ffffff;
+  margin-right: auto;
+  padding: 5px 12px 5px 12px;
+}
+
+.shop-btn:hover {
+  border: 4px solid #000000;
+  background-color: #c4c4c4;
+  color: #ffffff;
+}
+
+.shop-choice-btn {
+  margin-bottom: 30px;
+  border: 4px solid #000000;
+  background-color: #c4c4c4;
+  color: #ffffff;
+  margin-right: auto;
+  padding: 5px 12px 5px 12px;
+}
+
 .all-heart-btn button:hover {
   border: 4px solid #000000;
   background-color: #000000;
@@ -123,6 +146,17 @@ html {
 
 .buy-btn:hover {
   transform: scale(1.05);
+}
+
+.choice-btn {
+  padding: 4px 6px;
+  border: 4px solid #000;
+  background-color: #000;
+  color: #c4c4c4;
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: 15px;
+  margin-right: 10px;
 }
 
 .modal-body-bottom {
